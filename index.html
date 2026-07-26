@@ -1,0 +1,2082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrAIdge — SOFiSTiK TEDDY Script Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <style>
+        :root {
+            --bg-primary: #020617;
+            --bg-elevated: #0f172a;
+            --bg-card: rgba(15, 23, 42, 0.88);
+            --border: rgba(148, 163, 184, 0.12);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent-cyan: #00d4ff;
+            --accent-violet: #a855f7;
+            --accent-emerald: #22c55e;
+            --glass-bg: rgba(15, 23, 42, 0.75);
+            --glass-border: rgba(148, 163, 184, 0.1);
+        }
+        .light-mode {
+            --bg-primary: #f8fafc;
+            --bg-elevated: #ffffff;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --border: rgba(148, 163, 184, 0.2);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(148, 163, 184, 0.15);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: background 0.4s ease, color 0.4s ease;
+        }
+        .bg-mesh {
+            position: fixed;
+            inset: 0;
+            z-index: -3;
+            background: 
+                radial-gradient(ellipse 80% 50% at 20% 40%, rgba(0, 212, 255, 0.04) 0%, transparent 50%),
+                radial-gradient(ellipse 60% 40% at 80% 60%, rgba(168, 85, 247, 0.03) 0%, transparent 50%),
+                radial-gradient(ellipse 100% 100% at 50% 0%, rgba(8, 145, 178, 0.03) 0%, transparent 50%),
+                linear-gradient(180deg, var(--bg-primary) 0%, #0a0f1d 50%, var(--bg-primary) 100%);
+        }
+        .light-mode .bg-mesh {
+            background: 
+                radial-gradient(ellipse 80% 50% at 20% 40%, rgba(0, 212, 255, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse 60% 40% at 80% 60%, rgba(168, 85, 247, 0.04) 0%, transparent 50%),
+                radial-gradient(ellipse 100% 100% at 50% 0%, rgba(8, 145, 178, 0.05) 0%, transparent 50%),
+                linear-gradient(180deg, #f1f5f9 0%, #e2e8f0 50%, #f1f5f9 100%);
+        }
+        .eng-grid {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.015) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+        }
+        .light-mode .eng-grid {
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+        }
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px) saturate(1.8);
+            -webkit-backdrop-filter: blur(24px) saturate(1.8);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        .light-mode .glass {
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        }
+        .glass:hover {
+            border-color: rgba(0, 212, 255, 0.2);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35), 0 0 20px rgba(0, 212, 255, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        }
+        .hero-banner {
+    position: relative;
+    width: 100%;
+    min-height: 460px;
+    overflow: hidden;
+    border-radius: 20px;
+    margin-bottom: 24px;
+    background-image: url('VIKASIMAGE.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+        .hero-banner:hover {
+            transform: scale(1.03);
+            filter: brightness(0.75) contrast(1.15);
+        }
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(2, 6, 23, 0.3) 0%, rgba(2, 6, 23, 0.5) 40%, rgba(2, 6, 23, 0.85) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 40px 40px 32px 40px;
+        }
+        .light-mode .hero-overlay {
+            background: linear-gradient(180deg, rgba(248, 250, 252, 0.2) 0%, rgba(248, 250, 252, 0.4) 40%, rgba(248, 250, 252, 0.9) 100%);
+        }
+        .hero-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #00d4ff, #a855f7, #22c55e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 40px rgba(0, 212, 255, 0.2);
+            margin-bottom: 8px;
+        }
+        .hero-subtitle {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            letter-spacing: 0.05em;
+        }
+        .section-header {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent-cyan);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .section-header::before {
+            content: '';
+            width: 4px;
+            height: 18px;
+            background: linear-gradient(180deg, var(--accent-cyan), var(--accent-violet));
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+        }
+        .section-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(148, 163, 184, 0.08);
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+        }
+        .light-mode .section-card {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(148, 163, 184, 0.15);
+        }
+        .section-card:hover {
+            border-color: rgba(0, 212, 255, 0.15);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+        .section-card-title {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent-violet);
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.15);
+        }
+        .input-hq {
+            background: rgba(2, 6, 23, 0.8);
+            border: 1px solid rgba(148, 163, 184, 0.15);
+            border-radius: 10px;
+            padding: 8px 12px;
+            color: var(--text-primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 100%;
+            outline: none;
+        }
+        .light-mode .input-hq {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(148, 163, 184, 0.25);
+            color: #0f172a;
+        }
+        .input-hq:hover {
+            border-color: rgba(0, 212, 255, 0.3);
+            background: rgba(2, 6, 23, 0.9);
+        }
+        .light-mode .input-hq:hover {
+            border-color: rgba(0, 212, 255, 0.4);
+            background: rgba(255, 255, 255, 1);
+        }
+        .input-hq:focus {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.15), 0 0 20px rgba(0, 212, 255, 0.1);
+        }
+        .input-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+            display: block;
+            letter-spacing: 0.02em;
+        }
+        .input-unit {
+            font-size: 10px;
+            color: var(--text-muted);
+            font-weight: 400;
+            margin-left: 2px;
+        }
+        .viz-panel {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.02), rgba(168, 85, 247, 0.02));
+            border-radius: 16px;
+            border: 1px solid rgba(148, 163, 184, 0.08);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .viz-panel::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            border: 1px solid rgba(148, 163, 184, 0.06);
+            pointer-events: none;
+        }
+        .viz-panel:hover {
+            border-color: rgba(0, 212, 255, 0.12);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.05);
+        }
+        .viz-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent-cyan);
+            padding: 10px 14px;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .viz-title::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-cyan);
+            box-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+        .btn-generate {
+            position: relative;
+            background: linear-gradient(135deg, #0891b2 0%, #2563eb 30%, #7c3aed 70%, #a855f7 100%);
+            background-size: 200% 200%;
+            border: none;
+            border-radius: 16px;
+            padding: 18px 40px;
+            color: white;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.1), 0 8px 32px rgba(37, 99, 235, 0.4), 0 16px 48px rgba(124, 58, 237, 0.3), inset 0 1px 0 rgba(255,255,255,0.2);
+            transform-style: preserve-3d;
+            animation: gradient-flow 4s ease infinite;
+            overflow: hidden;
+        }
+        .btn-generate::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s;
+        }
+        .btn-generate:hover::before { left: 100%; }
+        .btn-generate:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.15), 0 12px 40px rgba(37, 99, 235, 0.5), 0 24px 60px rgba(124, 58, 237, 0.4), inset 0 1px 0 rgba(255,255,255,0.25);
+        }
+        .btn-generate:active { transform: translateY(-1px) scale(0.98); }
+        @keyframes gradient-flow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        .code-panel {
+            background: #01040f;
+            border: 1px solid rgba(148, 163, 184, 0.08);
+            border-radius: 16px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            line-height: 1.7;
+            overflow: hidden;
+        }
+        .light-mode .code-panel {
+            background: #f8fafc;
+            border: 1px solid rgba(148, 163, 184, 0.15);
+        }
+        .code-content {
+            padding: 20px;
+            overflow: auto;
+            max-height: 400px;
+        }
+        .code-content::-webkit-scrollbar { width: 6px; height: 6px; }
+        .code-content::-webkit-scrollbar-track { background: transparent; }
+        .code-content::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
+        .code-content::-webkit-scrollbar-thumb:hover { background: #334155; }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-emerald);
+            box-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
+            animation: status-pulse 2s ease-in-out infinite;
+        }
+        @keyframes status-pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(0.85); }
+        }
+        .dim-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            font-weight: 700;
+            color: #ffffff;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            white-space: nowrap;
+            pointer-events: none;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        .canvas-3d {
+            width: 100%;
+            height: 100%;
+            border-radius: 0 0 16px 16px;
+        }
+        .split-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 1920px;
+            margin: 0 auto;
+            padding: 0 24px 24px;
+        }
+        @media (max-width: 1400px) {
+            .split-layout { grid-template-columns: 1fr; }
+        }
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.06);
+        }
+        .stat-item:last-child { border-bottom: none; }
+        .stat-label { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+        .stat-value { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; }
+        .custom-scroll::-webkit-scrollbar { width: 5px; }
+        .custom-scroll::-webkit-scrollbar-track { background: transparent; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.2); border-radius: 3px; }
+        .custom-scroll::-webkit-scrollbar-thumb:hover { background: rgba(148, 163, 184, 0.3); }
+        .tooltip { position: relative; }
+        .tooltip::after {
+            content: attr(data-tip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-4px);
+            background: rgba(15, 23, 42, 0.95);
+            color: white;
+            font-size: 10px;
+            padding: 6px 10px;
+            border-radius: 6px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            z-index: 100;
+        }
+        .tooltip:hover::after { opacity: 1; transform: translateX(-50%) translateY(0); }
+        .spinner-hq {
+            width: 20px;
+            height: 20px;
+            border: 2.5px solid rgba(255,255,255,0.15);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin-hq 0.8s linear infinite;
+        }
+        @keyframes spin-hq { to { transform: rotate(360deg); } }
+        .theme-toggle {
+            width: 44px;
+            height: 24px;
+            border-radius: 12px;
+            background: rgba(148, 163, 184, 0.2);
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+        }
+        .theme-toggle::after {
+            content: '';
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: white;
+            top: 2px;
+            left: 2px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .light-mode .theme-toggle::after { left: 22px; background: #f59e0b; }
+        .light-mode .theme-toggle { background: rgba(245, 158, 11, 0.2); border-color: rgba(245, 158, 11, 0.3); }
+        .view-controls {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            display: flex;
+            gap: 4px;
+            z-index: 10;
+        }
+        .view-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(148, 163, 184, 0.15);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 12px;
+        }
+        .view-btn:hover {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: rgba(0, 212, 255, 0.3);
+            color: var(--accent-cyan);
+        }
+        .canvas-2d {
+            width: 100%;
+            height: 100%;
+            border-radius: 0 0 16px 16px;
+        }
+        .param-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+        .param-grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+        @media (max-width: 1600px) {
+            .param-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .badge-cyan { background: rgba(0, 212, 255, 0.1); border: 1px solid rgba(0, 212, 255, 0.2); color: #00d4ff; }
+        .badge-violet { background: rgba(168, 85, 247, 0.1); border: 1px solid rgba(168, 85, 247, 0.2); color: #a855f7; }
+        .badge-emerald { background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.2); color: #22c55e; }
+        .badge-amber { background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.2); color: #f59e0b; }
+        .fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+            opacity: 0;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        #particles {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="scroll-smooth">
+
+    <div class="bg-mesh"></div>
+    <div class="eng-grid"></div>
+    <canvas id="particles"></canvas>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 glass mx-5 mt-4 px-6 py-3 rounded-2xl flex items-center justify-between">
+        <div class="flex items-center gap-4">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-400 via-blue-500 to-violet-600 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 48 32">
+                    <!-- Cable-stayed bridge logo -->
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 26h40"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 26V6M32 26V6"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4" d="M16 6L4 22M16 6L10 26M16 6L22 26M16 6L28 26M32 6L20 22M32 6L26 26M32 6L38 26M32 6L44 22"/>
+                    <circle cx="16" cy="6" r="1.6" fill="currentColor" stroke="none"/>
+                    <circle cx="32" cy="6" r="1.6" fill="currentColor" stroke="none"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 26v3M44 26v3"/>
+                </svg>
+            </div>
+            <div>
+                <h1 class="font-orbitron text-lg font-bold tracking-wider text-white">Br<span class="text-cyan-400">AI</span>dge</h1>
+                <p class="text-[10px] text-slate-400 font-medium tracking-wide">SOFiSTiK TEDDY Generator v1.0</p>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-5">
+            <div class="flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-emerald-500/5 border border-emerald-500/15">
+                <div class="status-dot"></div>
+                <span class="text-[10px] font-semibold text-emerald-400 tracking-wide">SYSTEM ONLINE</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="text-[10px] text-slate-500 font-mono">DARK</span>
+                <div class="theme-toggle" onclick="toggleTheme()"></div>
+                <span class="text-[10px] text-slate-500 font-mono">LIGHT</span>
+            </div>
+            <button onclick="downloadScript()" class="px-4 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/50 text-xs font-semibold text-white transition-all hover:shadow-lg hover:shadow-cyan-500/10 hover:border-cyan-500/30">
+                Export .DAT
+            </button>
+            <button onclick="toggleAnalytics()" class="px-4 py-2 rounded-xl bg-violet-800/80 hover:bg-violet-700/80 border border-violet-700/50 text-xs font-semibold text-white transition-all hover:shadow-lg hover:shadow-violet-500/10 hover:border-violet-500/30 flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                Analytics
+            </button>
+            <a href="https://www.linkedin.com/in/vikas-kumar-prasad-7189392b8" target="_blank" class="px-4 py-2 rounded-xl bg-[#0077b5]/80 hover:bg-[#0077b5] border border-[#0077b5]/50 text-xs font-semibold text-white transition-all hover:shadow-lg hover:shadow-[#0077b5]/20 hover:border-[#0077b5] flex items-center gap-2">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                Contact Us
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Banner with Embedded Base64 Image -->
+    <div class="mx-5 mt-5 max-w-[1920px] mx-auto fade-in">
+        <div class="hero-banner">
+            <div class="hero-overlay">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="badge badge-cyan">VIKAS KUMAR PRASAD</span>
+                    <span class="badge badge-violet">BRIDGE DESIGN ENGINEER</span>
+                    <span class="badge badge-emerald">IRC 6:2017</span>
+                    <span class="badge badge-amber">BUG-FREE</span>
+                </div>
+                <h2 class="hero-title">Generate SOFiSTiK TEDDY Scripts with AI</h2>
+                <p class="hero-subtitle">Transform engineering requirements into production-ready TEDDY code. Parametric bridge design powered by advanced structural intelligence.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Split Layout -->
+    <div class="split-layout mt-6">
+
+        <!-- LEFT: Input Parameters Panel (50%) -->
+        <div class="flex flex-col gap-4">
+            <div class="glass rounded-2xl p-5 h-fit fade-in delay-1">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="section-header">Input Parameters</h3>
+                    <div class="flex items-center gap-3">
+                        <button onclick="resetParams()" class="text-[10px] text-slate-500 hover:text-cyan-400 font-mono font-medium transition-colors px-3 py-1 rounded-lg hover:bg-slate-800/50">RESET</button>
+                        <button onclick="loadDefaults()" class="text-[10px] text-slate-500 hover:text-violet-400 font-mono font-medium transition-colors px-3 py-1 rounded-lg hover:bg-slate-800/50">DEFAULTS</button>
+                    </div>
+                </div>
+
+                <div class="space-y-3 max-h-[calc(100vh-220px)] overflow-y-auto custom-scroll pr-1">
+
+                    <!-- General Bridge Parameters -->
+                    <div class="section-card">
+                        <div class="section-card-title">General Bridge Parameters</div>
+                        <div class="param-grid-2">
+                            <div>
+                                <label class="input-label">Span Length <span class="input-unit">m</span></label>
+                                <input type="number" id="input-span" value="20" step="1" min="10" max="100" class="input-hq" onchange="updateParam('span', this.value)">
+                            </div>
+                            <div>
+                                <label class="input-label">Num Girders <span class="input-unit">nos</span></label>
+                                <input type="number" id="input-girders" value="4" step="1" min="2" max="8" class="input-hq" onchange="updateParam('girders', this.value)">
+                            </div>
+                            <div>
+                                <label class="input-label">Girder Spacing <span class="input-unit">m</span></label>
+                                <input type="number" id="input-spacing" value="2.0" step="0.1" min="1" max="5" class="input-hq" onchange="updateParam('spacing', this.value)">
+                            </div>
+                            <div>
+                                <label class="input-label">Overhang Left <span class="input-unit">m</span></label>
+                                <input type="number" id="input-ohl" value="1.0" step="0.1" min="0.5" max="3" class="input-hq" onchange="updateParam('ohl', this.value)">
+                            </div>
+                            <div>
+                                <label class="input-label">Overhang Right <span class="input-unit">m</span></label>
+                                <input type="number" id="input-ohr" value="1.0" step="0.1" min="0.5" max="3" class="input-hq" onchange="updateParam('ohr', this.value)">
+                            </div>
+                            <div>
+                                <label class="input-label">Bearing Offset <span class="input-unit">m</span></label>
+                                <input type="number" id="input-prj" value="0.475" step="0.025" min="0.1" max="1" class="input-hq" onchange="updateParam('prj', this.value)">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Span Configuration -->
+                    <div class="section-card">
+                        <div class="section-card-title">Span Configuration</div>
+                        <div class="param-grid-2">
+                            <div>
+                                <label class="input-label">Span Length <span class="input-unit">m</span></label>
+                                <input type="number" id="input-span2" value="20" step="1" min="10" max="100" class="input-hq" onchange="syncSpan(this.value)">
+                            </div>
+                            <div>
+                                <label class="input-label">Num Cross Girders <span class="input-unit">nos</span></label>
+                                <input type="number" id="input-ncxg" value="3" step="1" min="1" max="10" class="input-hq" onchange="updateParam('ncxg', this.value)">
+                            </div>
+                            <div>
+                                <label class="input-label">XG Spacing <span class="input-unit">m</span></label>
+                                <div class="input-hq bg-slate-800/60 text-cyan-400 font-bold flex items-center" id="display-xgspacing">5.00</div>
+                            </div>
+                            <div>
+                                <label class="input-label">Deck Slab Thickness <span class="input-unit">mm</span></label>
+                                <input type="number" id="input-slab" value="250" step="10" min="150" max="400" class="input-hq" onchange="updateParam('slab', this.value)">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main Girder Parameters -->
+                    <div class="section-card">
+                        <div class="section-card-title">Main Girder Section (mm)</div>
+                        <div class="param-grid">
+                            <div>
+                                <label class="input-label">Top Flange Width</label>
+                                <input type="number" id="input-tfw" value="150" step="10" min="100" max="500" class="input-hq" onchange="updateParam('tfw', this.value)">
+                            </div>
+                            <div>
+                                <label class="input-label">Top Flange Thk</label>
+                                <input type="number" id="input-tf" value="20" step="5" min="10" max="50" class="input-hq" onchange="updateParam('tf', this.value)">
+                            </div>
+                            <div>
+                                <label class="input-label">Web Height</label>
+                                <input type="number" id="input-webh" value="1000" step="50" min="500" max="2000" class="input-hq" onchange="updateParam('webh', this.value)">
+                            </div>
+                            <div>
+                                <label class="input-label">Web Thickness</label>
+                                <input type="number" id="input-webt" value="20" step="5" min="10" max="50" class="input-hq" onchange="updateParam('webt', this.value)">
+                            </div>
+                            <div>
+                                <label class="input-label">Bot Flange Width</label>
+                                <input type="number" id="input-bbw" value="600" step="50" min="300" max="1000" class="input-hq" onchange="updateParam('bbw', this.value)">
+                            </div>
+                            <div>
+                                <label class="input-label">Bot Flange Thk</label>
+                                <input type="number" id="input-bbd" value="40" step="5" min="20" max="80" class="input-hq" onchange="updateParam('bbd', this.value)">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cross Girder Parameters -->
+                    <div class="section-card">
+                        <div class="section-card-title">Cross Girder Section (mm)</div>
+                        <div class="param-grid">
+                            <div>
+                                <label class="input-label">XG Top Flange W</label>
+                                <input type="number" id="input-xgtfw" value="300" step="10" min="100" max="500" class="input-hq" onchange="updateParam('xgtfw', this.value)">
+                            </div>
+                            <div>
+                                <label class="input-label">XG Top Flange Thk</label>
+                                <input type="number" id="input-xgtf" value="20" step="5" min="10" max="50" class="input-hq" onchange="updateParam('xgtf', this.value)">
+                            </div>
+                            <div>
+                                <label class="input-label">XG Web Height</label>
+                                <input type="number" id="input-xgwebh" value="1000" step="50" min="500" max="2000" class="input-hq" onchange="updateParam('xgwebh', this.value)">
+                            </div>
+                            <div>
+                                <label class="input-label">XG Web Thickness</label>
+                                <input type="number" id="input-xgwebt" value="16" step="2" min="10" max="40" class="input-hq" onchange="updateParam('xgwebt', this.value)">
+                            </div>
+                            <div>
+                                <label class="input-label">XG Bot Flange W</label>
+                                <input type="number" id="input-xgbbw" value="300" step="10" min="100" max="500" class="input-hq" onchange="updateParam('xgbbw', this.value)">
+                            </div>
+                            <div>
+                                <label class="input-label">XG Bot Flange Thk</label>
+                                <input type="number" id="input-xgbbd" value="30" step="5" min="20" max="80" class="input-hq" onchange="updateParam('xgbbd', this.value)">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Material Parameters -->
+                    <div class="section-card">
+                        <div class="section-card-title">Material & Loads</div>
+                        <div class="param-grid-2">
+                            <div>
+                                <label class="input-label">Concrete Grade</label>
+                                <select id="input-concrete" class="input-hq" onchange="updateParam('concrete', this.value)">
+                                    <option value="30">M30</option>
+                                    <option value="40" selected>M40</option>
+                                    <option value="50">M50</option>
+                                    <option value="60">M60</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="input-label">CB Load <span class="input-unit">kN/m</span></label>
+                                <input type="number" id="input-cbload" value="10.0" step="0.5" min="5" max="20" class="input-hq" onchange="updateParam('cbload', this.value)">
+                            </div>
+                            <div>
+                                <label class="input-label">WC Load <span class="input-unit">kN/m²</span></label>
+                                <input type="number" id="input-wcload" value="1.67" step="0.1" min="0.5" max="5" class="input-hq" onchange="updateParam('wcload', this.value)">
+                            </div>
+                            <div>
+                                <label class="input-label">CB Offset <span class="input-unit">m</span></label>
+                                <input type="number" id="input-cbo" value="0.3" step="0.1" min="0.1" max="1" class="input-hq" onchange="updateParam('cbo', this.value)">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Summary Stats -->
+                    <div class="section-card" style="background: rgba(0, 212, 255, 0.03); border-color: rgba(0, 212, 255, 0.1);">
+                        <div class="section-card-title" style="color: #00d4ff; border-color: rgba(0, 212, 255, 0.15);">Real-Time Calculations</div>
+                        <div class="space-y-1">
+                            <div class="stat-item">
+                                <span class="stat-label">Total Carriageway Width</span>
+                                <span class="stat-value text-cyan-400" id="display-cw">8.00 m</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Main Girder Depth</span>
+                                <span class="stat-value text-violet-400" id="display-depth">1060 mm</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Cross Girder Depth</span>
+                                <span class="stat-value text-emerald-400" id="display-xgdepth">1050 mm</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Slab-to-Girder Ratio</span>
+                                <span class="stat-value text-amber-400" id="display-ratio">23.6%</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Steel Weight Est.</span>
+                                <span class="stat-value text-rose-400" id="display-weight">~4.2 t</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT: Live Visualization Panel (50%) -->
+        <div class="flex flex-col gap-4">
+
+            <!-- Top: Isometric 3D View -->
+            <div class="viz-panel flex-1 min-h-[300px] flex flex-col fade-in delay-2" style="flex: 1.2;">
+                <div class="viz-title">
+                    Isometric 3D View
+                    <span class="ml-auto text-[9px] text-slate-500 font-mono">ORBIT • ZOOM • PAN</span>
+                </div>
+                <div class="flex-1 relative" style="min-height: 260px;">
+                    <div id="three-container-iso" class="canvas-3d"></div>
+                    <div class="view-controls">
+                        <button class="view-btn tooltip" data-tip="Reset View" onclick="resetIsoView()">&#8982;</button>
+                        <button class="view-btn tooltip" data-tip="Wireframe" onclick="toggleIsoWireframe()">&#9744;</button>
+                        <button class="view-btn tooltip" data-tip="Grid" onclick="toggleIsoGrid()">&#8862;</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Middle: Transverse Cross-Section View -->
+            <div class="viz-panel flex-1 min-h-[250px] flex flex-col fade-in delay-3" style="flex: 1;">
+                <div class="viz-title">
+                    Transverse view
+                    <span class="ml-auto text-[9px] text-slate-500 font-mono">SCALE: AUTO</span>
+                </div>
+                <div class="flex-1 relative" style="min-height: 200px;">
+                    <canvas id="canvas-transverse" class="canvas-2d"></canvas>
+                    <div class="view-controls">
+                        <button class="view-btn tooltip" data-tip="Reset Zoom" onclick="resetTransverseZoom()">&#8982;</button>
+                        <button class="view-btn tooltip" data-tip="Zoom In" onclick="zoomTransverse(1.2)">+</button>
+                        <button class="view-btn tooltip" data-tip="Zoom Out" onclick="zoomTransverse(0.8)">&#8722;</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom: Longitudinal view View -->
+            <div class="viz-panel flex-1 min-h-[250px] flex flex-col fade-in delay-4" style="flex: 1;">
+                <div class="viz-title">
+                    Longitudinal view
+                    <span class="ml-3 px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/30 text-[9px] font-bold text-amber-400 tracking-wide">ONLY TWO LANE LIVE LOAD CONSIDERED</span>
+                    <span class="ml-auto text-[9px] text-slate-500 font-mono">SCALE: AUTO</span>
+                </div>
+                <div class="flex-1 relative" style="min-height: 200px;">
+                    <canvas id="canvas-longitudinal" class="canvas-2d"></canvas>
+                    <div class="view-controls">
+                        <button class="view-btn tooltip" data-tip="Reset Zoom" onclick="resetLongitudinalZoom()">&#8982;</button>
+                        <button class="view-btn tooltip" data-tip="Zoom In" onclick="zoomLongitudinal(1.2)">+</button>
+                        <button class="view-btn tooltip" data-tip="Zoom Out" onclick="zoomLongitudinal(0.8)">&#8722;</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Generate Button -->
+    <div class="flex justify-center py-6 fade-in delay-3">
+        <button onclick="generateFullScript()" class="btn-generate flex items-center gap-3">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+            <span>INITIATE GENERATION</span>
+        </button>
+    </div>
+
+    <!-- Generated TEDDY Script Panel (Last) -->
+    <div class="mx-5 mb-8 max-w-[1920px] mx-auto fade-in delay-4">
+        <div class="glass rounded-2xl p-5 flex flex-col" style="min-height: 300px;">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="section-header mb-0">Generated TEDDY Script</h3>
+                <div class="flex items-center gap-3">
+                    <span class="badge badge-emerald" id="script-status">READY</span>
+                    <button onclick="copyToClipboard()" class="p-2 rounded-lg hover:bg-slate-700/50 text-slate-400 hover:text-white transition-all tooltip" data-tip="Copy to Clipboard">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                        </svg>
+                    </button>
+                    <button onclick="downloadScript()" class="p-2 rounded-lg hover:bg-slate-700/50 text-slate-400 hover:text-white transition-all tooltip" data-tip="Download .DAT">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="code-panel flex-1">
+                <div id="code-content" class="code-content text-slate-300">
+                    <span class="text-slate-500">$ SOFiSTiK TEDDY Script Generator v1.0</span>
+                    <span class="text-slate-500">$ Waiting for parameters...</span>
+                    <span class="text-slate-500">$ Click "INITIATE GENERATION" to build the script</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Particle System ---
+        const particleCanvas = document.getElementById('particles');
+        const pCtx = particleCanvas.getContext('2d');
+        let particles = [];
+
+        function initParticles() {
+            particleCanvas.width = window.innerWidth;
+            particleCanvas.height = window.innerHeight;
+            particles = [];
+            for(let i = 0; i < 60; i++) {
+                particles.push({
+                    x: Math.random() * particleCanvas.width,
+                    y: Math.random() * particleCanvas.height,
+                    vx: (Math.random() - 0.5) * 0.2,
+                    vy: (Math.random() - 0.5) * 0.2,
+                    size: Math.random() * 1.5 + 0.5,
+                    opacity: Math.random() * 0.4 + 0.1
+                });
+            }
+        }
+
+        function animateParticles() {
+            pCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                if(p.x < 0 || p.x > particleCanvas.width) p.vx *= -1;
+                if(p.y < 0 || p.y > particleCanvas.height) p.vy *= -1;
+                pCtx.beginPath();
+                pCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                pCtx.fillStyle = `rgba(0, 212, 255, ${p.opacity})`;
+                pCtx.fill();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        // --- Theme Toggle ---
+        let isDarkMode = true;
+        function toggleTheme() {
+            isDarkMode = !isDarkMode;
+            document.body.classList.toggle('light-mode', !isDarkMode);
+            setTimeout(() => { drawAllViews(); }, 100);
+        }
+
+        // --- State Management ---
+        const defaults = {
+            span: 20, girders: 4, spacing: 2.0, slab: 250,
+            concrete: 40, prj: 0.475, ohl: 1.0, ohr: 1.0, cbo: 0.3,
+            ncxg: 3,
+            tfw: 150, tf: 20, webh: 1000, webt: 20, bbw: 600, bbd: 40,
+            xgtfw: 300, xgtf: 20, xgwebh: 1000, xgwebt: 16, xgbbw: 300, xgbbd: 30,
+            cbload: 10.0, wcload: 1.67
+        };
+        let params = { ...defaults };
+        let generatedScript = '';
+        let transverseZoom = 1, longitudinalZoom = 1;
+        let transversePan = { x: 0, y: 0 }, longitudinalPan = { x: 0, y: 0 };
+
+        function updateParam(key, value) {
+            params[key] = parseFloat(value);
+            if (key === 'span') {
+                document.getElementById('input-span2').value = value;
+            }
+            updateDisplayValues();
+            drawAllViews();
+            update3DModel();
+        }
+
+        function syncSpan(value) {
+            document.getElementById('input-span').value = value;
+            updateParam('span', value);
+        }
+
+        function updateDisplayValues() {
+            const cw = ((params.girders-1)*params.spacing + params.ohl + params.ohr).toFixed(2);
+            const depth = params.tf + params.webh + params.bbd;
+            const xgdepth = params.xgtf + params.xgwebh + params.xgbbd;
+            const xgSpacing = params.ncxg > 1 ? (params.span / (params.ncxg + 1)).toFixed(2) : params.span;
+            const ratio = ((params.slab / depth) * 100).toFixed(1);
+
+            document.getElementById('display-cw').textContent = cw + ' m';
+            document.getElementById('display-depth').textContent = depth + ' mm';
+            document.getElementById('display-xgdepth').textContent = xgdepth + ' mm';
+            document.getElementById('display-xgspacing').textContent = xgSpacing;
+            document.getElementById('display-ratio').textContent = ratio + '%';
+
+            const steelWeight = (params.girders * params.span * depth * 0.00000785 * 7850 / 1000).toFixed(1);
+            document.getElementById('display-weight').textContent = '~' + steelWeight + ' t';
+        }
+
+        function resetParams() {
+            params = { ...defaults };
+            Object.keys(defaults).forEach(key => {
+                const el = document.getElementById(`input-${key}`);
+                if(el) el.value = defaults[key];
+            });
+            document.getElementById('input-span2').value = defaults.span;
+            transverseZoom = 1; longitudinalZoom = 1;
+            transversePan = { x: 0, y: 0 }; longitudinalPan = { x: 0, y: 0 };
+            updateDisplayValues();
+            drawAllViews();
+            update3DModel();
+        }
+
+        function loadDefaults() { resetParams(); }
+
+        // --- 3D Three.js Setup ---
+        let scene, camera, renderer, controls;
+        let bridgeGroup, gridHelper;
+        let isWireframe = false, showGrid = true;
+
+        function initThreeJS() {
+            const container = document.getElementById('three-container-iso');
+            const rect = container.getBoundingClientRect();
+
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x01040f);
+
+            camera = new THREE.PerspectiveCamera(45, rect.width / rect.height, 0.1, 1000);
+            camera.position.set(30, 25, 30);
+
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(rect.width, rect.height);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            container.appendChild(renderer.domElement);
+
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.minDistance = 10;
+            controls.maxDistance = 100;
+
+            const ambientLight = new THREE.AmbientLight(0x606a75, 0.9);
+            scene.add(ambientLight);
+
+            const dirLight = new THREE.DirectionalLight(0x00d4ff, 1.1);
+            dirLight.position.set(20, 30, 20);
+            dirLight.castShadow = true;
+            scene.add(dirLight);
+
+            const dirLight2 = new THREE.DirectionalLight(0xa855f7, 0.6);
+            dirLight2.position.set(-20, 20, -20);
+            scene.add(dirLight2);
+
+            gridHelper = new THREE.GridHelper(50, 50, 0x1e293b, 0x0f172a);
+            scene.add(gridHelper);
+
+            const axesHelper = new THREE.AxesHelper(5);
+            scene.add(axesHelper);
+
+            bridgeGroup = new THREE.Group();
+            scene.add(bridgeGroup);
+
+            update3DModel();
+            animate3D();
+        }
+
+        function update3DModel() {
+            if (!bridgeGroup) return;
+            while(bridgeGroup.children.length > 0) {
+                bridgeGroup.remove(bridgeGroup.children[0]);
+            }
+
+            const totalW = (params.girders - 1) * params.spacing + params.ohl + params.ohr;
+            const halfW = totalW / 2;
+
+            const girderMat = new THREE.MeshStandardMaterial({ 
+                color: 0xC9D3DC, metalness: 0.6, roughness: 0.25,
+                emissive: 0x2d3f52, emissiveIntensity: 0.5,
+                transparent: true, opacity: 0.98, wireframe: isWireframe
+            });
+            const slabMat = new THREE.MeshStandardMaterial({ 
+                color: 0xC0C0C0, metalness: 0.0, roughness: 0.9,
+                transparent: true, opacity: 0.85, wireframe: isWireframe
+            });
+            const xgMat = new THREE.MeshStandardMaterial({ 
+                color: 0xC9D3DC, metalness: 0.6, roughness: 0.25,
+                emissive: 0x2d3f52, emissiveIntensity: 0.5,
+                transparent: true, opacity: 0.85, wireframe: isWireframe
+            });
+            const bearingMat = new THREE.MeshStandardMaterial({ color: 0xf59e0b, metalness: 0.8, roughness: 0.2 });
+
+            const girderDepth = (params.tf + params.webh + params.bbd) / 1000;
+
+            for(let i = 0; i < params.girders; i++) {
+                const yPos = -halfW + params.ohl + i * params.spacing;
+
+                const webGeom = new THREE.BoxGeometry(params.span, girderDepth, params.webt / 1000);
+                const web = new THREE.Mesh(webGeom, girderMat);
+                web.position.set(params.span / 2, -girderDepth / 2, yPos);
+                web.castShadow = true;
+                bridgeGroup.add(web);
+
+                const tfGeom = new THREE.BoxGeometry(params.span, params.tf / 1000, params.tfw / 1000);
+                const tf = new THREE.Mesh(tfGeom, girderMat);
+                tf.position.set(params.span / 2, -params.tf / 2000, yPos);
+                bridgeGroup.add(tf);
+
+                const bfGeom = new THREE.BoxGeometry(params.span, params.bbd / 1000, params.bbw / 1000);
+                const bf = new THREE.Mesh(bfGeom, girderMat);
+                bf.position.set(params.span / 2, -girderDepth + params.bbd / 2000, yPos);
+                bridgeGroup.add(bf);
+
+                const bearingGeom = new THREE.CylinderGeometry(0.15, 0.15, 0.1, 16);
+                const bearing1 = new THREE.Mesh(bearingGeom, bearingMat);
+                bearing1.position.set(params.prj, -girderDepth - 0.05, yPos);
+                bridgeGroup.add(bearing1);
+
+                const bearing2 = new THREE.Mesh(bearingGeom, bearingMat);
+                bearing2.position.set(params.span - params.prj, -girderDepth - 0.05, yPos);
+                bridgeGroup.add(bearing2);
+            }
+
+            const slabGeom = new THREE.BoxGeometry(params.span, params.slab / 1000, totalW);
+            const slab = new THREE.Mesh(slabGeom, slabMat);
+            slab.position.set(params.span / 2, 0, 0);
+            bridgeGroup.add(slab);
+
+            const xgDepth = (params.xgtf + params.xgwebh + params.xgbbd) / 1000;
+            for(let i = 1; i <= params.ncxg; i++) {
+                const xPos = params.span * i / (params.ncxg + 1);
+
+                const xgWebGeom = new THREE.BoxGeometry(params.xgwebt / 1000, xgDepth, totalW);
+                const xgWeb = new THREE.Mesh(xgWebGeom, xgMat);
+                xgWeb.position.set(xPos, -xgDepth / 2, 0);
+                bridgeGroup.add(xgWeb);
+
+                const xgTfGeom = new THREE.BoxGeometry(params.xgtfw / 1000, params.xgtf / 1000, totalW);
+                const xgTf = new THREE.Mesh(xgTfGeom, xgMat);
+                xgTf.position.set(xPos, -params.xgtf / 2000, 0);
+                bridgeGroup.add(xgTf);
+
+                const xgBfGeom = new THREE.BoxGeometry(params.xgbbw / 1000, params.xgbbd / 1000, totalW);
+                const xgBf = new THREE.Mesh(xgBfGeom, xgMat);
+                xgBf.position.set(xPos, -xgDepth + params.xgbbd / 2000, 0);
+                bridgeGroup.add(xgBf);
+            }
+        }
+
+        function animate3D() {
+            requestAnimationFrame(animate3D);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        function resetIsoView() {
+            camera.position.set(30, 25, 30);
+            camera.lookAt(params.span / 2, 0, 0);
+        }
+
+        function toggleIsoWireframe() {
+            isWireframe = !isWireframe;
+            update3DModel();
+        }
+
+        function toggleIsoGrid() {
+            showGrid = !showGrid;
+            gridHelper.visible = showGrid;
+        }
+
+        // --- 2D Canvas Drawing ---
+        const canvasT = document.getElementById('canvas-transverse');
+        const ctxT = canvasT.getContext('2d');
+        const canvasL = document.getElementById('canvas-longitudinal');
+        const ctxL = canvasL.getContext('2d');
+
+        function resizeCanvases() {
+            const rectT = canvasT.parentElement.getBoundingClientRect();
+            canvasT.width = rectT.width;
+            canvasT.height = rectT.height;
+
+            const rectL = canvasL.parentElement.getBoundingClientRect();
+            canvasL.width = rectL.width;
+            canvasL.height = rectL.height;
+
+            drawAllViews();
+        }
+
+        function drawAllViews() {
+            drawTransverse();
+            drawLongitudinal();
+        }
+
+        function drawDimLine(ctx, x1, y1, x2, y2, label, color, opts) {
+            const c = color || '#ffffff';
+            const pad = (opts && opts.pad) || 18;
+            const isHorizontal = Math.abs(y2 - y1) < 2;
+
+            // Extension lines (thin, dashed, muted)
+            ctx.save();
+            ctx.strokeStyle = 'rgba(148, 163, 184, 0.25)';
+            ctx.setLineDash([3, 3]);
+            ctx.lineWidth = 0.8;
+            ctx.beginPath();
+            if (isHorizontal) {
+                ctx.moveTo(x1, y1 - pad);
+                ctx.lineTo(x1, y1 + pad);
+                ctx.moveTo(x2, y2 - pad);
+                ctx.lineTo(x2, y2 + pad);
+            } else {
+                ctx.moveTo(x1 - pad, y1);
+                ctx.lineTo(x1 + pad, y1);
+                ctx.moveTo(x2 - pad, y2);
+                ctx.lineTo(x2 + pad, y2);
+            }
+            ctx.stroke();
+            ctx.restore();
+
+            // Main dimension line (solid, thick, colored)
+            ctx.save();
+            ctx.strokeStyle = c;
+            ctx.lineWidth = 2;
+            ctx.setLineDash([]);
+            ctx.shadowColor = c;
+            ctx.shadowBlur = 6;
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.stroke();
+            ctx.restore();
+
+            // Arrowheads
+            const angle = Math.atan2(y2 - y1, x2 - x1);
+            const arrowLen = 8;
+            const arrowAngle = Math.PI / 6;
+            ctx.save();
+            ctx.fillStyle = c;
+            ctx.shadowColor = c;
+            ctx.shadowBlur = 4;
+            // Arrow at start
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x1 + arrowLen * Math.cos(angle + arrowAngle), y1 + arrowLen * Math.sin(angle + arrowAngle));
+            ctx.lineTo(x1 + arrowLen * Math.cos(angle - arrowAngle), y1 + arrowLen * Math.sin(angle - arrowAngle));
+            ctx.closePath();
+            ctx.fill();
+            // Arrow at end
+            ctx.beginPath();
+            ctx.moveTo(x2, y2);
+            ctx.lineTo(x2 - arrowLen * Math.cos(angle + arrowAngle), y2 - arrowLen * Math.sin(angle + arrowAngle));
+            ctx.lineTo(x2 - arrowLen * Math.cos(angle - arrowAngle), y2 - arrowLen * Math.sin(angle - arrowAngle));
+            ctx.closePath();
+            ctx.fill();
+            ctx.restore();
+
+            // Label background (dark pill)
+            const mx = (x1 + x2) / 2;
+            const my = (y1 + y2) / 2;
+            ctx.save();
+            ctx.font = 'bold 11px "JetBrains Mono", monospace';
+            const tw = ctx.measureText(label).width + 14;
+            const th = 18;
+
+            // Glow behind label
+            ctx.shadowColor = 'rgba(0,0,0,0.9)';
+            ctx.shadowBlur = 8;
+            ctx.fillStyle = 'rgba(2, 6, 23, 0.92)';
+            ctx.beginPath();
+            ctx.roundRect(mx - tw/2, my - th/2, tw, th, 4);
+            ctx.fill();
+            ctx.shadowBlur = 0;
+
+            // Colored border
+            ctx.strokeStyle = c;
+            ctx.lineWidth = 1;
+            ctx.globalAlpha = 0.4;
+            ctx.beginPath();
+            ctx.roundRect(mx - tw/2, my - th/2, tw, th, 4);
+            ctx.stroke();
+            ctx.globalAlpha = 1;
+
+            // Text
+            ctx.fillStyle = c;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(label, mx, my + 0.5);
+            ctx.restore();
+        }
+
+        function drawTransverse() {
+            const w = canvasT.width;
+            const h = canvasT.height;
+            ctxT.clearRect(0, 0, w, h);
+            ctxT.fillStyle = isDarkMode ? '#01040f' : '#f8fafc';
+            ctxT.fillRect(0, 0, w, h);
+
+            // Premium grid background
+            ctxT.strokeStyle = isDarkMode ? 'rgba(148, 163, 184, 0.04)' : 'rgba(148, 163, 184, 0.08)';
+            for(let i=0; i<w; i+=25) { ctxT.beginPath(); ctxT.moveTo(i,0); ctxT.lineTo(i,h); ctxT.stroke(); }
+            for(let i=0; i<h; i+=25) { ctxT.beginPath(); ctxT.moveTo(0,i); ctxT.lineTo(w,i); ctxT.stroke(); }
+
+            const margin = 30;
+            const totalW = ((params.girders - 1) * params.spacing + params.ohl + params.ohr);
+            const scaleT = Math.min((w - margin * 2) / (totalW * 1.3), 80) * transverseZoom;
+            const gsp = params.spacing * scaleT;
+            const ohlPx = params.ohl * scaleT;
+            const ohrPx = params.ohr * scaleT;
+            const startTX = margin + ((w - margin * 2) - ((params.girders-1)*gsp + ohlPx + ohrPx)) / 2 + transversePan.x;
+            const transY = h / 2 + transversePan.y;
+
+            const slabH = params.slab / 10;
+
+            // Draw deck slab with premium styling
+            ctxT.fillStyle = isDarkMode ? 'rgba(168, 85, 247, 0.12)' : 'rgba(168, 85, 247, 0.08)';
+            ctxT.fillRect(startTX - ohlPx, transY - 25, (params.girders-1)*gsp + ohlPx + ohrPx, slabH);
+            ctxT.strokeStyle = '#a855f7';
+            ctxT.lineWidth = 1.5;
+            ctxT.strokeRect(startTX - ohlPx, transY - 25, (params.girders-1)*gsp + ohlPx + ohrPx, slabH);
+
+            const gDepth = (params.tf + params.webh + params.bbd) / 10;
+            const webW = Math.max(params.webt / 10, 2);
+            const tfW = params.tfw / 10;
+            const bfW = params.bbw / 10;
+
+            // Draw girders with enhanced styling
+            for(let i=0; i<params.girders; i++) {
+                const gx = startTX + i * gsp;
+                ctxT.fillStyle = '#00d4ff';
+                ctxT.shadowBlur = 10;
+                ctxT.shadowColor = 'rgba(0, 212, 255, 0.2)';
+                ctxT.fillRect(gx - webW/2, transY - 25 + slabH, webW, gDepth);
+                ctxT.fillStyle = '#0891b2';
+                ctxT.fillRect(gx - tfW/2, transY - 25 + slabH - 2, tfW, 2);
+                ctxT.fillRect(gx - bfW/2, transY - 25 + slabH + gDepth - 2, bfW, 2);
+
+                // Sharp, clear girder labels
+                ctxT.shadowBlur = 0;
+                ctxT.fillStyle = isDarkMode ? '#e2e8f0' : '#0f172a';
+                ctxT.font = 'bold 10px "JetBrains Mono", monospace';
+                ctxT.textAlign = 'center';
+                ctxT.textBaseline = 'middle';
+                ctxT.fillText(`G${i+1}`, gx, transY - 25 + slabH + gDepth + 16);
+                ctxT.textAlign = 'left';
+                ctxT.textBaseline = 'alphabetic';
+            }
+            ctxT.shadowBlur = 0;
+
+            // === DIMENSIONS WITH PROPER SPACING - NO OVERLAPS ===
+
+            // Top: Carriageway width (above structure)
+            drawDimLine(ctxT, startTX - ohlPx, transY - 52, startTX + (params.girders-1)*gsp + ohrPx, transY - 52, `CW = ${totalW.toFixed(2)}m`, '#00d4ff', {pad: 22});
+
+            // Above slab: Left & Right overhangs (clearly shown above the deck)
+            const overhangAboveY = transY - 32;
+            drawDimLine(ctxT, startTX - ohlPx, overhangAboveY, startTX, overhangAboveY, `${params.ohl}m`, '#22c55e', {pad: 14});
+            const rg = startTX + (params.girders-1)*gsp;
+            drawDimLine(ctxT, rg, overhangAboveY, rg + ohrPx, overhangAboveY, `${params.ohr}m`, '#22c55e', {pad: 14});
+
+            // Middle: Girder spacing (staggered vertically to avoid overlap)
+            for(let i=0; i<params.girders-1; i++) {
+                const dimY = transY + 42 + i * 22;
+                drawDimLine(ctxT, startTX + i*gsp, dimY, startTX + (i+1)*gsp, dimY, `${params.spacing}m`, '#a855f7', {pad: 18});
+            }
+
+            // Bottom row: Overhangs (also shown below girder spacing for completeness)
+            const overhangY = transY + 42 + (params.girders-1) * 22 + 20;
+            drawDimLine(ctxT, startTX - ohlPx, overhangY, startTX, overhangY, `${params.ohl}m`, '#22c55e', {pad: 16});
+            const rightOverhangY = overhangY + 22;
+            drawDimLine(ctxT, rg, rightOverhangY, rg + ohrPx, rightOverhangY, `${params.ohr}m`, '#22c55e', {pad: 16});
+
+            // Right side: Girder depth (moved further right to avoid overlap with overhang)
+            const ad = params.tf + params.webh + params.bbd;
+            const depthX = rg + Math.max(bfW/2, ohrPx) + 32;
+            drawDimLine(ctxT, depthX, transY - 25 + slabH - 2, depthX, transY - 25 + slabH + gDepth, `D=${ad}mm`, '#f59e0b', {pad: 14});
+
+            // Left side: Slab thickness
+            drawDimLine(ctxT, startTX - ohlPx - 22, transY - 25, startTX - ohlPx - 22, transY - 25 + slabH, `${params.slab}mm`, '#f59e0b', {pad: 12});
+        }
+
+        function drawLongitudinal() {
+            const w = canvasL.width;
+            const h = canvasL.height;
+            ctxL.clearRect(0, 0, w, h);
+            ctxL.fillStyle = isDarkMode ? '#01040f' : '#f8fafc';
+            ctxL.fillRect(0, 0, w, h);
+
+            // Premium grid background
+            ctxL.strokeStyle = isDarkMode ? 'rgba(148, 163, 184, 0.04)' : 'rgba(148, 163, 184, 0.08)';
+            for(let i=0; i<w; i+=25) { ctxL.beginPath(); ctxL.moveTo(i,0); ctxL.lineTo(i,h); ctxL.stroke(); }
+            for(let i=0; i<h; i+=25) { ctxL.beginPath(); ctxL.moveTo(0,i); ctxL.lineTo(w,i); ctxL.stroke(); }
+
+            const margin = 30;
+            const longScale = (w - margin * 2) / (params.span * 1.12) * longitudinalZoom;
+            const girderY = h / 2 + 20 + longitudinalPan.y;
+            const leftSX = margin + params.span * longScale * 0.06 + longitudinalPan.x;
+            const rightSX = leftSX + params.span * longScale;
+
+            // Ground line
+            ctxL.strokeStyle = isDarkMode ? 'rgba(148,163,184,0.15)' : 'rgba(148,163,184,0.3)';
+            ctxL.beginPath();
+            ctxL.moveTo(margin, girderY + 20);
+            ctxL.lineTo(w - margin, girderY + 20);
+            ctxL.stroke();
+
+            // Bearing triangles
+            ctxL.fillStyle = '#475569';
+            ctxL.beginPath(); ctxL.moveTo(leftSX-7, girderY+20); ctxL.lineTo(leftSX+7, girderY+20); ctxL.lineTo(leftSX, girderY+5); ctxL.fill();
+            ctxL.beginPath(); ctxL.moveTo(rightSX-7, girderY+20); ctxL.lineTo(rightSX+7, girderY+20); ctxL.lineTo(rightSX, girderY+5); ctxL.fill();
+
+            // Main girder line with glow
+            ctxL.strokeStyle = '#00d4ff';
+            ctxL.lineWidth = 3;
+            ctxL.shadowBlur = 12;
+            ctxL.shadowColor = 'rgba(0, 212, 255, 0.25)';
+            ctxL.beginPath();
+            ctxL.moveTo(leftSX, girderY);
+            ctxL.lineTo(rightSX, girderY);
+            ctxL.stroke();
+
+            // Deck slab
+            const slabT = params.slab / 10;
+            ctxL.fillStyle = 'rgba(168, 85, 247, 0.18)';
+            ctxL.fillRect(leftSX, girderY - slabT, rightSX - leftSX, slabT);
+            ctxL.strokeStyle = '#a855f7';
+            ctxL.lineWidth = 1;
+            ctxL.strokeRect(leftSX, girderY - slabT, rightSX - leftSX, slabT);
+
+            // Cross-girders with clear labels
+            for(let i=1; i<=params.ncxg; i++) {
+                const cx = leftSX + (rightSX - leftSX) * (i / (params.ncxg + 1));
+                ctxL.strokeStyle = 'rgba(0, 212, 255, 0.5)';
+                ctxL.lineWidth = 1.5;
+                ctxL.beginPath();
+                ctxL.moveTo(cx, girderY);
+                ctxL.lineTo(cx, girderY + 12);
+                ctxL.stroke();
+
+                ctxL.shadowBlur = 0;
+                ctxL.fillStyle = isDarkMode ? '#94a3b8' : '#475569';
+                ctxL.font = 'bold 9px "JetBrains Mono", monospace';
+                ctxL.textAlign = 'center';
+                ctxL.textBaseline = 'middle';
+                ctxL.fillText(`XG${i}`, cx, girderY + 22);
+                ctxL.textAlign = 'left';
+                ctxL.textBaseline = 'alphabetic';
+            }
+
+            ctxL.shadowBlur = 0;
+
+            // === DIMENSIONS WITH PROPER SPACING ===
+
+            // Bottom: Span dimension (below structure)
+            drawDimLine(ctxL, leftSX, girderY + 46, rightSX, girderY + 46, `SPAN = ${params.span}m`, '#00d4ff', {pad: 22});
+
+            // Right side: Slab thickness (moved further right to avoid overlap)
+            drawDimLine(ctxL, rightSX + 26, girderY - slabT, rightSX + 26, girderY, `${params.slab}mm`, '#f59e0b', {pad: 14});
+
+            // Bearing points
+            const b1x = leftSX + params.prj * longScale;
+            const b2x = rightSX - params.prj * longScale;
+            ctxL.fillStyle = '#f59e0b';
+            ctxL.beginPath();
+            ctxL.arc(b1x, girderY + 16, 4, 0, Math.PI * 2);
+            ctxL.fill();
+            ctxL.beginPath();
+            ctxL.arc(b2x, girderY + 16, 4, 0, Math.PI * 2);
+            ctxL.fill();
+
+            // Clear bearing labels
+            ctxL.fillStyle = isDarkMode ? '#e2e8f0' : '#0f172a';
+            ctxL.font = 'bold 10px "JetBrains Mono", monospace';
+            ctxL.textAlign = 'center';
+            ctxL.textBaseline = 'middle';
+            ctxL.fillText('B', b1x, girderY + 32);
+            ctxL.fillText('B', b2x, girderY + 32);
+            ctxL.textAlign = 'left';
+            ctxL.textBaseline = 'alphabetic';
+        }
+
+        function zoomTransverse(factor) {
+            transverseZoom *= factor;
+            drawTransverse();
+        }
+
+        function resetTransverseZoom() {
+            transverseZoom = 1;
+            transversePan = { x: 0, y: 0 };
+            drawTransverse();
+        }
+
+        function zoomLongitudinal(factor) {
+            longitudinalZoom *= factor;
+            drawLongitudinal();
+        }
+
+        function resetLongitudinalZoom() {
+            longitudinalZoom = 1;
+            longitudinalPan = { x: 0, y: 0 };
+            drawLongitudinal();
+        }
+
+        // --- Script Generation ---
+        function generateFullScript() {
+            const btn = document.querySelector('.btn-generate');
+            btn.innerHTML = '<div class="spinner-hq"></div><span>PROCESSING...</span>';
+            btn.disabled = true;
+            document.getElementById('script-status').textContent = 'GENERATING';
+            document.getElementById('script-status').className = 'badge badge-amber';
+
+            setTimeout(() => {
+                generatedScript = buildCompleteScript();
+                typeScript(generatedScript);
+                document.getElementById('script-status').textContent = 'GENERATED';
+                document.getElementById('script-status').className = 'badge badge-emerald';
+                setTimeout(() => {
+                    btn.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg><span>INITIATE GENERATION</span>`;
+                    btn.disabled = false;
+                }, 1200);
+            }, 400);
+        }
+
+        function buildCompleteScript() {
+            const cw = ((params.girders-1)*params.spacing + params.ohl + params.ohr).toFixed(2);
+            const half = 1.5 * params.spacing;
+            const yl = -(half + params.ohl);
+            const yr = (half + params.ohr);
+
+            let xcgValues = [];
+            for(let i=1; i<=params.ncxg; i++) {
+                xcgValues.push((params.span * i / (params.ncxg + 1)).toFixed(1));
+            }
+
+            let ysgValues = [], ysgeValues = [], ewgrValues = [], ewglValues = [];
+            for(let i=0; i<params.girders; i++) {
+                const offset = (i - (params.girders-1)/2) * params.spacing;
+                ysgValues.push(offset.toFixed(4));
+                ysgeValues.push(offset.toFixed(4));
+                if(i === 0) { ewglValues.push(params.ohl.toFixed(1)); ewgrValues.push((params.spacing/2).toFixed(1)); }
+                else if(i === params.girders - 1) { ewglValues.push((params.spacing/2).toFixed(1)); ewgrValues.push(params.ohr.toFixed(1)); }
+                else { ewglValues.push((params.spacing/2).toFixed(1)); ewgrValues.push((params.spacing/2).toFixed(1)); }
+            }
+
+            let girderCreation = "";
+            for(let i=0; i<params.girders; i++) {
+                girderCreation += `IF #NG>${i}
+LET#I ${i}
+GAX G${i+1}
+GAXB X1 #XSG(#I) Y1 #YSG(#I) Z1 0 X2 #XSGE(#I) Y2 #YSGE(#I) Z2 0
+LET#AXS 'G${i+1}'
+LET#GL #GL(#I)
+#INCLUDE GIRDER
+ENDIF
+`;
+            }
+
+            // CORRECTED SUPPORT DEFINITION per user request
+            let supportDefs = `LOOP#I #NG
+
+SPT 21+1+#I*10 REF AX NREF #AXS(#I) SX #PRJ
+SPT 121+1+#I*10 REF PT 21+1+#I*10 Z #D/1000 FIX PPMX
+SPTP TYPE LPPMM REF 21+1+#I*10 GRP 31
+
+SPT 21+8+#I*10 REF AX NREF #AXS(#I) SX #GL(#I)-#PRJ
+SPT 121+8+#I*10 REF PT 21+8+#I*10 Z #D/1000 FIX PXPYPZ
+SPTP TYPE LPPMM REF 21+8+#I*10 GRP 32
+
+ENDLOOP
+`;
+
+            let xgCreation = "";
+            for(let i=0; i<params.ncxg; i++) {
+                xgCreation += `LET#I ${i}
+GAX XG${i+1}
+GAXB X1 #XCGX(#I) Y1 -#CW/2 Z1 0 X2 #XCGX(#I) Y2 #CW/2 Z2 0
+LET#XGAXS 'XG${i+1}'
+#INCLUDE XGIRDER
+`;
+            }
+
+            return `$ Teddy code generated by Vikas Kumar Prasad $
++PROG AQUA urs:2
+HEAD Material Properties
+
+NORM IS IRC112 COUN 91 UNIT 5
+ECHO MAT YES
+
+STO#NG   ${params.girders}
+STO#S2   ${params.spacing}
+STO#SN   ${params.span}
+STO#ST   ${params.slab}
+STO#PRJ  ${params.prj}
+STO#OHL  ${params.ohl}
+STO#OHR  ${params.ohr}
+STO#CBO  ${params.cbo}
+STO#C1   ${params.concrete}
+
+STO#CW ((#NG-1)*#S2+#OHL+#OHR)
+CONC 1 C #C1 GAM 25
+STEE 2 SIS '500D'
+CONC 3 C 2 GAM 0
+STEE 4 S 450 GAM 78.5
+
+STO#TFW   ${params.tfw}
+STO#TF    ${params.tf}
+STO#WEBH  ${params.webh}
+STO#WEBT  ${params.webt}
+STO#BBW   ${params.bbw}
+STO#BBD   ${params.bbd}
+STO#D (#TF+#WEBH+#BBD)
+
+SECT 1 MNO 4 BTYP 'BEAM' TITL 'STEEL I GIRDER'
+CS 1 'GIRDER'
+POLY O MNO 4
+VERT 11 0 0
+VERT 12 #TFW/2[mm] 0
+VERT 13 #TFW/2[mm] #TF[mm]
+VERT 14 #WEBT/2[mm] #TF[mm]
+VERT 15 #WEBT/2[mm] #TF+#WEBH[mm]
+VERT 16 #BBW/2[mm] #D-#BBD[mm]
+VERT 17 #BBW/2[mm] #D[mm]
+VERT 18 -#BBW/2[mm] #D[mm]
+VERT 19 -#BBW/2[mm] #D-#BBD[mm]
+VERT 20 -#WEBT/2[mm] #TF+#WEBH[mm]
+VERT 21 -#WEBT/2[mm] #TF[mm]
+VERT 22 -#TFW/2[mm] #TF[mm]
+VERT 23 -#TFW/2[mm] 0
+
+STO#XGTFW   ${params.xgtfw}
+STO#XGTF    ${params.xgtf}
+STO#XGWEBH  ${params.xgwebh}
+STO#XGWEBT  ${params.xgwebt}
+STO#XGBBW   ${params.xgbbw}
+STO#XGBBD   ${params.xgbbd}
+STO#XGD (#XGTF+#XGWEBH+#XGBBD)
+
+SECT 2 MNO 4 BTYP 'BEAM' TITL 'STEEL CROSS GIRDER'
+CS 2 'XGIRDER'
+POLY O MNO 4
+VERT 31  0 0
+VERT 32  #XGTFW/2[mm] 0
+VERT 33  #XGTFW/2[mm] #XGTF[mm]
+VERT 34  #XGWEBT/2[mm] #XGTF[mm]
+VERT 35  #XGWEBT/2[mm] #XGTF+#XGWEBH[mm]
+VERT 36  #XGBBW/2[mm] #XGD-#XGBBD[mm]
+VERT 37  #XGBBW/2[mm] #XGD[mm]
+VERT 38  -#XGBBW/2[mm] #XGD[mm]
+VERT 39  -#XGBBW/2[mm] #XGD-#XGBBD[mm]
+VERT 40  -#XGWEBT/2[mm] #XGTF+#XGWEBH[mm]
+VERT 41  -#XGWEBT/2[mm] #XGTF[mm]
+VERT 42  -#XGTFW/2[mm] #XGTF[mm]
+VERT 43  -#XGTFW/2[mm] 0
+
+END
+
++PROG SOFIMSHC urs:1
+HEAD SYSTEM DEFINITION
+SYST SPAC GDIV 100000
+CTRL MESH 50
+CTRL HMIN 1
+CTRL warn 373
+
+LET#XSG  ${Array(params.girders).fill('0').join(' ')}
+LET#YSG  ${ysgValues.join(' ')}
+LET#XSGE  ${Array(params.girders).fill(params.span.toFixed(1)).join(' ')}
+LET#YSGE  ${ysgeValues.join(' ')}
+
+STO#HALF #CW/2
+STO#YL -#HALF-#OHL
+STO#YR  #HALF+#OHR
+LET#EWGR ${ewgrValues.join(' ')}
+LET#EWGL ${ewglValues.join(' ')}
+
+LOOP#I #NG
+STO#GL(#I) SQR((#XSGE(#I)-#XSG(#I))^2+(#YSGE(#I)-#YSG(#I))^2)
+ENDLOOP
+
+#DEFINE GIRDER
+GAXP #AXS IDS 0 S 0.0 TYPE 'S' NCS 1 GRP 1+#I
+GAXP #AXS IDS 0 S #GL TYPE 'S' NCS 1 GRP 1+#I
+GAXV #AXS 'WIDTH' S 0.0 V #WEBT/2[mm]
+GAXV #AXS 'WIDTH' S #GL V #WEBT/2[mm]
+GAXV #AXS 'YWF' S 0.0 V #TF[mm]
+GAXV #AXS 'YWF' S #GL V #TF[mm]
+GAXV #AXS 'BTW' S 0.0 V #TF+#WEBH[mm]
+GAXV #AXS 'BTW' S #GL V #TF+#WEBH[mm]
+GAXV #AXS 'WS1' S 0.0 V #EWGR(#I)*1000[mm]
+GAXV #AXS 'WS1' S #GL V #EWGR(#I)*1000[mm]
+GAXV #AXS 'WS2' S 0.0 V -#EWGL(#I)*1000[mm]
+GAXV #AXS 'WS2' S #GL V -#EWGL(#I)*1000[mm]
+#ENDDEF
+
+${girderCreation}
+STO#NCXG  ${params.ncxg}
+STO#XGLEN #CW
+LET#XCGX  ${xcgValues.join(' ')}
+
+#DEFINE XGIRDER
+GAXP #XGAXS IDS 0 S 0.0 TYPE 'S' NCS 2 GRP 10
+GAXP #XGAXS IDS 0 S #XGLEN TYPE 'S' NCS 2 GRP 10
+#ENDDEF
+
+${xgCreation}
+LET#AXS ${Array.from({length: params.girders}, (_, i) => `'G${i+1}'`).join(' ')}
+
+${supportDefs}
+
+SAR 1 GRP 21 MNO 1 T #ST QREF ABOV
+SARB OUT
+SLNB X1 0 Y1 #YL Z1 0 X2 #SN Y2 #YL Z2 0
+SARB OUT
+SLNB X1 #SN Y1 #YL Z1 0 X2 #SN Y2 #YR Z2 0
+SARB OUT
+SLNB X1 #SN Y1 #YR Z1 0 X2 0 Y2 #YR Z2 0
+SARB OUT
+SLNB X1 0 Y1 #YR Z1 0 X2 0 Y2 #YL Z2 0
+
+SAR 2 GRP 22 MNO 3 T 75 QREF ABOV
+SARB OUT
+SLNB X1 0 Y1 #YL+#CBO+0.250 Z1 0 X2 #SN Y2 #YL+#CBO+0.250 Z2 0
+SARB OUT
+SLNB X1 #SN Y1 #YL+#CBO+0.250 Z1 0 X2 #SN Y2 #YR+#CBO+0.250 Z2 0
+SARB OUT
+SLNB X1 #SN Y1 #YR-#CBO-0.250 Z1 0 X2 0 Y2 #YR-#CBO-0.250 Z2 0
+SARB OUT
+SLNB X1 0 Y1 #YR-#CBO-0.250 Z1 0 X2 0 Y2 #YL+#CBO-0.250 Z2 0
+
+GAX A1
+GAXB X1 0 Y1 0 Z1 -#ST/1000 X2 #SN Y2 0 Z2 -#ST/1000
+
+END
+
++PROG AQUA urs:3
+HEAD INTERPOLATION OF SECTIONS
+INTE 0
+END
+
++PROG SOFILOAD urs:6
+HEAD DEAD LOAD ONLY
+ACT G_1 GAMU 1.0 TITL 'SELF WEIGHT'
+ACT G_2 GAMU 1.0 TITL 'SIDL-CB+WC'
+LC 1 TYPE G_1 DLZ 1 TITL 'SELF WEIGHT'
+LC 2 TYPE G_2 TITL 'CRASH BARRIER'
+LINE TYPE PG P1 ${params.cbload} X1 0 Y1 #YL+#CBO Z1 0 X2 #SN Y2 #YL+#CBO Z2 0
+LINE TYPE PG P1 ${params.cbload} X1 0 Y1 #YR-#CBO Z1 0 X2 #SN Y2 #YR-#CBO Z2 0
+LC 3 TYPE G_2 TITL 'WEARING COAT'
+QUAD GRP 22 TYPE PG P ${params.wcload}
+END
+
++PROG ASE urs:4
+HEAD DEAD LOAD ANALYSIS
+CTRL WARN 197
+GRP2 21 QEMX 0.001 QUEA 0.001
+GRP2 22 QEMX 0.001 QUEA 0.001
+LC 1,2,3
+END
+
++prog template urs:24.1
+head LIVE LOAD
+STO#SS 1
+STO#NTP 1
+STO#LASS (#SN+20)/#SS
+end
+
++PROG SOFILOAD urs:24.2
+HEAD VEHICLE & LANE DEFINITION
+LC NO 301 TYPE Q
+TRAI TYPE user P9 1.2 PHI 1 PHIS 1 XCON 20 WIDT 2.3
+    TRPL P 27 PB 5.4 A 0 B 1.8
+    TRPL P 27 PB 5.4 A -1.1 B 1.8
+    TRPL P 114 PB 22.8 A -3.2 B 1.8
+    TRPL P 114 PB 22.8 A -1.2 B 1.8
+    TRPL P 68 PB 13.6 A -4.3 B 1.8
+    TRPL P 68 PB 13.6 A -3.0 B 1.8
+    TRPL P 68 PB 13.6 A -3.0 B 1.8
+    TRPL P 68 PB 13.6 A -3.0 B 1.8
+
+LC NO 302 TYPE Q
+TRAI TYPE user P9 1.2 PHI 1 PHIS 1 XCON 30 WIDT 2.79
+    TRPL P 80 PB 16 A 0 B 1.93
+    TRPL P 120 PB 24 A -3.96 B 1.93
+    TRPL P 120 PB 24 A -1.52 B 1.93
+    TRPL P 170 PB 34 A -2.13 B 1.93
+    TRPL P 170 PB 34 A -1.37 B 1.93
+    TRPL P 170 PB 34 A -3.05 B 1.93
+    TRPL P 170 PB 34 A -1.37 B 1.93
+
+LANE NO A1
+LANE NO A1.1 YLA -((#CW/2)-0.15) YRA -((#CW/2)-2.45)
+LANE NO A1.2 YLA -((#CW/2)-3.65) YRA -((#CW/2)-5.95)
+LANE NO A1.3 YRA ${((cw/2)-1.2).toFixed(2)} YLA ${((cw/2)-3.99).toFixed(2)}
+LANE NO A1.4 YLA ${-((cw/2)-1.2).toFixed(2)} YRA ${((cw/2)-3.99).toFixed(2)}
+
+LOOP#1 #LASS
+LC 1000+#1 TYPE Q GAMU 1.00 GAMF 1.00 TITL '2 CLA LEFT'
+COPY NO 301 REF A1.1 DX #1
+COPY NO 301 REF A1.2 DX #1
+ENDLOOP
+
+LOOP#1 #LASS
+LC 2000+#1 TYPE Q GAMU 1.00 GAMF 1.00 TITL '70R RIGHT'
+COPY NO 302 REF A1.3 DX #1
+ENDLOOP
+
+LOOP#1 #LASS
+LC 3000+#1 TYPE Q GAMU 1.00 GAMF 1.00 TITL '70R LEFT'
+COPY NO 302 REF A1.4 DX #1
+ENDLOOP
+END
+
++PROG ASE urs:77.3
+head LIVE LOAD ANALYSIS
+CTRL WARN 398
+CTRL WARN 399
+LC all
+grp2 10 quea 0.001 qemx 0.001
+END
+
++prog maxima urs:104.1
+head
+CTRL WARN 399
+comb 1 extr stan base 11000 type none
+    lc (1000 3000+#LASS 1) type A1
+comb 2 extr stan base 21000 type none
+    lc (1000 1000+#LASS 1) type A1
+comb 3 extr stan base 31000 type none
+    lc (2000 2000+#LASS 1) type A1
+comb 4 extr stan base 41000 type none
+    lc (3000 3000+#LASS 1) type A1
+
+supp comb 1 extr mami etyp beam my titl "All LL CASES"
+supp comb 1 extr mami etyp beam vz titl "All LL CASES"
+supp comb 1 extr mami etyp node pz titl "All LL CASES"
+supp comb 1 extr mami etyp auto uz titl "All LL CASES"
+
+supp comb 2 extr mami etyp beam my titl "2 CLASS A LEFT"
+supp comb 2 extr mami etyp beam vz titl "2 CLASS A LEFT"
+supp comb 2 extr mami etyp node pz titl "2 CLASS A LEFT"
+supp comb 2 extr mami etyp auto uz titl "2 CLASS A LEFT"
+
+supp comb 3 extr mami etyp beam my titl "70R-RIGHT"
+supp comb 3 extr mami etyp beam vz titl "70R-RIGHT"
+supp comb 3 extr mami etyp node pz titl "70R-RIGHT"
+supp comb 3 extr mami etyp auto uz titl "70R-RIGHT"
+
+supp comb 4 extr mami etyp beam my titl "70R-LEFT"
+supp comb 4 extr mami etyp beam vz titl "70R-LEFT"
+supp comb 4 extr mami etyp node pz titl "70R-LEFT"
+supp comb 4 extr mami etyp auto uz titl "70R-LEFT"
+end
+$ Teddy code generated by Vikas Kumar Prasad $`;
+        }
+
+        function typeScript(text) {
+            const block = document.getElementById('code-content');
+            block.innerHTML = '';
+            const lines = text.split('\n');
+            let i = 0;
+            function typeLine() {
+                if (i >= lines.length) return;
+                const div = document.createElement('div');
+                let line = escapeHtml(lines[i]);
+                if (line.trim().startsWith('$')) line = `<span class="text-slate-600">${line}</span>`;
+                else if (line.trim().startsWith('+') || line.trim().startsWith('END') || line.trim().startsWith('LOOP')) line = `<span class="text-cyan-400 font-bold">${line}</span>`;
+                else if (line.includes("'") || line.includes('"')) line = line.replace(/('.*?'|".*?")/g, '<span class="text-emerald-400">$1</span>');
+                else line = line.replace(/\b(\d+\.?\d*)\b/g, '<span class="text-violet-400">$1</span>');
+                div.innerHTML = line || '&nbsp;';
+                block.appendChild(div);
+                block.parentElement.scrollTop = block.parentElement.scrollHeight;
+                i++;
+                setTimeout(typeLine, 0.5);
+            }
+            typeLine();
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+        function copyToClipboard() {
+            navigator.clipboard.writeText(document.getElementById('code-content').innerText);
+        }
+
+        function downloadScript() {
+            if (!generatedScript) return;
+            const now = new Date();
+            const d = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+            const t = `${String(now.getHours()).padStart(2,'0')}${String(now.getMinutes()).padStart(2,'0')}`;
+            const blob = new Blob([generatedScript], {type: 'text/plain'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `VIKAS_${d}_${t}.dat`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+
+        // --- Analytics Dashboard ---
+        let analyticsData = {
+            visitors: 0,
+            online: 0,
+            interactions: 0,
+            sessionStart: Date.now(),
+            pageLoadTime: 0,
+            domReadyTime: 0
+        };
+
+        function toggleAnalytics() {
+            const dashboard = document.getElementById('analytics-dashboard');
+            dashboard.classList.toggle('hidden');
+            if (!dashboard.classList.contains('hidden')) {
+                collectAnalytics();
+            }
+        }
+
+        function collectAnalytics() {
+            // Browser & Device Info
+            const ua = navigator.userAgent;
+            const browser = getBrowser(ua);
+            const os = getOS(ua);
+            const device = getDevice(ua);
+
+            document.getElementById('browser-info').textContent = browser;
+            document.getElementById('os-info').textContent = os;
+            document.getElementById('screen-info').textContent = `${window.screen.width}x${window.screen.height}`;
+            document.getElementById('device-info').textContent = device;
+
+            // Location (approximate from timezone/language)
+            document.getElementById('country-info').textContent = Intl.DateTimeFormat().resolvedOptions().timeZone.split('/')[0] || 'Unknown';
+            document.getElementById('city-info').textContent = Intl.DateTimeFormat().resolvedOptions().timeZone.split('/')[1] || 'Unknown';
+            document.getElementById('referrer-info').textContent = document.referrer || 'Direct';
+            document.getElementById('lang-info').textContent = navigator.language || 'Unknown';
+
+            // Performance Metrics
+            if (performance && performance.timing) {
+                const timing = performance.timing;
+                analyticsData.pageLoadTime = timing.loadEventEnd - timing.navigationStart;
+                analyticsData.domReadyTime = timing.domContentLoadedEventEnd - timing.navigationStart;
+                document.getElementById('load-time').textContent = analyticsData.pageLoadTime + 'ms';
+                document.getElementById('dom-time').textContent = analyticsData.domReadyTime + 'ms';
+            }
+            document.getElementById('session-start').textContent = new Date(analyticsData.sessionStart).toLocaleTimeString();
+
+            // Stats
+            analyticsData.visitors++;
+            document.getElementById('stat-visitors').textContent = analyticsData.visitors;
+            document.getElementById('stat-online').textContent = '1';
+
+            // Session timer
+            setInterval(() => {
+                const elapsed = Math.floor((Date.now() - analyticsData.sessionStart) / 1000);
+                document.getElementById('stat-avg-time').textContent = elapsed + 's';
+            }, 1000);
+        }
+
+        function getBrowser(ua) {
+            if (ua.includes('Chrome')) return 'Chrome';
+            if (ua.includes('Firefox')) return 'Firefox';
+            if (ua.includes('Safari')) return 'Safari';
+            if (ua.includes('Edge')) return 'Edge';
+            return 'Unknown';
+        }
+
+        function getOS(ua) {
+            if (ua.includes('Windows')) return 'Windows';
+            if (ua.includes('Mac')) return 'macOS';
+            if (ua.includes('Linux')) return 'Linux';
+            if (ua.includes('Android')) return 'Android';
+            if (ua.includes('iOS')) return 'iOS';
+            return 'Unknown';
+        }
+
+        function getDevice(ua) {
+            if (ua.includes('Mobile')) return 'Mobile';
+            if (ua.includes('Tablet')) return 'Tablet';
+            return 'Desktop';
+        }
+
+        function exportAnalytics() {
+            const data = {
+                timestamp: new Date().toISOString(),
+                browser: document.getElementById('browser-info').textContent,
+                os: document.getElementById('os-info').textContent,
+                device: document.getElementById('device-info').textContent,
+                screen: document.getElementById('screen-info').textContent,
+                country: document.getElementById('country-info').textContent,
+                city: document.getElementById('city-info').textContent,
+                referrer: document.getElementById('referrer-info').textContent,
+                language: document.getElementById('lang-info').textContent,
+                visitors: analyticsData.visitors,
+                sessionDuration: Math.floor((Date.now() - analyticsData.sessionStart) / 1000)
+            };
+
+            const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `analytics_${new Date().toISOString().slice(0,10)}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Track interactions
+        document.addEventListener('click', () => {
+            analyticsData.interactions++;
+            document.getElementById('stat-interactions').textContent = analyticsData.interactions;
+        });
+
+        // Init
+        window.onload = () => {
+            initParticles();
+            animateParticles();
+            initThreeJS();
+            resizeCanvases();
+            updateDisplayValues();
+        };
+
+        window.addEventListener('resize', () => {
+            initParticles();
+            resizeCanvases();
+            if (renderer && camera) {
+                const container = document.getElementById('three-container-iso');
+                const rect = container.getBoundingClientRect();
+                renderer.setSize(rect.width, rect.height);
+                camera.aspect = rect.width / rect.height;
+                camera.updateProjectionMatrix();
+            }
+        });
+    </script>
+
+    <!-- Analytics Dashboard (Admin Only) -->
+    <div id="analytics-dashboard" class="hidden mx-5 mb-8 max-w-[1920px] mx-auto fade-in">
+        <div class="glass rounded-2xl p-6">
+            <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center gap-3">
+                    <h3 class="section-header mb-0">Analytics Dashboard</h3>
+                    <span class="badge badge-violet">ADMIN ONLY</span>
+                    <span class="badge badge-emerald" id="live-indicator">● LIVE</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button onclick="exportAnalytics()" class="px-4 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/50 text-xs font-semibold text-white transition-all">
+                        Export CSV
+                    </button>
+                    <button onclick="toggleAnalytics()" class="p-2 rounded-lg hover:bg-slate-700/50 text-slate-400 hover:text-white transition-all">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-4 gap-4 mb-6">
+                <div class="section-card text-center">
+                    <div class="text-2xl font-bold text-cyan-400 font-mono" id="stat-visitors">0</div>
+                    <div class="text-xs text-slate-400 mt-1">Total Visitors</div>
+                </div>
+                <div class="section-card text-center">
+                    <div class="text-2xl font-bold text-violet-400 font-mono" id="stat-online">0</div>
+                    <div class="text-xs text-slate-400 mt-1">Currently Online</div>
+                </div>
+                <div class="section-card text-center">
+                    <div class="text-2xl font-bold text-emerald-400 font-mono" id="stat-avg-time">0s</div>
+                    <div class="text-xs text-slate-400 mt-1">Avg. Session</div>
+                </div>
+                <div class="section-card text-center">
+                    <div class="text-2xl font-bold text-amber-400 font-mono" id="stat-interactions">0</div>
+                    <div class="text-xs text-slate-400 mt-1">Interactions</div>
+                </div>
+            </div>
+
+            <!-- Detailed Analytics -->
+            <div class="grid grid-cols-2 gap-4">
+                <div class="section-card">
+                    <div class="section-card-title">Device & Browser</div>
+                    <div id="device-stats" class="space-y-2 text-xs font-mono">
+                        <div class="flex justify-between"><span class="text-slate-400">Browser</span><span class="text-cyan-400" id="browser-info">-</span></div>
+                        <div class="flex justify-between"><span class="text-slate-400">OS</span><span class="text-cyan-400" id="os-info">-</span></div>
+                        <div class="flex justify-between"><span class="text-slate-400">Screen</span><span class="text-cyan-400" id="screen-info">-</span></div>
+                        <div class="flex justify-between"><span class="text-slate-400">Device</span><span class="text-cyan-400" id="device-info">-</span></div>
+                    </div>
+                </div>
+                <div class="section-card">
+                    <div class="section-card-title">Location & Source</div>
+                    <div class="space-y-2 text-xs font-mono">
+                        <div class="flex justify-between"><span class="text-slate-400">Country</span><span class="text-violet-400" id="country-info">-</span></div>
+                        <div class="flex justify-between"><span class="text-slate-400">City</span><span class="text-violet-400" id="city-info">-</span></div>
+                        <div class="flex justify-between"><span class="text-slate-400">Referrer</span><span class="text-violet-400" id="referrer-info">-</span></div>
+                        <div class="flex justify-between"><span class="text-slate-400">Language</span><span class="text-violet-400" id="lang-info">-</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Performance Metrics -->
+            <div class="section-card mt-4">
+                <div class="section-card-title">Performance Metrics</div>
+                <div class="grid grid-cols-3 gap-4 text-xs font-mono">
+                    <div class="flex justify-between"><span class="text-slate-400">Page Load</span><span class="text-emerald-400" id="load-time">-</span></div>
+                    <div class="flex justify-between"><span class="text-slate-400">DOM Ready</span><span class="text-emerald-400" id="dom-time">-</span></div>
+                    <div class="flex justify-between"><span class="text-slate-400">Session Start</span><span class="text-emerald-400" id="session-start">-</span></div>
+                </div>
+            </div>
+
+            <!-- Privacy Notice -->
+            <div class="mt-4 p-3 rounded-lg bg-slate-800/30 border border-slate-700/30">
+                <p class="text-[10px] text-slate-500">
+                    <span class="text-amber-400">Privacy Notice:</span> This dashboard collects only standard, privacy-compliant analytics (device type, browser, screen resolution, approximate location, session duration). No personal identities, passwords, precise GPS locations, or private files are collected. All data is stored locally in your browser session.
+                </p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
