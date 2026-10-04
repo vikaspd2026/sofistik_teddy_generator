@@ -523,6 +523,58 @@
             z-index: -1;
             pointer-events: none;
         }
+    
+        /* ===== PREMIUM POLISH LAYER ===== */
+        :root { --ring: rgba(0,212,255,.35); --grad: linear-gradient(135deg,#00d4ff 0%,#6366f1 55%,#a855f7 100%); }
+        html { scroll-behavior: smooth; }
+        body { letter-spacing: .005em; -webkit-font-smoothing: antialiased; }
+        header { backdrop-filter: blur(18px) saturate(1.4); background: linear-gradient(180deg, rgba(2,6,23,.85), rgba(2,6,23,.6)) !important; border-bottom: 1px solid rgba(148,163,184,.10); box-shadow: 0 8px 32px -12px rgba(0,0,0,.6); }
+        .badge { border-radius: 999px !important; letter-spacing: .08em; font-weight: 700; backdrop-filter: blur(6px); }
+        .glass, .viz-panel, .code-panel { border-radius: 20px !important; border: 1px solid rgba(148,163,184,.12) !important;
+            background: linear-gradient(180deg, rgba(15,23,42,.82), rgba(8,13,28,.82)) !important; box-shadow: 0 24px 60px -34px rgba(0,0,0,.9), inset 0 1px 0 rgba(255,255,255,.04); }
+        .section-card { border-radius: 16px !important; border: 1px solid rgba(148,163,184,.10) !important; background: rgba(2,6,23,.45) !important; transition: border-color .25s, transform .25s, box-shadow .25s; }
+        .section-card:hover { border-color: rgba(0,212,255,.30) !important; box-shadow: 0 10px 34px -18px rgba(0,212,255,.45); }
+        .section-card-title { display:flex; align-items:center; gap:8px; font-size: 11px !important; letter-spacing:.14em !important; font-weight: 700; }
+        .section-card-title::before { content:''; width:6px; height:6px; border-radius:2px; background: var(--grad); box-shadow: 0 0 10px rgba(0,212,255,.8); }
+        .input-label { font-size: 10.5px !important; letter-spacing: .06em; text-transform: uppercase; color: #8b9ab3 !important; font-weight: 600; }
+        .input-hq { border-radius: 12px !important; background: rgba(2,6,23,.75) !important; border: 1px solid rgba(148,163,184,.14) !important; transition: border-color .2s, box-shadow .2s, background .2s; font-variant-numeric: tabular-nums; }
+        .input-hq:hover { border-color: rgba(0,212,255,.3) !important; }
+        .input-hq:focus { outline: none; border-color: #00d4ff !important; box-shadow: 0 0 0 3px var(--ring), 0 6px 20px -8px rgba(0,212,255,.5) !important; }
+        .input-hq:disabled { opacity: .55; cursor: not-allowed; background: rgba(15,23,42,.6) !important; }
+        input[type=checkbox] { appearance: none; -webkit-appearance: none; width: 18px; height: 18px; border-radius: 6px; flex: none; border: 1.5px solid rgba(148,163,184,.4); background: rgba(2,6,23,.8); display:grid; place-content:center; transition: all .2s; }
+        input[type=checkbox]::after { content:''; width:9px; height:5px; border-left:2px solid #02111f; border-bottom:2px solid #02111f; transform: rotate(-45deg) scale(0); transition: transform .15s; margin-top:-2px; }
+        input[type=checkbox]:checked { background: var(--grad); border-color: transparent; box-shadow: 0 0 14px rgba(0,212,255,.45); }
+        input[type=checkbox]:checked::after { transform: rotate(-45deg) scale(1); }
+        .viz-title { font-weight: 700; letter-spacing: .14em; }
+        .view-btn { border-radius: 10px !important; backdrop-filter: blur(8px); background: rgba(15,23,42,.7) !important; border: 1px solid rgba(148,163,184,.16) !important; transition: all .2s; }
+        .view-btn:hover { border-color: #00d4ff !important; color:#00d4ff; transform: translateY(-1px); box-shadow: 0 8px 18px -8px rgba(0,212,255,.6); }
+        .btn-generate { border-radius: 14px !important; background: var(--grad) !important; background-size: 160% 160%; box-shadow: 0 14px 40px -12px rgba(99,102,241,.7), inset 0 1px 0 rgba(255,255,255,.25); letter-spacing:.12em; font-weight: 800; transition: transform .2s, box-shadow .2s, background-position .5s; }
+        .btn-generate:hover { background-position: 100% 0; box-shadow: 0 18px 50px -10px rgba(0,212,255,.7), inset 0 1px 0 rgba(255,255,255,.3); }
+        .code-content { font-size: 12px; line-height: 1.7; }
+        .stat-item { padding: 8px 2px; }
+        .custom-scroll::-webkit-scrollbar { width: 6px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: linear-gradient(#00d4ff55,#a855f755); border-radius: 6px; }
+        #iso-legend > div { backdrop-filter: blur(10px); box-shadow: 0 10px 30px -14px rgba(0,0,0,.9); border-radius: 12px !important; }
+
+        /* ===== SPAN BOXES ===== */
+        .span-box { border-radius: 18px; padding: 16px 16px 14px; margin-bottom: 16px; position: relative; overflow: hidden;
+            background: linear-gradient(180deg, rgba(15,23,42,.75), rgba(2,6,23,.6)); border: 1px solid rgba(148,163,184,.14); box-shadow: 0 20px 50px -30px rgba(0,0,0,.9); }
+        .span-box::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; }
+        .span-left::before { background: linear-gradient(#00d4ff,#6366f1); box-shadow: 0 0 18px #00d4ff; }
+        .span-right::before { background: linear-gradient(#22c55e,#14b8a6); box-shadow: 0 0 18px #22c55e; }
+        .span-box-head { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:14px; padding-bottom:12px; border-bottom:1px solid rgba(148,163,184,.1); }
+        .span-box-title { font-family:'Orbitron',sans-serif; font-weight:800; letter-spacing:.14em; font-size:13px; }
+        .span-box-sub { font-size:11px; color:#7c8aa5; margin-top:3px; }
+        .span-prev { width:60px; height:60px; flex:none; border-radius:12px; background:rgba(2,6,23,.7); border:1px solid rgba(148,163,184,.12); display:grid; place-items:center; }
+        .sub-title { display:flex; justify-content:space-between; margin:16px 0 8px; font-size:10.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#a5b4fc; }
+        .sub-title span { color:#64748b; font-weight:600; letter-spacing:.08em; }
+        .span-box .param-grid-2 { margin-top: 4px; }
+        .span-right.single #right-sec-wrap { display:none; }
+        #right-sec-wrap { transition: opacity .25s; }
+        .light-mode header { background: rgba(255,255,255,.8) !important; }
+        .light-mode .glass, .light-mode .viz-panel, .light-mode .code-panel { background: rgba(255,255,255,.88) !important; }
+        .light-mode .section-card { background: rgba(248,250,252,.9) !important; }
+        .light-mode .input-hq { background: #fff !important; color: #0f172a; }
     </style>
 </head>
 <body class="scroll-smooth">
@@ -611,10 +663,8 @@
                     <div class="section-card">
                         <div class="section-card-title">General Bridge Parameters</div>
                         <div class="param-grid-2">
-                            <div>
-                                <label class="input-label">Span Length <span class="input-unit">m</span></label>
-                                <input type="number" id="input-span" value="20" step="1" min="10" max="100" class="input-hq" onchange="updateParam('span', this.value)">
-                            </div>
+                            <div><label class="input-label">Deck Slab Thickness <span class="input-unit">mm</span></label>
+                            <input type="number" id="input-slab" value="250" step="10" min="150" max="400" class="input-hq" onchange="updateParam('slab', this.value)"></div>
                             <div>
                                 <label class="input-label">Num Girders <span class="input-unit">nos</span></label>
                                 <input type="number" id="input-girders" value="4" step="1" min="2" max="8" class="input-hq" onchange="updateParam('girders', this.value)">
@@ -638,90 +688,71 @@
                         </div>
                     </div>
 
-                    <!-- Span Configuration -->
-                    <div class="section-card">
-                        <div class="section-card-title">Span Configuration</div>
-                        <div class="param-grid-2">
-                            <div>
-                                <label class="input-label">Span Length <span class="input-unit">m</span></label>
-                                <input type="number" id="input-span2" value="20" step="1" min="10" max="100" class="input-hq" onchange="syncSpan(this.value)">
-                            </div>
-                            <div>
-                                <label class="input-label">Num Cross Girders <span class="input-unit">nos</span></label>
-                                <input type="number" id="input-ncxg" value="3" step="1" min="1" max="10" class="input-hq" onchange="updateParam('ncxg', this.value)">
-                            </div>
-                            <div>
-                                <label class="input-label">XG Spacing <span class="input-unit">m</span></label>
-                                <div class="input-hq bg-slate-800/60 text-cyan-400 font-bold flex items-center" id="display-xgspacing">5.00</div>
-                            </div>
-                            <div>
-                                <label class="input-label">Deck Slab Thickness <span class="input-unit">mm</span></label>
-                                <input type="number" id="input-slab" value="250" step="10" min="150" max="400" class="input-hq" onchange="updateParam('slab', this.value)">
-                            </div>
-                        </div>
-                    </div>
+                    <!-- RIGHT SPAN BOX -->
+<div class="span-box span-right">
+  <div class="span-box-head"><div><div class="span-box-title" style="color:#22c55e">RIGHT SPAN</div>
+  <div class="span-box-sub">Length, gap, cross girders and section details of the right span</div></div>
+  <div class="span-prev" id="prev-R"></div></div>
+  <div class="space-y-2 mb-3">
+    <label class="flex items-center gap-2 text-xs cursor-pointer" style="color: var(--text-secondary);">
+      <input type="checkbox" id="input-twospan" checked onchange="toggleTwoSpan(this.checked)"><span>Generate two spans (left + right)</span></label>
+    <label id="samesec-row" class="flex items-center gap-2 text-xs cursor-pointer" style="color: var(--text-secondary);">
+      <input type="checkbox" id="input-samesec" checked onchange="toggleSameSec(this.checked)"><span>Right span uses the same sections as the left span</span></label>
+  </div><div class="param-grid-2" id="right-span-wrap">
+    <div><label class="input-label">Right Span Length <span class="input-unit">m</span></label>
+    <input type="number" id="input-spanR" value="20" step="1" min="10" max="100" class="input-hq" onchange="updateParam('spanR', this.value)"></div>
+    <div><label class="input-label">Cross Girders <span class="input-unit">nos</span></label>
+    <input type="number" id="input-ncxgR" value="3" step="1" min="1" max="10" class="input-hq" onchange="updateParam('ncxgR', this.value)"></div>
+    <div><label class="input-label">Gap Between Spans <span class="input-unit">mm</span></label><input type="number" id="input-gap" value="25" step="5" min="5" max="200" class="input-hq" onchange="updateParam('gap', this.value)"></div>
+    <div><label class="input-label">XG Spacing <span class="input-unit">m</span></label>
+    <div class="input-hq bg-slate-800/60 font-bold flex items-center" style="color:#22c55e" id="display-xgspacingR">5.00</div></div>
+  </div><div id="right-sec-wrap">
+  <div class="sub-title">Main Girder Section <span>mm</span></div>
+  <div class="param-grid"><div><label class="input-label">Top Flange Width</label>
+<input type="number" id="input-tfwR" value="150" step="10" min="100" max="500" class="input-hq" onchange="updateParam('tfwR', this.value)"></div><div><label class="input-label">Top Flange Thk</label>
+<input type="number" id="input-tfR" value="20" step="5" min="10" max="50" class="input-hq" onchange="updateParam('tfR', this.value)"></div><div><label class="input-label">Web Height</label>
+<input type="number" id="input-webhR" value="1000" step="50" min="500" max="2000" class="input-hq" onchange="updateParam('webhR', this.value)"></div><div><label class="input-label">Web Thickness</label>
+<input type="number" id="input-webtR" value="20" step="5" min="10" max="50" class="input-hq" onchange="updateParam('webtR', this.value)"></div><div><label class="input-label">Bot Flange Width</label>
+<input type="number" id="input-bbwR" value="600" step="50" min="300" max="1000" class="input-hq" onchange="updateParam('bbwR', this.value)"></div><div><label class="input-label">Bot Flange Thk</label>
+<input type="number" id="input-bbdR" value="40" step="5" min="20" max="80" class="input-hq" onchange="updateParam('bbdR', this.value)"></div></div>
+  <div class="sub-title">Cross Girder Section <span>mm</span></div>
+  <div class="param-grid"><div><label class="input-label">XG Top Flange W</label>
+<input type="number" id="input-xgtfwR" value="300" step="10" min="100" max="500" class="input-hq" onchange="updateParam('xgtfwR', this.value)"></div><div><label class="input-label">XG Top Flange Thk</label>
+<input type="number" id="input-xgtfR" value="20" step="5" min="10" max="50" class="input-hq" onchange="updateParam('xgtfR', this.value)"></div><div><label class="input-label">XG Web Height</label>
+<input type="number" id="input-xgwebhR" value="1000" step="50" min="500" max="2000" class="input-hq" onchange="updateParam('xgwebhR', this.value)"></div><div><label class="input-label">XG Web Thickness</label>
+<input type="number" id="input-xgwebtR" value="16" step="2" min="10" max="40" class="input-hq" onchange="updateParam('xgwebtR', this.value)"></div><div><label class="input-label">XG Bot Flange W</label>
+<input type="number" id="input-xgbbwR" value="300" step="10" min="100" max="500" class="input-hq" onchange="updateParam('xgbbwR', this.value)"></div><div><label class="input-label">XG Bot Flange Thk</label>
+<input type="number" id="input-xgbbdR" value="30" step="5" min="20" max="80" class="input-hq" onchange="updateParam('xgbbdR', this.value)"></div></div></div></div>
 
-                    <!-- Main Girder Parameters -->
-                    <div class="section-card">
-                        <div class="section-card-title">Main Girder Section (mm)</div>
-                        <div class="param-grid">
-                            <div>
-                                <label class="input-label">Top Flange Width</label>
-                                <input type="number" id="input-tfw" value="150" step="10" min="100" max="500" class="input-hq" onchange="updateParam('tfw', this.value)">
-                            </div>
-                            <div>
-                                <label class="input-label">Top Flange Thk</label>
-                                <input type="number" id="input-tf" value="20" step="5" min="10" max="50" class="input-hq" onchange="updateParam('tf', this.value)">
-                            </div>
-                            <div>
-                                <label class="input-label">Web Height</label>
-                                <input type="number" id="input-webh" value="1000" step="50" min="500" max="2000" class="input-hq" onchange="updateParam('webh', this.value)">
-                            </div>
-                            <div>
-                                <label class="input-label">Web Thickness</label>
-                                <input type="number" id="input-webt" value="20" step="5" min="10" max="50" class="input-hq" onchange="updateParam('webt', this.value)">
-                            </div>
-                            <div>
-                                <label class="input-label">Bot Flange Width</label>
-                                <input type="number" id="input-bbw" value="600" step="50" min="300" max="1000" class="input-hq" onchange="updateParam('bbw', this.value)">
-                            </div>
-                            <div>
-                                <label class="input-label">Bot Flange Thk</label>
-                                <input type="number" id="input-bbd" value="40" step="5" min="20" max="80" class="input-hq" onchange="updateParam('bbd', this.value)">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Cross Girder Parameters -->
-                    <div class="section-card">
-                        <div class="section-card-title">Cross Girder Section (mm)</div>
-                        <div class="param-grid">
-                            <div>
-                                <label class="input-label">XG Top Flange W</label>
-                                <input type="number" id="input-xgtfw" value="300" step="10" min="100" max="500" class="input-hq" onchange="updateParam('xgtfw', this.value)">
-                            </div>
-                            <div>
-                                <label class="input-label">XG Top Flange Thk</label>
-                                <input type="number" id="input-xgtf" value="20" step="5" min="10" max="50" class="input-hq" onchange="updateParam('xgtf', this.value)">
-                            </div>
-                            <div>
-                                <label class="input-label">XG Web Height</label>
-                                <input type="number" id="input-xgwebh" value="1000" step="50" min="500" max="2000" class="input-hq" onchange="updateParam('xgwebh', this.value)">
-                            </div>
-                            <div>
-                                <label class="input-label">XG Web Thickness</label>
-                                <input type="number" id="input-xgwebt" value="16" step="2" min="10" max="40" class="input-hq" onchange="updateParam('xgwebt', this.value)">
-                            </div>
-                            <div>
-                                <label class="input-label">XG Bot Flange W</label>
-                                <input type="number" id="input-xgbbw" value="300" step="10" min="100" max="500" class="input-hq" onchange="updateParam('xgbbw', this.value)">
-                            </div>
-                            <div>
-                                <label class="input-label">XG Bot Flange Thk</label>
-                                <input type="number" id="input-xgbbd" value="30" step="5" min="20" max="80" class="input-hq" onchange="updateParam('xgbbd', this.value)">
-                            </div>
-                        </div>
-                    </div>
+                    <!-- LEFT SPAN BOX -->
+<div class="span-box span-left">
+  <div class="span-box-head"><div><div class="span-box-title" style="color:#00d4ff">LEFT SPAN</div>
+  <div class="span-box-sub">Length, cross girders and section details of the left span</div></div>
+  <div class="span-prev" id="prev-L"></div></div><div class="param-grid-2" >
+    <div><label class="input-label">Left Span Length <span class="input-unit">m</span></label>
+    <input type="number" id="input-span" value="20" step="1" min="10" max="100" class="input-hq" onchange="updateParam('span', this.value)"></div>
+    <div><label class="input-label">Cross Girders <span class="input-unit">nos</span></label>
+    <input type="number" id="input-ncxg" value="3" step="1" min="1" max="10" class="input-hq" onchange="updateParam('ncxg', this.value)"></div>
+    
+    <div><label class="input-label">XG Spacing <span class="input-unit">m</span></label>
+    <div class="input-hq bg-slate-800/60 font-bold flex items-center" style="color:#00d4ff" id="display-xgspacing">5.00</div></div>
+  </div><div >
+  <div class="sub-title">Main Girder Section <span>mm</span></div>
+  <div class="param-grid"><div><label class="input-label">Top Flange Width</label>
+<input type="number" id="input-tfw" value="150" step="10" min="100" max="500" class="input-hq" onchange="updateParam('tfw', this.value)"></div><div><label class="input-label">Top Flange Thk</label>
+<input type="number" id="input-tf" value="20" step="5" min="10" max="50" class="input-hq" onchange="updateParam('tf', this.value)"></div><div><label class="input-label">Web Height</label>
+<input type="number" id="input-webh" value="1000" step="50" min="500" max="2000" class="input-hq" onchange="updateParam('webh', this.value)"></div><div><label class="input-label">Web Thickness</label>
+<input type="number" id="input-webt" value="20" step="5" min="10" max="50" class="input-hq" onchange="updateParam('webt', this.value)"></div><div><label class="input-label">Bot Flange Width</label>
+<input type="number" id="input-bbw" value="600" step="50" min="300" max="1000" class="input-hq" onchange="updateParam('bbw', this.value)"></div><div><label class="input-label">Bot Flange Thk</label>
+<input type="number" id="input-bbd" value="40" step="5" min="20" max="80" class="input-hq" onchange="updateParam('bbd', this.value)"></div></div>
+  <div class="sub-title">Cross Girder Section <span>mm</span></div>
+  <div class="param-grid"><div><label class="input-label">XG Top Flange W</label>
+<input type="number" id="input-xgtfw" value="300" step="10" min="100" max="500" class="input-hq" onchange="updateParam('xgtfw', this.value)"></div><div><label class="input-label">XG Top Flange Thk</label>
+<input type="number" id="input-xgtf" value="20" step="5" min="10" max="50" class="input-hq" onchange="updateParam('xgtf', this.value)"></div><div><label class="input-label">XG Web Height</label>
+<input type="number" id="input-xgwebh" value="1000" step="50" min="500" max="2000" class="input-hq" onchange="updateParam('xgwebh', this.value)"></div><div><label class="input-label">XG Web Thickness</label>
+<input type="number" id="input-xgwebt" value="16" step="2" min="10" max="40" class="input-hq" onchange="updateParam('xgwebt', this.value)"></div><div><label class="input-label">XG Bot Flange W</label>
+<input type="number" id="input-xgbbw" value="300" step="10" min="100" max="500" class="input-hq" onchange="updateParam('xgbbw', this.value)"></div><div><label class="input-label">XG Bot Flange Thk</label>
+<input type="number" id="input-xgbbd" value="30" step="5" min="20" max="80" class="input-hq" onchange="updateParam('xgbbd', this.value)"></div></div></div></div>
 
                     <!-- Material Parameters -->
                     <div class="section-card">
@@ -764,6 +795,22 @@
                                 <span class="stat-value text-violet-400" id="display-depth">1060 mm</span>
                             </div>
                             <div class="stat-item">
+                                <span class="stat-label">Right Span Girder Depth</span>
+                                <span class="stat-value text-emerald-400" id="display-depthR">1060 mm</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Total Length (L + gap + R)</span>
+                                <span class="stat-value text-cyan-400" id="display-total">20.00 m</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Carriageway Width (between barriers)</span>
+                                <span class="stat-value text-amber-400" id="display-wc">6.90 m</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">IRC 6 Design Lanes / Reduction</span>
+                                <span class="stat-value text-amber-400" id="display-lanes">2 / 1.00</span>
+                            </div>
+                            <div class="stat-item">
                                 <span class="stat-label">Cross Girder Depth</span>
                                 <span class="stat-value text-emerald-400" id="display-xgdepth">1050 mm</span>
                             </div>
@@ -792,6 +839,7 @@
                 </div>
                 <div class="flex-1 relative" style="min-height: 260px;">
                     <div id="three-container-iso" class="canvas-3d"></div>
+                    <div id="iso-legend" style="position:absolute;top:12px;left:12px;display:flex;flex-direction:column;gap:8px;pointer-events:none;z-index:5;"></div>
                     <div class="view-controls">
                         <button class="view-btn tooltip" data-tip="Reset View" onclick="resetIsoView()">&#8982;</button>
                         <button class="view-btn tooltip" data-tip="Wireframe" onclick="toggleIsoWireframe()">&#9744;</button>
@@ -820,7 +868,7 @@
             <div class="viz-panel flex-1 min-h-[250px] flex flex-col fade-in delay-4" style="flex: 1;">
                 <div class="viz-title">
                     Longitudinal view
-                    <span class="ml-3 px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/30 text-[9px] font-bold text-amber-400 tracking-wide" id="lane-config-badge">AUTO LANE CONFIG · IRC 6:2017</span>
+                    <span class="ml-3 px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/30 text-[9px] font-bold text-amber-400 tracking-wide" id="ll-badge">IRC 6 LIVE LOAD</span>
                     <span class="ml-auto text-[9px] text-slate-500 font-mono">SCALE: AUTO</span>
                 </div>
                 <div class="flex-1 relative" style="min-height: 200px;">
@@ -927,27 +975,64 @@
             ncxg: 3,
             tfw: 150, tf: 20, webh: 1000, webt: 20, bbw: 600, bbd: 40,
             xgtfw: 300, xgtf: 20, xgwebh: 1000, xgwebt: 16, xgbbw: 300, xgbbd: 30,
-            cbload: 10.0, wcload: 1.67
+            cbload: 10.0, wcload: 1.67,
+            twospan: 1, samesec: 1, spanR: 20, ncxgR: 3, gap: 25,
+            tfwR: 150, tfR: 20, webhR: 1000, webtR: 20, bbwR: 600, bbdR: 40,
+            xgtfwR: 300, xgtfR: 20, xgwebhR: 1000, xgwebtR: 16, xgbbwR: 300, xgbbdR: 30
         };
         let params = { ...defaults };
+
+        // ---- Two-span helpers ----
+        function rightSec() {
+            const keys = ['tfw','tf','webh','webt','bbw','bbd','xgtfw','xgtf','xgwebh','xgwebt','xgbbw','xgbbd'];
+            const o = {};
+            keys.forEach(k => o[k] = params.samesec ? params[k] : params[k + 'R']);
+            return o;
+        }
+        const SEC_KEYS = ['tfw','tf','webh','webt','bbw','bbd','xgtfw','xgtf','xgwebh','xgwebt','xgbbw','xgbbd'];
+        // IRC 6:2017 - carriageway, design lanes and multi-lane reduction
+        function irc6Calc() {
+            const cw = (params.girders - 1) * params.spacing + params.ohl + params.ohr;
+            const wc = cw - 2 * (params.cbo + 0.25);                    // clear carriageway between crash barriers
+            let n = wc < 5.3 ? 1 : (wc < 9.6 ? 2 : Math.floor((wc - 9.6) / 3.5) + 3);
+            const rf = n <= 2 ? 1.0 : (n === 3 ? 0.9 : (n === 4 ? 0.8 : 0.75));
+            return { cw, wc, n, rf };
+        }
+        function syncRightFromLeft() {
+            if (!params.samesec) return;
+            SEC_KEYS.forEach(k => {
+                params[k + 'R'] = params[k];
+                const el = document.getElementById('input-' + k + 'R');
+                if (el) el.value = params[k];
+            });
+        }
+        function applyTwoSpanUI() {
+            const ts = !!params.twospan, same = !!params.samesec;
+            document.getElementById('right-span-wrap').style.display = ts ? '' : 'none';
+            document.getElementById('samesec-row').style.display = ts ? '' : 'none';
+            const wrap = document.getElementById('right-sec-wrap');
+            wrap.style.display = ts ? '' : 'none';
+            const rb = document.querySelector('.span-right'); if (rb) { /* box stays visible so the toggle remains reachable */ rb.classList.toggle('single', !ts); }
+            wrap.style.opacity = same ? '0.55' : '1';
+            wrap.querySelectorAll('input').forEach(el => { el.disabled = same; });
+            syncRightFromLeft();
+        }
+        function refreshAll() { updateDisplayValues(); drawAllViews(); update3DModel(); }
+        function toggleTwoSpan(c) { params.twospan = c ? 1 : 0; applyTwoSpanUI(); refreshAll(); }
+        function toggleSameSec(c) { params.samesec = c ? 1 : 0; applyTwoSpanUI(); refreshAll(); }
+        applyTwoSpanUI();
         let generatedScript = '';
         let transverseZoom = 1, longitudinalZoom = 1;
         let transversePan = { x: 0, y: 0 }, longitudinalPan = { x: 0, y: 0 };
 
         function updateParam(key, value) {
             params[key] = parseFloat(value);
-            if (key === 'span') {
-                document.getElementById('input-span2').value = value;
-            }
+            if (params.samesec && SEC_KEYS.includes(key)) syncRightFromLeft();
             updateDisplayValues();
             drawAllViews();
             update3DModel();
         }
 
-        function syncSpan(value) {
-            document.getElementById('input-span').value = value;
-            updateParam('span', value);
-        }
 
         function updateDisplayValues() {
             const cw = ((params.girders-1)*params.spacing + params.ohl + params.ohr).toFixed(2);
@@ -960,129 +1045,21 @@
             document.getElementById('display-depth').textContent = depth + ' mm';
             document.getElementById('display-xgdepth').textContent = xgdepth + ' mm';
             document.getElementById('display-xgspacing').textContent = xgSpacing;
+            const RSx = rightSec();
+            document.getElementById('display-depthR').textContent = (params.twospan ? (RSx.tf + RSx.webh + RSx.bbd) : '-') + (params.twospan ? ' mm' : '');
+            document.getElementById('display-xgspacingR').textContent = (params.spanR / (params.ncxgR + 1)).toFixed(2);
+            const LLd = irc6Calc();
+            document.getElementById('display-wc').textContent = LLd.wc.toFixed(2) + ' m';
+            document.getElementById('display-lanes').textContent = LLd.n + ' / ' + LLd.rf.toFixed(2);
+            const llb = document.getElementById('ll-badge');
+            if (llb) llb.textContent = `IRC 6: ${LLd.n} LANE${LLd.n > 1 ? 'S' : ''} | Wc = ${LLd.wc.toFixed(2)} m | RF = ${LLd.rf.toFixed(2)}`;
+            document.getElementById('display-total').textContent = (params.span + (params.twospan ? params.gap / 1000 + params.spanR : 0)).toFixed(3) + ' m';
             document.getElementById('display-ratio').textContent = ratio + '%';
 
-            const steelWeight = (params.girders * params.span * depth * 0.00000785 * 7850 / 1000).toFixed(1);
+            const RSd = rightSec();
+            const depthR = RSd.tf + RSd.webh + RSd.bbd;
+            const steelWeight = (params.girders * (params.span * depth + (params.twospan ? params.spanR * depthR : 0)) * 0.00000785 * 7850 / 1000).toFixed(1);
             document.getElementById('display-weight').textContent = '~' + steelWeight + ' t';
-
-            const laneBadge = document.getElementById('lane-config-badge');
-            if (laneBadge) {
-                const laneCfg = computeLaneConfig(parseFloat(cw));
-                laneBadge.textContent = `AUTO: ${laneCfg.nl} LANE${laneCfg.nl > 1 ? 'S' : ''} · IRC 6:2017`;
-                laneBadge.title = laneCfg.note || '';
-            }
-        }
-
-        // --- IRC 6:2017 Automatic Lane Configuration ---
-        // Determines number of design lanes from carriageway width (CW) and builds
-        // the LANE/COPY/MAXIMA definitions accordingly. All lane edges are written
-        // as SOFiSTiK expressions referencing #CW so the .dat file self-computes
-        // regardless of downstream parameter edits inside Teddy.
-        function computeLaneConfig(cwNum) {
-            let nl, note = '';
-            if (cwNum < 5.3) { nl = 1; }
-            else if (cwNum < 9.6) { nl = 2; }
-            else if (cwNum < 13.1) { nl = 3; }
-            else if (cwNum < 16.6) { nl = 4; }
-            else if (cwNum < 20.1) { nl = 5; }
-            else { nl = 5; note = 'CW exceeds IRC 6:2017 Table 6 range (20.1m) — capped at 5-lane pattern; verify manually.'; }
-
-            const fmt = (v) => v.toFixed(2);
-            const classALeft  = (i) => ({ yla: `-((#CW/2)-${fmt(0.15 + 3.5*i)})`, yra: `-((#CW/2)-${fmt(2.45 + 3.5*i)})` });
-            const classARight = (i) => ({ yra: `((#CW/2)-${fmt(0.15 + 3.5*i)})`,  yla: `((#CW/2)-${fmt(2.45 + 3.5*i)})`  });
-            const r70Right    = ()  => ({ yra: `((#CW/2)-1.20)`, yla: `((#CW/2)-3.99)` });
-            const r70Left     = ()  => ({ yla: `-((#CW/2)-1.20)`, yra: `((#CW/2)-3.99)` }); // sign convention intentional (mirrors office master template)
-            const companionR  = (j) => ({ yra: `((#CW/2)-${fmt(5.19 + 3.5*j)})`, yla: `((#CW/2)-${fmt(7.49 + 3.5*j)})` });
-            const companionL  = (j) => ({ yla: `-((#CW/2)-${fmt(5.19 + 3.5*j)})`, yra: `-((#CW/2)-${fmt(7.49 + 3.5*j)})` });
-
-            let laneCounter = 0;
-            const laneDefs = [];
-            function nextLane(edges) {
-                laneCounter++;
-                const name = `A1.${laneCounter}`;
-                laneDefs.push({ name, ...edges });
-                return name;
-            }
-
-            // Combo A (series 1000+): all NL Class-A lanes, packed from left kerb
-            const comboA = { series: 1000, title: `${nl} CLA LEFT`, suppTitle: `${nl} CLASS A LEFT`, refs: [] };
-            for (let i = 0; i < nl; i++) comboA.refs.push({ ref: nextLane(classALeft(i)), vehicle: 301 });
-
-            // Combo B (series 2000+): 70R right + (NL-2, min 0) Class-A companions packed further right
-            const comboB = { series: 2000, title: '70R RIGHT', suppTitle: '70R-RIGHT', refs: [] };
-            comboB.refs.push({ ref: nextLane(r70Right()), vehicle: 302 });
-            const compB = Math.max(0, nl - 2);
-            for (let j = 0; j < compB; j++) comboB.refs.push({ ref: nextLane(companionR(j)), vehicle: 301 });
-            if (compB > 0) { comboB.title = `70R RIGHT + ${compB} CLA`; comboB.suppTitle = `70R-RIGHT + ${compB} CLA`; }
-
-            // Combo C (series 3000+): 70R left + (NL-2, min 0) Class-A companions packed further left
-            const comboC = { series: 3000, title: '70R LEFT', suppTitle: '70R-LEFT', refs: [] };
-            comboC.refs.push({ ref: nextLane(r70Left()), vehicle: 302 });
-            const compC = Math.max(0, nl - 2);
-            for (let j = 0; j < compC; j++) comboC.refs.push({ ref: nextLane(companionL(j)), vehicle: 301 });
-            if (compC > 0) { comboC.title = `70R LEFT + ${compC} CLA`; comboC.suppTitle = `70R-LEFT + ${compC} CLA`; }
-
-            const combos = [comboA, comboB, comboC];
-
-            // Combo D (series 4000+): two 70R trains, opposite sides — only when carriageway supports 4+ lanes
-            if (nl >= 4) {
-                const comboD = { series: 4000, title: '70R DUAL LANE', suppTitle: '70R-DUAL LANE', refs: [] };
-                comboD.refs.push({ ref: nextLane(r70Right()), vehicle: 302 });
-                comboD.refs.push({ ref: nextLane(r70Left()), vehicle: 302 });
-                combos.push(comboD);
-            }
-
-            // Combo E (series 5000+): all NL Class-A lanes, packed from right kerb (mirror of Combo A)
-            const comboE = { series: 5000, title: `${nl} CLA RIGHT`, suppTitle: `${nl} CLASS A RIGHT`, refs: [] };
-            for (let i = 0; i < nl; i++) comboE.refs.push({ ref: nextLane(classARight(i)), vehicle: 301 });
-            combos.push(comboE);
-
-            return { nl, note, laneDefs, combos };
-        }
-
-        // Renders the LANE NO / LOOP / COPY block (+PROG SOFILOAD urs:24.2 body)
-        function renderLaneAndLoopBlock(laneCfg) {
-            let out = 'LANE NO A1\n';
-            for (const l of laneCfg.laneDefs) {
-                out += `LANE NO ${l.name} YLA ${l.yla} YRA ${l.yra}\n`;
-            }
-            out += '\n';
-            const loopBlocks = laneCfg.combos.map(combo => {
-                let block = `LOOP#1 #LASS\n`;
-                block += `LC ${combo.series}+#1 TYPE Q GAMU 1.00 GAMF 1.00 TITL '${combo.title}'\n`;
-                for (const r of combo.refs) {
-                    block += `COPY NO ${r.vehicle} REF ${r.ref} DX #1\n`;
-                }
-                block += `ENDLOOP`;
-                return block;
-            });
-            out += loopBlocks.join('\n\n');
-            return out;
-        }
-
-        // Renders the comb/supp envelope block (+prog maxima urs:104.1 body)
-        function renderMaximaBlock(laneCfg) {
-            const lastSeries = laneCfg.combos[laneCfg.combos.length - 1].series;
-            let combLines = `comb 1 extr stan base 11000 type none\n    lc (1000 ${lastSeries}+#LASS 1) type A1\n`;
-            laneCfg.combos.forEach((combo, idx) => {
-                const combNum = idx + 2;
-                const base = combNum * 10000 + 1000;
-                combLines += `comb ${combNum} extr stan base ${base} type none\n    lc (${combo.series} ${combo.series}+#LASS 1) type A1\n`;
-            });
-
-            let suppLines = `supp comb 1 extr mami etyp beam my titl "All LL CASES"\n`;
-            suppLines += `supp comb 1 extr mami etyp beam vz titl "All LL CASES"\n`;
-            suppLines += `supp comb 1 extr mami etyp node pz titl "All LL CASES"\n`;
-            suppLines += `supp comb 1 extr mami etyp auto uz titl "All LL CASES"\n`;
-            laneCfg.combos.forEach((combo, idx) => {
-                const combNum = idx + 2;
-                suppLines += `\nsupp comb ${combNum} extr mami etyp beam my titl "${combo.suppTitle}"\n`;
-                suppLines += `supp comb ${combNum} extr mami etyp beam vz titl "${combo.suppTitle}"\n`;
-                suppLines += `supp comb ${combNum} extr mami etyp node pz titl "${combo.suppTitle}"\n`;
-                suppLines += `supp comb ${combNum} extr mami etyp auto uz titl "${combo.suppTitle}"\n`;
-            });
-
-            return `${combLines}\n${suppLines}`.trimEnd();
         }
 
         function resetParams() {
@@ -1091,7 +1068,9 @@
                 const el = document.getElementById(`input-${key}`);
                 if(el) el.value = defaults[key];
             });
-            document.getElementById('input-span2').value = defaults.span;
+            document.getElementById('input-twospan').checked = !!defaults.twospan;
+            document.getElementById('input-samesec').checked = !!defaults.samesec;
+            applyTwoSpanUI();
             transverseZoom = 1; longitudinalZoom = 1;
             transversePan = { x: 0, y: 0 }; longitudinalPan = { x: 0, y: 0 };
             updateDisplayValues();
@@ -1100,64 +1079,6 @@
         }
 
         function loadDefaults() { resetParams(); }
-
-        // --- 3D Dimension Annotation Helpers ---
-        function createTextSprite(message, colorHex = '#00d4ff') {
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-            const fontSize = 64;
-            ctx.font = `bold ${fontSize}px 'Segoe UI', Arial, sans-serif`;
-            const textWidth = ctx.measureText(message).width;
-            canvas.width = textWidth + 48;
-            canvas.height = fontSize + 32;
-
-            ctx.font = `bold ${fontSize}px 'Segoe UI', Arial, sans-serif`;
-            ctx.fillStyle = 'rgba(1, 6, 18, 0.82)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.strokeStyle = colorHex;
-            ctx.lineWidth = 3;
-            ctx.strokeRect(1.5, 1.5, canvas.width - 3, canvas.height - 3);
-            ctx.fillStyle = colorHex;
-            ctx.textBaseline = 'middle';
-            ctx.textAlign = 'center';
-            ctx.fillText(message, canvas.width / 2, canvas.height / 2);
-
-            const texture = new THREE.CanvasTexture(canvas);
-            texture.minFilter = THREE.LinearFilter;
-            const spriteMat = new THREE.SpriteMaterial({ map: texture, transparent: true, depthTest: false });
-            const sprite = new THREE.Sprite(spriteMat);
-            const scale = 0.0068;
-            sprite.scale.set(canvas.width * scale, canvas.height * scale, 1);
-            sprite.renderOrder = 999;
-            return sprite;
-        }
-
-        // Draws an engineering-style dimension: extension lines from the model edge,
-        // an offset dimension line with arrowheads, and a floating text label.
-        function addDimensionLine(group, modelP1, modelP2, offsetDir, offsetLen, label, colorHex = '#00d4ff') {
-            const color = new THREE.Color(colorHex);
-            const off = offsetDir.clone().normalize().multiplyScalar(offsetLen);
-            const dimP1 = modelP1.clone().add(off);
-            const dimP2 = modelP2.clone().add(off);
-
-            const mat = new THREE.LineBasicMaterial({ color });
-
-            const ext1 = new THREE.Line(new THREE.BufferGeometry().setFromPoints([modelP1, dimP1]), mat);
-            const ext2 = new THREE.Line(new THREE.BufferGeometry().setFromPoints([modelP2, dimP2]), mat);
-            const dimLine = new THREE.Line(new THREE.BufferGeometry().setFromPoints([dimP1, dimP2]), mat);
-            group.add(ext1, ext2, dimLine);
-
-            const fullLen = dimP1.distanceTo(dimP2);
-            const dir = dimP2.clone().sub(dimP1).normalize();
-            const arrowLen = Math.min(0.8, Math.max(0.25, fullLen * 0.06));
-            const arrow1 = new THREE.ArrowHelper(dir, dimP1, arrowLen, color.getHex(), arrowLen * 0.55, arrowLen * 0.35);
-            const arrow2 = new THREE.ArrowHelper(dir.clone().negate(), dimP2, arrowLen, color.getHex(), arrowLen * 0.55, arrowLen * 0.35);
-            group.add(arrow1, arrow2);
-
-            const sprite = createTextSprite(label, colorHex);
-            sprite.position.copy(dimP1.clone().lerp(dimP2, 0.5)).add(offsetDir.clone().normalize().multiplyScalar(offsetLen * 0.35));
-            group.add(sprite);
-        }
 
         // --- 3D Three.js Setup ---
         let scene, camera, renderer, controls;
@@ -1185,7 +1106,7 @@
             controls.enableDamping = true;
             controls.dampingFactor = 0.05;
             controls.minDistance = 10;
-            controls.maxDistance = 100;
+            controls.maxDistance = 250;
 
             const ambientLight = new THREE.AmbientLight(0x606a75, 0.9);
             scene.add(ambientLight);
@@ -1202,13 +1123,12 @@
             gridHelper = new THREE.GridHelper(50, 50, 0x1e293b, 0x0f172a);
             scene.add(gridHelper);
 
-            const axesHelper = new THREE.AxesHelper(5);
-            scene.add(axesHelper);
 
             bridgeGroup = new THREE.Group();
             scene.add(bridgeGroup);
 
             update3DModel();
+            resetIsoView();
             animate3D();
         }
 
@@ -1236,87 +1156,109 @@
                 transparent: true, opacity: 0.85, wireframe: isWireframe
             });
             const bearingMat = new THREE.MeshStandardMaterial({ color: 0xf59e0b, metalness: 0.8, roughness: 0.2 });
+            const girderMatR = new THREE.MeshStandardMaterial({
+                color: 0x9fe3c0, metalness: 0.6, roughness: 0.25,
+                emissive: 0x1d4d38, emissiveIntensity: 0.5,
+                transparent: true, opacity: 0.98, wireframe: isWireframe
+            });
+            const xgMatR = new THREE.MeshStandardMaterial({
+                color: 0x9fe3c0, metalness: 0.6, roughness: 0.25,
+                emissive: 0x1d4d38, emissiveIntensity: 0.5,
+                transparent: true, opacity: 0.85, wireframe: isWireframe
+            });
 
-            const girderDepth = (params.tf + params.webh + params.bbd) / 1000;
+            const buildSpan = (x0, L, S, ncxg, gMat, xMat, tag, Lnum) => {
+                const girderDepth = (S.tf + S.webh + S.bbd) / 1000;
+                const xc = x0 + L / 2;
+                for (let i = 0; i < params.girders; i++) {
+                    const yPos = -halfW + params.ohl + i * params.spacing;
+                    const web = new THREE.Mesh(new THREE.BoxGeometry(L, girderDepth, S.webt / 1000), gMat);
+                    web.position.set(xc, -girderDepth / 2, yPos); web.castShadow = true; bridgeGroup.add(web);
+                    const tf = new THREE.Mesh(new THREE.BoxGeometry(L, S.tf / 1000, S.tfw / 1000), gMat);
+                    tf.position.set(xc, -S.tf / 2000, yPos); bridgeGroup.add(tf);
+                    const bf = new THREE.Mesh(new THREE.BoxGeometry(L, S.bbd / 1000, S.bbw / 1000), gMat);
+                    bf.position.set(xc, -girderDepth + S.bbd / 2000, yPos); bridgeGroup.add(bf);
+                    const bGeom = new THREE.CylinderGeometry(0.15, 0.15, 0.1, 16);
+                    const b1 = new THREE.Mesh(bGeom, bearingMat); b1.position.set(x0 + params.prj, -girderDepth - 0.05, yPos); bridgeGroup.add(b1);
+                    const b2 = new THREE.Mesh(bGeom, bearingMat); b2.position.set(x0 + L - params.prj, -girderDepth - 0.05, yPos); bridgeGroup.add(b2);
+                }
+                const lbl = makeLabel(`${tag}  L = ${Lnum} m`, gMat === girderMat ? '#00d4ff' : '#22c55e');
+                lbl.position.set(xc, 0.9, halfW + 2.2); bridgeGroup.add(lbl);
+                const slab = new THREE.Mesh(new THREE.BoxGeometry(L, params.slab / 1000, totalW), slabMat);
+                slab.position.set(xc, 0, 0); bridgeGroup.add(slab);
 
-            for(let i = 0; i < params.girders; i++) {
-                const yPos = -halfW + params.ohl + i * params.spacing;
+                const xgDepth = (S.xgtf + S.xgwebh + S.xgbbd) / 1000;
+                for (let i = 1; i <= ncxg; i++) {
+                    const xPos = x0 + L * i / (ncxg + 1);
+                    const w1 = new THREE.Mesh(new THREE.BoxGeometry(S.xgwebt / 1000, xgDepth, totalW), xMat);
+                    w1.position.set(xPos, -xgDepth / 2, 0); bridgeGroup.add(w1);
+                    const t1 = new THREE.Mesh(new THREE.BoxGeometry(S.xgtfw / 1000, S.xgtf / 1000, totalW), xMat);
+                    t1.position.set(xPos, -S.xgtf / 2000, 0); bridgeGroup.add(t1);
+                    const f1 = new THREE.Mesh(new THREE.BoxGeometry(S.xgbbw / 1000, S.xgbbd / 1000, totalW), xMat);
+                    f1.position.set(xPos, -xgDepth + S.xgbbd / 2000, 0); bridgeGroup.add(f1);
+                }
+            };
+            const gapReal = params.gap / 1000;
+            const gapVis = Math.max(gapReal, 0.18);          // drawn wider so the separation is visible
+            const x2 = params.span + gapVis;
+            buildSpan(0, params.span, params, params.ncxg, girderMat, xgMat, 'LEFT SPAN', params.span);
+            if (params.twospan) buildSpan(x2, params.spanR, rightSec(), params.ncxgR, girderMatR, xgMatR, 'RIGHT SPAN', params.spanR);
+            const T = params.span + (params.twospan ? gapVis + params.spanR : 0);
 
-                const webGeom = new THREE.BoxGeometry(params.span, girderDepth, params.webt / 1000);
-                const web = new THREE.Mesh(webGeom, girderMat);
-                web.position.set(params.span / 2, -girderDepth / 2, yPos);
-                web.castShadow = true;
-                bridgeGroup.add(web);
-
-                const tfGeom = new THREE.BoxGeometry(params.span, params.tf / 1000, params.tfw / 1000);
-                const tf = new THREE.Mesh(tfGeom, girderMat);
-                tf.position.set(params.span / 2, -params.tf / 2000, yPos);
-                bridgeGroup.add(tf);
-
-                const bfGeom = new THREE.BoxGeometry(params.span, params.bbd / 1000, params.bbw / 1000);
-                const bf = new THREE.Mesh(bfGeom, girderMat);
-                bf.position.set(params.span / 2, -girderDepth + params.bbd / 2000, yPos);
-                bridgeGroup.add(bf);
-
-                const bearingGeom = new THREE.CylinderGeometry(0.15, 0.15, 0.1, 16);
-                const bearing1 = new THREE.Mesh(bearingGeom, bearingMat);
-                bearing1.position.set(params.prj, -girderDepth - 0.05, yPos);
-                bridgeGroup.add(bearing1);
-
-                const bearing2 = new THREE.Mesh(bearingGeom, bearingMat);
-                bearing2.position.set(params.span - params.prj, -girderDepth - 0.05, yPos);
-                bridgeGroup.add(bearing2);
+            if (params.twospan) {
+                // dark open joint between the two decks (no solid block)
+                const jx = params.span + gapVis / 2;
+                const jm = new THREE.Mesh(new THREE.BoxGeometry(gapVis * 0.9, 0.012, totalW),
+                    new THREE.MeshBasicMaterial({ color: 0x020617 }));
+                jm.position.set(jx, params.slab / 2000 + 0.006, 0); bridgeGroup.add(jm);
+                const stem = new THREE.Mesh(new THREE.BoxGeometry(0.03, 2.4, 0.03), new THREE.MeshBasicMaterial({ color: 0xf43f5e }));
+                stem.position.set(jx, 1.2, -halfW - 0.2); bridgeGroup.add(stem);
+                const gl = makeLabel(`GAP ${params.gap} mm`, '#f43f5e'); gl.position.set(jx, 3.0, -halfW - 0.2); bridgeGroup.add(gl);
             }
+            // A1 axis line (flush with deck) + label parked beyond the start of the deck
+            const a1 = new THREE.Mesh(new THREE.BoxGeometry(T, 0.04, 0.04), new THREE.MeshBasicMaterial({ color: 0xf59e0b }));
+            a1.position.set(T / 2, params.slab / 2000 + 0.03, 0); bridgeGroup.add(a1);
+            const al = makeLabel('A1 VEHICLE AXIS  \u2192', '#f59e0b'); al.position.set(-5.5, 0.6, 0); bridgeGroup.add(al);
 
-            const slabGeom = new THREE.BoxGeometry(params.span, params.slab / 1000, totalW);
-            const slab = new THREE.Mesh(slabGeom, slabMat);
-            slab.position.set(params.span / 2, 0, 0);
-            bridgeGroup.add(slab);
+            if (controls) controls.target.set(T / 2, -1.2, 0);
+            if (gridHelper) gridHelper.position.x = T / 2;
+            updateIsoLegend();
+        }
 
-            const xgDepth = (params.xgtf + params.xgwebh + params.xgbbd) / 1000;
-            for(let i = 1; i <= params.ncxg; i++) {
-                const xPos = params.span * i / (params.ncxg + 1);
+        function makeLabel(text, color) {
+            const c = document.createElement('canvas'); c.width = 512; c.height = 96;
+            const g = c.getContext('2d');
+            g.font = 'bold 34px "JetBrains Mono", monospace'; g.textAlign = 'center'; g.textBaseline = 'middle';
+            g.fillStyle = 'rgba(2,6,23,0.7)'; g.fillRect(0, 12, 512, 72);
+            g.fillStyle = color; g.fillText(text, 256, 48);
+            const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(c), depthTest: false, transparent: true }));
+            sp.scale.set(9.5, 1.8, 1); sp.renderOrder = 10;
+            return sp;
+        }
 
-                const xgWebGeom = new THREE.BoxGeometry(params.xgwebt / 1000, xgDepth, totalW);
-                const xgWeb = new THREE.Mesh(xgWebGeom, xgMat);
-                xgWeb.position.set(xPos, -xgDepth / 2, 0);
-                bridgeGroup.add(xgWeb);
+        function sectionSVG(S, col) {
+            const D = S.tf + S.webh + S.bbd, W = Math.max(S.tfw, S.bbw);
+            const k = 54 / Math.max(D, W);
+            const cx = 30, f = v => (v * k).toFixed(1);
+            const pts = [[-S.tfw/2,0],[S.tfw/2,0],[S.tfw/2,S.tf],[S.webt/2,S.tf],[S.webt/2,S.tf+S.webh],[S.bbw/2,S.tf+S.webh],[S.bbw/2,D],[-S.bbw/2,D],[-S.bbw/2,S.tf+S.webh],[-S.webt/2,S.tf+S.webh],[-S.webt/2,S.tf],[-S.tfw/2,S.tf]]
+                .map(p => (cx + p[0] * k).toFixed(1) + ',' + (3 + p[1] * k).toFixed(1)).join(' ');
+            return `<svg width="60" height="60" viewBox="0 0 60 60"><polygon points="${pts}" fill="${col}" fill-opacity="0.35" stroke="${col}" stroke-width="1.2"/></svg>`;
+        }
 
-                const xgTfGeom = new THREE.BoxGeometry(params.xgtfw / 1000, params.xgtf / 1000, totalW);
-                const xgTf = new THREE.Mesh(xgTfGeom, xgMat);
-                xgTf.position.set(xPos, -params.xgtf / 2000, 0);
-                bridgeGroup.add(xgTf);
-
-                const xgBfGeom = new THREE.BoxGeometry(params.xgbbw / 1000, params.xgbbd / 1000, totalW);
-                const xgBf = new THREE.Mesh(xgBfGeom, xgMat);
-                xgBf.position.set(xPos, -xgDepth + params.xgbbd / 2000, 0);
-                bridgeGroup.add(xgBf);
-            }
-
-            // --- Dimension callouts: span length & total carriageway width ---
-            const dimY = -girderDepth - 0.35;
-
-            // Span length — along X, offset out past the near (front) edge of the deck
-            addDimensionLine(
-                bridgeGroup,
-                new THREE.Vector3(0, dimY, -halfW),
-                new THREE.Vector3(params.span, dimY, -halfW),
-                new THREE.Vector3(0, 0, -1),
-                1.5,
-                `SPAN = ${params.span.toFixed(2)} m`,
-                '#f59e0b'
-            );
-
-            // Total carriageway width — along Z, offset out past the far (end) edge of the deck
-            addDimensionLine(
-                bridgeGroup,
-                new THREE.Vector3(params.span, dimY, -halfW),
-                new THREE.Vector3(params.span, dimY, halfW),
-                new THREE.Vector3(1, 0, 0),
-                1.5,
-                `CW = ${totalW.toFixed(2)} m`,
-                '#00d4ff'
-            );
+        function updateIsoLegend() {
+            const el = document.getElementById('iso-legend');
+            if (!el) return;
+            const card = (title, col, L, S, ncxg) => `<div style="background:rgba(2,6,23,0.82);border:1px solid ${col};border-radius:8px;padding:6px 8px;display:flex;gap:8px;align-items:center;font:10px 'JetBrains Mono',monospace;color:#cbd5e1;">
+                ${sectionSVG(S, col)}
+                <div><div style="color:${col};font-weight:700;">${title} - L = ${L} m</div>
+                <div>TF ${S.tfw}x${S.tf} | WEB ${S.webh}x${S.webt} | BF ${S.bbw}x${S.bbd}</div>
+                <div>XG ${S.xgtfw}x${S.xgtf} / ${S.xgwebh}x${S.xgwebt} / ${S.xgbbw}x${S.xgbbd} (${ncxg} nos)</div></div></div>`;
+            let h = card('LEFT SPAN', '#00d4ff', params.span, params, params.ncxg);
+            if (params.twospan) h += card('RIGHT SPAN', '#22c55e', params.spanR, rightSec(), params.ncxgR);
+            el.innerHTML = h;
+            const pl = document.getElementById('prev-L'), pr = document.getElementById('prev-R');
+            if (pl) pl.innerHTML = sectionSVG(params, '#00d4ff');
+            if (pr) pr.innerHTML = params.twospan ? sectionSVG(rightSec(), '#22c55e') : '';
         }
 
         function animate3D() {
@@ -1327,7 +1269,9 @@
 
         function resetIsoView() {
             camera.position.set(30, 25, 30);
-            camera.lookAt(params.span / 2, 0, 0);
+            const T = params.span + (params.twospan ? params.gap / 1000 + params.spanR : 0);
+            camera.position.set(T / 2 + T * 0.2, 7 + T * 0.22, T * 0.68 + 8);
+            controls.target.set(T / 2, 0, 0); controls.update();
         }
 
         function toggleIsoWireframe() {
@@ -1517,6 +1461,25 @@
             }
             ctxT.shadowBlur = 0;
 
+            // Right-span section overlay (dashed green) + legend
+            if (params.twospan) {
+                const R = rightSec();
+                const gDR = (R.tf + R.webh + R.bbd) / 10;
+                ctxT.save();
+                ctxT.strokeStyle = '#22c55e'; ctxT.lineWidth = 1.5; ctxT.setLineDash([4, 3]);
+                for (let i = 0; i < params.girders; i++) {
+                    const gx = startTX + i * gsp, y0 = transY - 25 + slabH;
+                    ctxT.strokeRect(gx - Math.max(R.webt / 10, 2) / 2, y0, Math.max(R.webt / 10, 2), gDR);
+                    ctxT.strokeRect(gx - R.tfw / 20, y0 - 2, R.tfw / 10, 2);
+                    ctxT.strokeRect(gx - R.bbw / 20, y0 + gDR - 2, R.bbw / 10, 2);
+                }
+                ctxT.setLineDash([]);
+                ctxT.font = 'bold 10px "JetBrains Mono", monospace';
+                ctxT.fillStyle = '#00d4ff'; ctxT.fillText(`LEFT SPAN (solid)  D=${params.tf + params.webh + params.bbd}mm`, 14, h - 34);
+                ctxT.fillStyle = '#22c55e'; ctxT.fillText(`RIGHT SPAN (dashed)  D=${R.tf + R.webh + R.bbd}mm${params.samesec ? '  [same]' : ''}`, 14, h - 18);
+                ctxT.restore();
+            }
+
             // === DIMENSIONS WITH PROPER SPACING - NO OVERLAPS ===
 
             // Top: Carriageway width (above structure)
@@ -1534,19 +1497,14 @@
                 drawDimLine(ctxT, startTX + i*gsp, dimY, startTX + (i+1)*gsp, dimY, `${params.spacing}m`, '#a855f7', {pad: 18});
             }
 
-            // Bottom row: Overhangs (also shown below girder spacing for completeness)
-            const overhangY = transY + 42 + (params.girders-1) * 22 + 20;
-            drawDimLine(ctxT, startTX - ohlPx, overhangY, startTX, overhangY, `${params.ohl}m`, '#22c55e', {pad: 16});
-            const rightOverhangY = overhangY + 22;
-            drawDimLine(ctxT, rg, rightOverhangY, rg + ohrPx, rightOverhangY, `${params.ohr}m`, '#22c55e', {pad: 16});
 
             // Right side: Girder depth (moved further right to avoid overlap with overhang)
             const ad = params.tf + params.webh + params.bbd;
-            const depthX = rg + Math.max(bfW/2, ohrPx) + 32;
-            drawDimLine(ctxT, depthX, transY - 25 + slabH - 2, depthX, transY - 25 + slabH + gDepth, `D=${ad}mm`, '#f59e0b', {pad: 14});
+            const depthX = rg + Math.max(bfW/2, ohrPx) + 46;
+            drawDimLine(ctxT, depthX, transY - 25 + slabH + 6, depthX, transY - 25 + slabH + gDepth, `D=${ad}mm`, '#f59e0b', {pad: 14});
 
             // Left side: Slab thickness
-            drawDimLine(ctxT, startTX - ohlPx - 22, transY - 25, startTX - ohlPx - 22, transY - 25 + slabH, `${params.slab}mm`, '#f59e0b', {pad: 12});
+            drawDimLine(ctxT, depthX, transY - 25, depthX, transY - 25 + slabH, `${params.slab}mm`, '#f59e0b', {pad: 12});
         }
 
         function drawLongitudinal() {
@@ -1562,91 +1520,82 @@
             for(let i=0; i<h; i+=25) { ctxL.beginPath(); ctxL.moveTo(0,i); ctxL.lineTo(w,i); ctxL.stroke(); }
 
             const margin = 30;
-            const longScale = (w - margin * 2) / (params.span * 1.12) * longitudinalZoom;
+            const TS = !!params.twospan;
+            const gapM = params.gap / 1000;
+            const T = params.span + (TS ? gapM + params.spanR : 0);
+            const longScale = (w - margin * 2) / (T * 1.12) * longitudinalZoom;
             const girderY = h / 2 + 20 + longitudinalPan.y;
-            const leftSX = margin + params.span * longScale * 0.06 + longitudinalPan.x;
-            const rightSX = leftSX + params.span * longScale;
-
-            // Ground line
-            ctxL.strokeStyle = isDarkMode ? 'rgba(148,163,184,0.15)' : 'rgba(148,163,184,0.3)';
-            ctxL.beginPath();
-            ctxL.moveTo(margin, girderY + 20);
-            ctxL.lineTo(w - margin, girderY + 20);
-            ctxL.stroke();
-
-            // Bearing triangles
-            ctxL.fillStyle = '#475569';
-            ctxL.beginPath(); ctxL.moveTo(leftSX-7, girderY+20); ctxL.lineTo(leftSX+7, girderY+20); ctxL.lineTo(leftSX, girderY+5); ctxL.fill();
-            ctxL.beginPath(); ctxL.moveTo(rightSX-7, girderY+20); ctxL.lineTo(rightSX+7, girderY+20); ctxL.lineTo(rightSX, girderY+5); ctxL.fill();
-
-            // Main girder line with glow
-            ctxL.strokeStyle = '#00d4ff';
-            ctxL.lineWidth = 3;
-            ctxL.shadowBlur = 12;
-            ctxL.shadowColor = 'rgba(0, 212, 255, 0.25)';
-            ctxL.beginPath();
-            ctxL.moveTo(leftSX, girderY);
-            ctxL.lineTo(rightSX, girderY);
-            ctxL.stroke();
-
-            // Deck slab
+            const startSX = margin + T * longScale * 0.06 + longitudinalPan.x;
+            const extraPx = TS ? Math.max(0, 18 - gapM * longScale) : 0;   // draw the gap wide enough to see
+            const endSX = startSX + T * longScale + extraPx;
+            let leftEnd = startSX, rightStart = startSX;
             const slabT = params.slab / 10;
-            ctxL.fillStyle = 'rgba(168, 85, 247, 0.18)';
-            ctxL.fillRect(leftSX, girderY - slabT, rightSX - leftSX, slabT);
-            ctxL.strokeStyle = '#a855f7';
-            ctxL.lineWidth = 1;
-            ctxL.strokeRect(leftSX, girderY - slabT, rightSX - leftSX, slabT);
+            const txtCol = isDarkMode ? '#94a3b8' : '#475569';
 
-            // Cross-girders with clear labels
-            for(let i=1; i<=params.ncxg; i++) {
-                const cx = leftSX + (rightSX - leftSX) * (i / (params.ncxg + 1));
-                ctxL.strokeStyle = 'rgba(0, 212, 255, 0.5)';
-                ctxL.lineWidth = 1.5;
-                ctxL.beginPath();
-                ctxL.moveTo(cx, girderY);
-                ctxL.lineTo(cx, girderY + 12);
-                ctxL.stroke();
+            ctxL.strokeStyle = isDarkMode ? 'rgba(148,163,184,0.15)' : 'rgba(148,163,184,0.3)';
+            ctxL.beginPath(); ctxL.moveTo(margin, girderY + 20); ctxL.lineTo(w - margin, girderY + 20); ctxL.stroke();
 
+            const spansL = [{ x0: 0, L: params.span, n: params.ncxg, pre: '', col: '#00d4ff', glow: 'rgba(0,212,255,0.25)', tag: TS ? 'LEFT SPAN' : 'SPAN' }];
+            if (TS) spansL.push({ x0: params.span + gapM, L: params.spanR, n: params.ncxgR, pre: 'R', col: '#22c55e', glow: 'rgba(34,197,94,0.25)', tag: 'RIGHT SPAN' });
+
+            spansL.forEach((s, si) => {
+                const lx = startSX + s.x0 * longScale + (si > 0 ? extraPx : 0);
+                const rx = lx + s.L * longScale;
+                if (si === 0) leftEnd = rx; else rightStart = lx;
+
+                ctxL.fillStyle = '#475569';
+                [lx + params.prj * longScale, rx - params.prj * longScale].forEach(px => { ctxL.beginPath(); ctxL.moveTo(px - 7, girderY + 20); ctxL.lineTo(px + 7, girderY + 20); ctxL.lineTo(px, girderY + 5); ctxL.fill(); });
+
+                ctxL.strokeStyle = s.col; ctxL.lineWidth = 3; ctxL.shadowBlur = 12; ctxL.shadowColor = s.glow;
+                ctxL.beginPath(); ctxL.moveTo(lx, girderY); ctxL.lineTo(rx, girderY); ctxL.stroke();
+
+                ctxL.fillStyle = 'rgba(168,85,247,0.18)'; ctxL.fillRect(lx, girderY - slabT, rx - lx, slabT);
+                ctxL.strokeStyle = '#a855f7'; ctxL.lineWidth = 1; ctxL.strokeRect(lx, girderY - slabT, rx - lx, slabT);
+
+                for (let i = 1; i <= s.n; i++) {
+                    const cx = lx + (rx - lx) * (i / (s.n + 1));
+                    ctxL.shadowBlur = 0;
+                    ctxL.strokeStyle = s.col; ctxL.globalAlpha = 0.5; ctxL.lineWidth = 1.5;
+                    ctxL.beginPath(); ctxL.moveTo(cx, girderY); ctxL.lineTo(cx, girderY + 12); ctxL.stroke();
+                    ctxL.globalAlpha = 1;
+                    ctxL.fillStyle = txtCol; ctxL.font = 'bold 9px "JetBrains Mono", monospace';
+                    ctxL.textAlign = 'center'; ctxL.textBaseline = 'middle';
+                    ctxL.fillText(`${s.pre}XG${i}`, cx, girderY + 22);
+                    ctxL.textAlign = 'left'; ctxL.textBaseline = 'alphabetic';
+                }
                 ctxL.shadowBlur = 0;
-                ctxL.fillStyle = isDarkMode ? '#94a3b8' : '#475569';
-                ctxL.font = 'bold 9px "JetBrains Mono", monospace';
-                ctxL.textAlign = 'center';
-                ctxL.textBaseline = 'middle';
-                ctxL.fillText(`XG${i}`, cx, girderY + 22);
-                ctxL.textAlign = 'left';
-                ctxL.textBaseline = 'alphabetic';
+
+                drawDimLine(ctxL, lx, girderY + 46, rx, girderY + 46, `${s.tag} = ${s.L}m`, s.col, { pad: 22 });
+                if (si === 0) {
+                    drawDimLine(ctxL, lx - 30, girderY - slabT, lx - 30, girderY, `${params.slab}mm`, '#f59e0b', { pad: 14 });
+                }
+
+                const b1x = lx + params.prj * longScale, b2x = rx - params.prj * longScale;
+                ctxL.fillStyle = '#f59e0b';
+                [b1x, b2x].forEach(px => { ctxL.beginPath(); ctxL.arc(px, girderY + 16, 4, 0, Math.PI * 2); ctxL.fill(); });
+                ctxL.fillStyle = isDarkMode ? '#e2e8f0' : '#0f172a'; ctxL.font = 'bold 10px "JetBrains Mono", monospace';
+                ctxL.textAlign = 'center'; ctxL.textBaseline = 'middle';
+                ctxL.fillText('B', b1x, girderY + 32); ctxL.fillText('B', b2x, girderY + 32);
+                ctxL.textAlign = 'left'; ctxL.textBaseline = 'alphabetic';
+            });
+
+            // Continuous vehicle axis A1 over the full length
+            const a1y = girderY - slabT - 14;
+            ctxL.save();
+            ctxL.strokeStyle = '#f59e0b'; ctxL.fillStyle = '#f59e0b'; ctxL.lineWidth = 1.5; ctxL.setLineDash([6, 4]);
+            ctxL.beginPath(); ctxL.moveTo(startSX, a1y); ctxL.lineTo(endSX, a1y); ctxL.stroke();
+            ctxL.setLineDash([]);
+            ctxL.beginPath(); ctxL.moveTo(endSX, a1y); ctxL.lineTo(endSX - 8, a1y - 4); ctxL.lineTo(endSX - 8, a1y + 4); ctxL.fill();
+            ctxL.font = 'bold 9px "JetBrains Mono", monospace';
+            ctxL.fillText(TS ? 'A1 - VEHICLE AXIS (CONTINUOUS OVER BOTH SPANS)' : 'A1 - VEHICLE AXIS', startSX, a1y - 6);
+            if (TS) {
+                const jx = (leftEnd + rightStart) / 2;
+                ctxL.strokeStyle = '#f43f5e'; ctxL.lineWidth = 1; ctxL.setLineDash([3, 3]);
+                ctxL.beginPath(); ctxL.moveTo(jx, a1y - 2); ctxL.lineTo(jx, girderY + 30); ctxL.stroke();
+                ctxL.setLineDash([]); ctxL.fillStyle = '#f43f5e'; ctxL.textAlign = 'center';
+                ctxL.font = 'bold 10px "JetBrains Mono", monospace'; ctxL.fillText(`GAP ${params.gap} mm`, jx, girderY + 84);
             }
-
-            ctxL.shadowBlur = 0;
-
-            // === DIMENSIONS WITH PROPER SPACING ===
-
-            // Bottom: Span dimension (below structure)
-            drawDimLine(ctxL, leftSX, girderY + 46, rightSX, girderY + 46, `SPAN = ${params.span}m`, '#00d4ff', {pad: 22});
-
-            // Right side: Slab thickness (moved further right to avoid overlap)
-            drawDimLine(ctxL, rightSX + 26, girderY - slabT, rightSX + 26, girderY, `${params.slab}mm`, '#f59e0b', {pad: 14});
-
-            // Bearing points
-            const b1x = leftSX + params.prj * longScale;
-            const b2x = rightSX - params.prj * longScale;
-            ctxL.fillStyle = '#f59e0b';
-            ctxL.beginPath();
-            ctxL.arc(b1x, girderY + 16, 4, 0, Math.PI * 2);
-            ctxL.fill();
-            ctxL.beginPath();
-            ctxL.arc(b2x, girderY + 16, 4, 0, Math.PI * 2);
-            ctxL.fill();
-
-            // Clear bearing labels
-            ctxL.fillStyle = isDarkMode ? '#e2e8f0' : '#0f172a';
-            ctxL.font = 'bold 10px "JetBrains Mono", monospace';
-            ctxL.textAlign = 'center';
-            ctxL.textBaseline = 'middle';
-            ctxL.fillText('B', b1x, girderY + 32);
-            ctxL.fillText('B', b2x, girderY + 32);
-            ctxL.textAlign = 'left';
-            ctxL.textBaseline = 'alphabetic';
+            ctxL.restore();
         }
 
         function zoomTransverse(factor) {
@@ -1693,7 +1642,6 @@
 
         function buildCompleteScript() {
             const cw = ((params.girders-1)*params.spacing + params.ohl + params.ohr).toFixed(2);
-            const laneCfg = computeLaneConfig(parseFloat(cw));
             const half = 1.5 * params.spacing;
             const yl = -(half + params.ohl);
             const yr = (half + params.ohr);
@@ -1720,7 +1668,7 @@ LET#I ${i}
 GAX G${i+1}
 GAXB X1 #XSG(#I) Y1 #YSG(#I) Z1 0 X2 #XSGE(#I) Y2 #YSGE(#I) Z2 0
 LET#AXS 'G${i+1}'
-LET#GL #GL(#I)
+LET#GLC #GL(#I)
 #INCLUDE GIRDER
 ENDIF
 `;
@@ -1750,7 +1698,228 @@ LET#XGAXS 'XG${i+1}'
 `;
             }
 
+            // ===== Two-span (mirror) blocks =====
+            const TS = !!params.twospan, SAME = !!params.samesec;
+            // number of vehicle positions must be an INTEGER (LC generation lists need whole-number steps)
+            const LTn = params.span + (TS ? params.gap / 1000 + params.spanR : 0);
+            const lassN = Math.ceil(LTn + 20);
+            const RS = rightSec();
+            const XO = params.span + params.gap / 1000;
+            const ncsG = SAME ? 1 : 3, ncsX = SAME ? 2 : 4;
+            const NGs = Array.from({length: params.girders}, (_, i) => i);
+
+            const blkVars = TS ? `STO#SN2  ${params.spanR}\nSTO#GAP  ${params.gap / 1000}\nSTO#XO   (#SN+#GAP)\nSTO#LT   (#XO+#SN2)\n` : `STO#LT   #SN\n`;
+
+            let blkSec = '';
+            if (TS) {
+                blkSec = `\n$ ---- RIGHT SPAN SECTION DATA ${SAME ? '(same as left span)' : '(manual input)'} ----
+STO#TFW2   ${RS.tfw}
+STO#TF2    ${RS.tf}
+STO#WEBH2  ${RS.webh}
+STO#WEBT2  ${RS.webt}
+STO#BBW2   ${RS.bbw}
+STO#BBD2   ${RS.bbd}
+STO#D2 (#TF2+#WEBH2+#BBD2)
+STO#XGTFW2   ${RS.xgtfw}
+STO#XGTF2    ${RS.xgtf}
+STO#XGWEBH2  ${RS.xgwebh}
+STO#XGWEBT2  ${RS.xgwebt}
+STO#XGBBW2   ${RS.xgbbw}
+STO#XGBBD2   ${RS.xgbbd}
+STO#XGD2 (#XGTF2+#XGWEBH2+#XGBBD2)
+`;
+                if (!SAME) {
+                    blkSec += `
+SECT 3 MNO 4 BTYP 'BEAM' TITL 'STEEL I GIRDER - RIGHT SPAN'
+CS 3 'GIRDERR'
+POLY O MNO 4
+VERT 51 0 0
+VERT 52 #TFW2/2[mm] 0
+VERT 53 #TFW2/2[mm] #TF2[mm]
+VERT 54 #WEBT2/2[mm] #TF2[mm]
+VERT 55 #WEBT2/2[mm] #TF2+#WEBH2[mm]
+VERT 56 #BBW2/2[mm] #D2-#BBD2[mm]
+VERT 57 #BBW2/2[mm] #D2[mm]
+VERT 58 -#BBW2/2[mm] #D2[mm]
+VERT 59 -#BBW2/2[mm] #D2-#BBD2[mm]
+VERT 60 -#WEBT2/2[mm] #TF2+#WEBH2[mm]
+VERT 61 -#WEBT2/2[mm] #TF2[mm]
+VERT 62 -#TFW2/2[mm] #TF2[mm]
+VERT 63 -#TFW2/2[mm] 0
+
+SECT 4 MNO 4 BTYP 'BEAM' TITL 'STEEL CROSS GIRDER - RIGHT SPAN'
+CS 4 'XGIRDERR'
+POLY O MNO 4
+VERT 71  0 0
+VERT 72  #XGTFW2/2[mm] 0
+VERT 73  #XGTFW2/2[mm] #XGTF2[mm]
+VERT 74  #XGWEBT2/2[mm] #XGTF2[mm]
+VERT 75  #XGWEBT2/2[mm] #XGTF2+#XGWEBH2[mm]
+VERT 76  #XGBBW2/2[mm] #XGD2-#XGBBD2[mm]
+VERT 77  #XGBBW2/2[mm] #XGD2[mm]
+VERT 78  -#XGBBW2/2[mm] #XGD2[mm]
+VERT 79  -#XGBBW2/2[mm] #XGD2-#XGBBD2[mm]
+VERT 80  -#XGWEBT2/2[mm] #XGTF2+#XGWEBH2[mm]
+VERT 81  -#XGWEBT2/2[mm] #XGTF2[mm]
+VERT 82  -#XGTFW2/2[mm] #XGTF2[mm]
+VERT 83  -#XGTFW2/2[mm] 0
+`;
+                }
+            }
+
+            const blkArr2 = TS ? `$ ---- RIGHT SPAN GIRDER ENDS (X offset = SN + GAP) ----
+LET#XSG2  ${Array(params.girders).fill(XO.toFixed(4)).join(' ')}
+LET#XSGE2  ${Array(params.girders).fill((XO + params.spanR).toFixed(4)).join(' ')}
+
+LOOP#I #NG
+STO#GL2(#I) SQR((#XSGE2(#I)-#XSG2(#I))^2+(#YSGE(#I)-#YSG(#I))^2)
+ENDLOOP
+
+` : '';
+
+            const blkGirderDef2 = TS ? `#DEFINE GIRDER2
+GAXP #AXS IDS 0 S 0.0 TYPE 'S' NCS ${ncsG} GRP 51+#I
+GAXP #AXS IDS 0 S #GLC TYPE 'S' NCS ${ncsG} GRP 51+#I
+GAXV #AXS 'WIDTH' S 0.0 V #WEBT2/2[mm]
+GAXV #AXS 'WIDTH' S #GLC V #WEBT2/2[mm]
+GAXV #AXS 'YWF' S 0.0 V #TF2[mm]
+GAXV #AXS 'YWF' S #GLC V #TF2[mm]
+GAXV #AXS 'BTW' S 0.0 V #TF2+#WEBH2[mm]
+GAXV #AXS 'BTW' S #GLC V #TF2+#WEBH2[mm]
+GAXV #AXS 'WS1' S 0.0 V #EWGR(#I)*1000[mm]
+GAXV #AXS 'WS1' S #GLC V #EWGR(#I)*1000[mm]
+GAXV #AXS 'WS2' S 0.0 V -#EWGL(#I)*1000[mm]
+GAXV #AXS 'WS2' S #GLC V -#EWGL(#I)*1000[mm]
+#ENDDEF
+
+` : '';
+
+            const blkGirderCreate2 = TS ? `$ ---- RIGHT SPAN MAIN GIRDERS ----\n` + NGs.map(i => `IF #NG>${i}
+LET#I ${i}
+GAX RG${i+1}
+GAXB X1 #XSG2(#I) Y1 #YSG(#I) Z1 0 X2 #XSGE2(#I) Y2 #YSGE(#I) Z2 0
+LET#AXS 'RG${i+1}'
+LET#GLC #GL2(#I)
+#INCLUDE GIRDER2
+ENDIF
+`).join('') : '';
+
+            let xcgR = [];
+            for (let i = 1; i <= params.ncxgR; i++) xcgR.push((XO + params.spanR * i / (params.ncxgR + 1)).toFixed(3));
+            const blkXgDef2 = TS ? `$ ---- RIGHT SPAN CROSS GIRDERS ----
+STO#NCXG2  ${params.ncxgR}
+LET#XCGX2  ${xcgR.join(' ')}
+
+#DEFINE XGIRDER2
+GAXP #XGAXS IDS 0 S 0.0 TYPE 'S' NCS ${ncsX} GRP 11
+GAXP #XGAXS IDS 0 S #XGLEN TYPE 'S' NCS ${ncsX} GRP 11
+#ENDDEF
+` : '';
+            let blkXgCreate2 = '';
+            if (TS) for (let i = 0; i < params.ncxgR; i++) {
+                blkXgCreate2 += `LET#I ${i}
+GAX RXG${i+1}
+GAXB X1 #XCGX2(#I) Y1 -#CW/2 Z1 0 X2 #XCGX2(#I) Y2 #CW/2 Z2 0
+LET#XGAXS 'RXG${i+1}'
+#INCLUDE XGIRDER2
+`;
+            }
+
+            const blkSupp2 = TS ? `$ ---- RIGHT SPAN SUPPORTS ----
+LET#AXS2 ${NGs.map(i => `'RG${i+1}'`).join(' ')}
+
+LOOP#I #NG
+
+SPT 1021+1+#I*10 REF AX NREF #AXS2(#I) SX #PRJ
+SPT 1121+1+#I*10 REF PT 1021+1+#I*10 Z #D2/1000 FIX PPMX
+SPTP TYPE LPPMM REF 1021+1+#I*10 GRP 33
+
+SPT 1021+8+#I*10 REF AX NREF #AXS2(#I) SX #GL2(#I)-#PRJ
+SPT 1121+8+#I*10 REF PT 1021+8+#I*10 Z #D2/1000 FIX PXPYPZ
+SPTP TYPE LPPMM REF 1021+8+#I*10 GRP 34
+
+ENDLOOP
+
+` : '';
+
+            const blkSlab2 = TS ? `SAR 3 GRP 23 MNO 1 T #ST QREF ABOV
+SARB OUT
+SLNB X1 #XO Y1 #YL Z1 0 X2 #LT Y2 #YL Z2 0
+SARB OUT
+SLNB X1 #LT Y1 #YL Z1 0 X2 #LT Y2 #YR Z2 0
+SARB OUT
+SLNB X1 #LT Y1 #YR Z1 0 X2 #XO Y2 #YR Z2 0
+SARB OUT
+SLNB X1 #XO Y1 #YR Z1 0 X2 #XO Y2 #YL Z2 0
+
+SAR 4 GRP 24 MNO 3 T 75 QREF ABOV
+SARB OUT
+SLNB X1 #XO Y1 #YL+#CBO+0.250 Z1 0 X2 #LT Y2 #YL+#CBO+0.250 Z2 0
+SARB OUT
+SLNB X1 #LT Y1 #YL+#CBO+0.250 Z1 0 X2 #LT Y2 #YR-#CBO-0.250 Z2 0
+SARB OUT
+SLNB X1 #LT Y1 #YR-#CBO-0.250 Z1 0 X2 #XO Y2 #YR-#CBO-0.250 Z2 0
+SARB OUT
+SLNB X1 #XO Y1 #YR-#CBO-0.250 Z1 0 X2 #XO Y2 #YL+#CBO+0.250 Z2 0
+
+` : '';
+
+            const blkCB2 = TS ? `LINE TYPE PG P1 ${params.cbload} X1 #XO Y1 #YL+#CBO Z1 0 X2 #LT Y2 #YL+#CBO Z2 0
+LINE TYPE PG P1 ${params.cbload} X1 #XO Y1 #YR-#CBO Z1 0 X2 #LT Y2 #YR-#CBO Z2 0
+` : '';
+            const blkWC2 = TS ? `QUAD GRP 24 TYPE PG P ${params.wcload}\n` : '';
+            const blkAse2 = TS ? `GRP2 23 QEMX 0.001 QUEA 0.001\nGRP2 24 QEMX 0.001 QUEA 0.001\n` : '';
+            const blkAseLL2 = TS ? `grp2 11 quea 0.001 qemx 0.001\n` : '';
+
+            // ===== IRC 6 live load from carriageway width =====
+            const LL = irc6Calc(), Wc = LL.wc, NL = LL.n, RF = LL.rf;
+            const AW = 2.3, RW = 2.79, ECL = 0.15, E70 = 1.2;
+            const pitch = NL > 1 ? Math.min(3.5, (Wc - 2 * ECL - AW) / (NL - 1)) : 0;
+            const num = v => String(+v.toFixed(3));
+            const laneLines = [];
+            const addLane = (a, b) => { laneLines.push(`LANE NO A1.${laneLines.length + 1} YLA ${a.toFixed(3)} YRA ${b.toFixed(3)}`); return `A1.${laneLines.length}`; };
+            const laL = [], laR = [];
+            for (let k = 0; k < NL; k++) { const y = -Wc / 2 + ECL + k * pitch; laL.push(addLane(y, y + AW)); }
+            for (let k = 0; k < NL; k++) { const y = Wc / 2 - ECL - k * pitch; laR.push(addLane(y - AW, y)); }
+            const l70R = addLane(Wc / 2 - E70 - RW, Wc / 2 - E70);
+            const l70L = addLane(-Wc / 2 + E70, -Wc / 2 + E70 + RW);
+            const comboFits = NL >= 2 && (ECL + (NL - 2) * pitch + AW + 0.4) <= (Wc - E70 - RW);
+            const noA = RF < 1 ? 311 : 301, no70 = RF < 1 ? 312 : 302;
+            const fams = [
+                { base: 1000, title: `CLASS A ${NL} LANE${NL > 1 ? 'S' : ''} LEFT`, items: laL.map(l => [noA, l]) },
+                { base: 2000, title: '70R RIGHT', items: [[302, l70R]] },
+                { base: 3000, title: '70R LEFT', items: [[302, l70L]] },
+                { base: 4000, title: `CLASS A ${NL} LANE${NL > 1 ? 'S' : ''} RIGHT`, items: laR.map(l => [noA, l]) }
+            ];
+            if (comboFits) {
+                fams.push({ base: 5000, title: `70R RIGHT + CLASS A ${NL - 1} LEFT`, items: [[no70, l70R], ...laL.slice(0, NL - 1).map(l => [noA, l])] });
+                fams.push({ base: 6000, title: `70R LEFT + CLASS A ${NL - 1} RIGHT`, items: [[no70, l70L], ...laR.slice(0, NL - 1).map(l => [noA, l])] });
+            }
+            const clsA = [[27,5.4,0,1.8],[27,5.4,-1.1,1.8],[114,22.8,-3.2,1.8],[114,22.8,-1.2,1.8],[68,13.6,-4.3,1.8],[68,13.6,-3.0,1.8],[68,13.6,-3.0,1.8],[68,13.6,-3.0,1.8]];
+            const c70R = [[80,16,0,1.93],[120,24,-3.96,1.93],[120,24,-1.52,1.93],[170,34,-2.13,1.93],[170,34,-1.37,1.93],[170,34,-3.05,1.93],[170,34,-1.37,1.93]];
+            const train = (no, hdr, rows, f) => `LC NO ${no} TYPE Q\n${hdr}\n` + rows.map(r => `    TRPL P ${num(r[0] * f)} PB ${num(r[1] * f)} A ${r[2]} B ${r[3]}`).join('\n') + '\n\n';
+            const hA = 'TRAI TYPE user P9 1.2 PHI 1 PHIS 1 XCON 20 WIDT 2.3', h70 = 'TRAI TYPE user P9 1.2 PHI 1 PHIS 1 XCON 30 WIDT 2.79';
+            const llBlock = `$ ---- IRC 6:2017 LIVE LOAD ----
+$ Deck width ${LL.cw.toFixed(2)} m ; carriageway between crash barriers = ${Wc.toFixed(2)} m
+$ Design lanes = ${NL} ; multi-lane reduction factor = ${RF.toFixed(2)} (applied to trains 311/312 when 3 or more lanes are loaded)
+$ Class A: ${AW} m wide, ${ECL} m from carriageway edge, lane pitch ${pitch.toFixed(2)} m ; 70R: ${RW} m wide, ${E70} m from carriageway edge
+` + train(301, hA, clsA, 1) + train(302, h70, c70R, 1) + (RF < 1 ? train(311, hA, clsA, RF) + train(312, h70, c70R, RF) : '') +
+`LANE NO A1
+${laneLines.join('\n')}
+
+` + fams.map(f => `LOOP#1 #LASS\nLC ${f.base}+#1 TYPE Q GAMU 1.00 GAMF 1.00 TITL '${f.title}'\n${f.items.map(([n, l]) => `COPY NO ${n} REF ${l} DX #1`).join('\n')}\nENDLOOP\n`).join('\n');
+            const sup4 = (c, t) => ['beam my', 'beam vz', 'node pz', 'auto uz'].map(q => `supp comb ${c} extr mami etyp ${q} titl "${t}"`).join('\n') + '\n';
+            const mxBlock = `comb 1 extr stan base 11000 type none\n    lc (1000 ${fams[fams.length - 1].base}+#LASS 1) type A1\n` +
+                fams.map((f, i) => `comb ${i + 2} extr stan base ${(i + 2) * 10000 + 1000} type none\n    lc (${f.base} ${f.base}+#LASS 1) type A1\n`).join('') + '\n' +
+                sup4(1, 'All LL CASES') + fams.map((f, i) => '\n' + sup4(i + 2, f.title)).join('');
+            const blkSep = TS ? `$ ---- TWO SEPARATE SPANS ----
+$ Left span (X = 0 to SN) and right span (X = SN+GAP to LT) are independent structures.
+$ Open joint = ${params.gap} mm : no shared nodes, no elements, no couplings across the gap.
+CTRL TOLG 0.005
+` : '';
+
             return `$ Teddy code generated by Vikas Kumar Prasad $
+$ ${TS ? 'TWO-SPAN MODEL: LEFT SPAN + ' + params.gap + ' mm GAP + RIGHT SPAN' : 'SINGLE-SPAN MODEL'} $
 +PROG AQUA urs:2
 HEAD Material Properties
 
@@ -1766,7 +1935,7 @@ STO#OHL  ${params.ohl}
 STO#OHR  ${params.ohr}
 STO#CBO  ${params.cbo}
 STO#C1   ${params.concrete}
-
+${blkVars}
 STO#CW ((#NG-1)*#S2+#OHL+#OHR)
 CONC 1 C #C1 GAM 25
 STEE 2 SIS '500D'
@@ -1822,7 +1991,7 @@ VERT 40  -#XGWEBT/2[mm] #XGTF+#XGWEBH[mm]
 VERT 41  -#XGWEBT/2[mm] #XGTF[mm]
 VERT 42  -#XGTFW/2[mm] #XGTF[mm]
 VERT 43  -#XGTFW/2[mm] 0
-
+${blkSec}
 END
 
 +PROG SOFIMSHC urs:1
@@ -1831,7 +2000,7 @@ SYST SPAC GDIV 100000
 CTRL MESH 50
 CTRL HMIN 1
 CTRL warn 373
-
+${blkSep}
 LET#XSG  ${Array(params.girders).fill('0').join(' ')}
 LET#YSG  ${ysgValues.join(' ')}
 LET#XSGE  ${Array(params.girders).fill(params.span.toFixed(1)).join(' ')}
@@ -1847,22 +2016,22 @@ LOOP#I #NG
 STO#GL(#I) SQR((#XSGE(#I)-#XSG(#I))^2+(#YSGE(#I)-#YSG(#I))^2)
 ENDLOOP
 
-#DEFINE GIRDER
+${blkArr2}#DEFINE GIRDER
 GAXP #AXS IDS 0 S 0.0 TYPE 'S' NCS 1 GRP 1+#I
-GAXP #AXS IDS 0 S #GL TYPE 'S' NCS 1 GRP 1+#I
+GAXP #AXS IDS 0 S #GLC TYPE 'S' NCS 1 GRP 1+#I
 GAXV #AXS 'WIDTH' S 0.0 V #WEBT/2[mm]
-GAXV #AXS 'WIDTH' S #GL V #WEBT/2[mm]
+GAXV #AXS 'WIDTH' S #GLC V #WEBT/2[mm]
 GAXV #AXS 'YWF' S 0.0 V #TF[mm]
-GAXV #AXS 'YWF' S #GL V #TF[mm]
+GAXV #AXS 'YWF' S #GLC V #TF[mm]
 GAXV #AXS 'BTW' S 0.0 V #TF+#WEBH[mm]
-GAXV #AXS 'BTW' S #GL V #TF+#WEBH[mm]
+GAXV #AXS 'BTW' S #GLC V #TF+#WEBH[mm]
 GAXV #AXS 'WS1' S 0.0 V #EWGR(#I)*1000[mm]
-GAXV #AXS 'WS1' S #GL V #EWGR(#I)*1000[mm]
+GAXV #AXS 'WS1' S #GLC V #EWGR(#I)*1000[mm]
 GAXV #AXS 'WS2' S 0.0 V -#EWGL(#I)*1000[mm]
-GAXV #AXS 'WS2' S #GL V -#EWGL(#I)*1000[mm]
+GAXV #AXS 'WS2' S #GLC V -#EWGL(#I)*1000[mm]
 #ENDDEF
 
-${girderCreation}
+${blkGirderDef2}${girderCreation}${blkGirderCreate2}
 STO#NCXG  ${params.ncxg}
 STO#XGLEN #CW
 LET#XCGX  ${xcgValues.join(' ')}
@@ -1872,12 +2041,12 @@ GAXP #XGAXS IDS 0 S 0.0 TYPE 'S' NCS 2 GRP 10
 GAXP #XGAXS IDS 0 S #XGLEN TYPE 'S' NCS 2 GRP 10
 #ENDDEF
 
-${xgCreation}
+${blkXgDef2}
+${xgCreation}${blkXgCreate2}
 LET#AXS ${Array.from({length: params.girders}, (_, i) => `'G${i+1}'`).join(' ')}
 
 ${supportDefs}
-
-SAR 1 GRP 21 MNO 1 T #ST QREF ABOV
+${blkSupp2}SAR 1 GRP 21 MNO 1 T #ST QREF ABOV
 SARB OUT
 SLNB X1 0 Y1 #YL Z1 0 X2 #SN Y2 #YL Z2 0
 SARB OUT
@@ -1895,10 +2064,11 @@ SLNB X1 #SN Y1 #YL+#CBO+0.250 Z1 0 X2 #SN Y2 #YR+#CBO+0.250 Z2 0
 SARB OUT
 SLNB X1 #SN Y1 #YR-#CBO-0.250 Z1 0 X2 0 Y2 #YR-#CBO-0.250 Z2 0
 SARB OUT
-SLNB X1 0 Y1 #YR-#CBO-0.250 Z1 0 X2 0 Y2 #YL+#CBO-0.250 Z2 0
+SLNB X1 0 Y1 #YR-#CBO-0.250 Z1 0 X2 0 Y2 #YL+#CBO+0.250 Z2 0
 
+${blkSlab2}$ VEHICLE AXIS A1 - CONTINUOUS OVER FULL LENGTH
 GAX A1
-GAXB X1 0 Y1 0 Z1 -#ST/1000 X2 #SN Y2 0 Z2 -#ST/1000
+GAXB X1 0 Y1 0 Z1 -#ST/1000 X2 #LT Y2 0 Z2 -#ST/1000
 
 END
 
@@ -1915,50 +2085,28 @@ LC 1 TYPE G_1 DLZ 1 TITL 'SELF WEIGHT'
 LC 2 TYPE G_2 TITL 'CRASH BARRIER'
 LINE TYPE PG P1 ${params.cbload} X1 0 Y1 #YL+#CBO Z1 0 X2 #SN Y2 #YL+#CBO Z2 0
 LINE TYPE PG P1 ${params.cbload} X1 0 Y1 #YR-#CBO Z1 0 X2 #SN Y2 #YR-#CBO Z2 0
-LC 3 TYPE G_2 TITL 'WEARING COAT'
+${blkCB2}LC 3 TYPE G_2 TITL 'WEARING COAT'
 QUAD GRP 22 TYPE PG P ${params.wcload}
-END
+${blkWC2}END
 
 +PROG ASE urs:4
 HEAD DEAD LOAD ANALYSIS
 CTRL WARN 197
 GRP2 21 QEMX 0.001 QUEA 0.001
 GRP2 22 QEMX 0.001 QUEA 0.001
-LC 1,2,3
+${blkAse2}LC 1,2,3
 END
 
 +prog template urs:24.1
 head LIVE LOAD
 STO#SS 1
 STO#NTP 1
-STO#LASS (#SN+20)/#SS
+STO#LASS ${lassN}
 end
 
 +PROG SOFILOAD urs:24.2
 HEAD VEHICLE & LANE DEFINITION
-LC NO 301 TYPE Q
-TRAI TYPE user P9 1.2 PHI 1 PHIS 1 XCON 20 WIDT 2.3
-    TRPL P 27 PB 5.4 A 0 B 1.8
-    TRPL P 27 PB 5.4 A -1.1 B 1.8
-    TRPL P 114 PB 22.8 A -3.2 B 1.8
-    TRPL P 114 PB 22.8 A -1.2 B 1.8
-    TRPL P 68 PB 13.6 A -4.3 B 1.8
-    TRPL P 68 PB 13.6 A -3.0 B 1.8
-    TRPL P 68 PB 13.6 A -3.0 B 1.8
-    TRPL P 68 PB 13.6 A -3.0 B 1.8
-
-LC NO 302 TYPE Q
-TRAI TYPE user P9 1.2 PHI 1 PHIS 1 XCON 30 WIDT 2.79
-    TRPL P 80 PB 16 A 0 B 1.93
-    TRPL P 120 PB 24 A -3.96 B 1.93
-    TRPL P 120 PB 24 A -1.52 B 1.93
-    TRPL P 170 PB 34 A -2.13 B 1.93
-    TRPL P 170 PB 34 A -1.37 B 1.93
-    TRPL P 170 PB 34 A -3.05 B 1.93
-    TRPL P 170 PB 34 A -1.37 B 1.93
-
-${renderLaneAndLoopBlock(laneCfg)}
-END
+${llBlock}END
 
 +PROG ASE urs:77.3
 head LIVE LOAD ANALYSIS
@@ -1966,13 +2114,12 @@ CTRL WARN 398
 CTRL WARN 399
 LC all
 grp2 10 quea 0.001 qemx 0.001
-END
+${blkAseLL2}END
 
 +prog maxima urs:104.1
 head
 CTRL WARN 399
-${renderMaximaBlock(laneCfg)}
-end
+${mxBlock}end
 $ Teddy code generated by Vikas Kumar Prasad $`;
         }
 
