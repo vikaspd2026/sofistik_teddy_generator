@@ -614,13 +614,15 @@ Index · HTML
         @media (max-width: 700px) { .xsec-grid { grid-template-columns: 1fr; } }
  
         /* ===== INTERACTIVE SECTION EDITOR ===== */
-        .xsec-grid { display:flex !important; flex-direction:column; gap:12px; }
-        .xsec-row { display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
-        .xsec-canvas { position:relative; max-width:350px; margin:0 auto; }
-        .xsec-key { margin-top:10px; font-size:10px; letter-spacing:.04em; color:#64748b; text-align:center; }
+        .xsec-grid { display:grid !important; grid-template-columns: repeat(4, 1fr); gap:10px; }
+        .xsec-row { display:contents; }
+        @media (max-width: 1500px) { .xsec-grid { grid-template-columns: repeat(2, 1fr); } }
+        .xsec-canvas { position:relative; max-width:300px; margin:0 auto; }
+        .xsec-cell { padding: 8px 6px 4px !important; }
+        .xsec-key { margin-top:6px; font-size:10px; letter-spacing:.04em; color:#64748b; text-align:center; }
         .dim-in { position:absolute; display:inline-flex; align-items:center; gap:3px; padding:1px 4px 1px 6px; border:1px solid var(--c); border-radius:8px; background:rgba(2,6,23,.94); box-shadow:0 4px 14px -6px rgba(0,0,0,.9); cursor:text; transition: box-shadow .15s, border-color .15s; z-index:2; }
-        .dim-in b { font: 700 9.5px 'JetBrains Mono', monospace; color:#f59e0b; text-transform:none; }
-        .dim-in input { width:46px; font: 600 12px 'JetBrains Mono', monospace; color:#fff; background:transparent; border:0; outline:0; text-align:right; padding:3px 1px; -moz-appearance:textfield; }
+        .dim-in b { font: 700 9px 'JetBrains Mono', monospace; color:#f59e0b; text-transform:none; }
+        .dim-in input { width:40px; font: 600 12px 'JetBrains Mono', monospace; color:#fff; background:transparent; border:0; outline:0; text-align:right; padding:3px 1px; -moz-appearance:textfield; }
         .dim-in input::-webkit-outer-spin-button, .dim-in input::-webkit-inner-spin-button { -webkit-appearance:none; margin:0; }
         .dim-in:hover { box-shadow:0 0 0 2px color-mix(in srgb, var(--c) 35%, transparent); }
         .dim-in:focus-within { box-shadow:0 0 0 3px color-mix(in srgb, var(--c) 45%, transparent), 0 6px 18px -6px var(--c); background:#020a1a; }
@@ -670,11 +672,28 @@ Index · HTML
         .glow-card { position:relative; }
         .glow-card::after { content:''; position:absolute; inset:0; border-radius:inherit; pointer-events:none; opacity:0; transition:opacity .35s; background: radial-gradient(280px circle at var(--mx,50%) var(--my,50%), rgba(0,212,255,.12), transparent 62%); }
         .glow-card:hover::after { opacity:1; }
-        html.js-reveal .reveal { opacity:0; transform: translateY(26px) scale(.985); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1); }
+        html.js-reveal .reveal { opacity:0; transform: translateY(22px) scale(.99); transition: opacity .55s ease, transform .55s cubic-bezier(.2,.7,.2,1); }
         html.js-reveal .reveal.in { opacity:1; transform:none; }
         @media (max-width:1100px) { .intro-strip { grid-template-columns:1fr; } .tiles { grid-template-columns:repeat(3,1fr); } }
         @media (max-width:820px) { .hero-left { max-width:100%; } .hero-rotator { display:none; } .hero-video { object-position:60% 42%; } .tiles { grid-template-columns:repeat(2,1fr); } }
         @media (prefers-reduced-motion: reduce) { .hero-shine, .hero-cta svg { animation:none; } html.js-reveal .reveal { opacity:1; transform:none; transition:none; } }
+ 
+        /* ===== HERO TEXT (badges + title + subtitle) ===== */
+        .hero-banner .hero-overlay > .hero-left { max-width: min(50%, 940px); }
+        .hero-title { filter: drop-shadow(0 3px 14px rgba(0,0,0,.75)); max-width: 100% !important; }
+        .hero-subtitle { max-width: min(100%, 760px) !important; text-shadow: 0 2px 12px rgba(0,0,0,.85); }
+        @media (max-width: 820px) { .hero-banner .hero-overlay > .hero-left { max-width: 100%; } }
+        .hero-banner .hero-overlay { padding-bottom: 6px !important; }
+        .hero-banner .hero-subtitle { margin-bottom: 0 !important; }
+ 
+        /* ===== COMPACT VIEW COLUMN ===== */
+        .split-layout > div:nth-child(2) { align-self: start; gap: 12px !important; }
+        .split-layout .viz-panel { flex: none !important; min-height: 0 !important; }
+        .split-layout .viz-panel > .flex-1.relative { flex: none !important; min-height: 0 !important; }
+        .split-layout .viz-panel:nth-child(1) > .flex-1.relative { height: 340px; }
+        .split-layout .viz-panel:nth-child(2) > .flex-1.relative { height: 250px; }
+        .split-layout .viz-panel:nth-child(3) > .flex-1.relative { height: 215px; }
+        @media (min-height: 900px) and (min-width: 1100px) { .split-layout > div:nth-child(2) { position: sticky; top: 78px; } }
         .light-mode header { background: rgba(255,255,255,.8) !important; }
         .light-mode .glass, .light-mode .viz-panel, .light-mode .code-panel { background: rgba(255,255,255,.88) !important; }
         .light-mode .section-card { background: rgba(248,250,252,.9) !important; }
@@ -749,30 +768,13 @@ Index · HTML
                         <span class="badge badge-emerald">IRC 6:2017</span>
                         <span class="badge badge-amber">BUG-FREE</span>
                     </div>
-                    <div class="hero-rotator" id="hero-rot"></div>
-                    <a href="#inputs" class="hero-cta">START DESIGNING <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
+                    <h2 class="hero-title">Generate SOFiSTiK TEDDY Scripts for Composite Deck</h2>
+                    <p class="hero-subtitle">Transform engineering requirements into production-ready TEDDY code. Parametric bridge design powered by advanced structural intelligence.</p>
                 </div>
-            </div>
-            <div class="hero-ctrl">
-                <button id="hero-sound" aria-label="Toggle sound" title="Sound on / off"></button>
-                <button id="hero-play" aria-label="Pause or play video" title="Pause / play"></button>
             </div>
         </div>
     </div>
  
-    <section class="intro-strip">
-        <div>
-            <h2 class="intro-title">Generate SOFiSTiK TEDDY Scripts with AI</h2>
-            <p class="intro-sub">Transform engineering requirements into production-ready TEDDY code. Parametric bridge design powered by advanced structural intelligence.</p>
-        </div>
-        <div class="tiles">
-            <div class="tile"><div><span class="tile-n" id="tile-total">0</span><span class="tile-u">m</span></div><div class="tile-l">TOTAL LENGTH</div></div>
-            <div class="tile"><div><span class="tile-n" id="tile-girders">0</span><span class="tile-u">nos</span></div><div class="tile-l">MAIN GIRDERS</div></div>
-            <div class="tile"><div><span class="tile-n" id="tile-wc">0</span><span class="tile-u">m</span></div><div class="tile-l">CARRIAGEWAY</div></div>
-            <div class="tile"><div><span class="tile-n" id="tile-lanes">0</span><span class="tile-u">lanes</span></div><div class="tile-l">IRC 6 DESIGN</div></div>
-            <div class="tile"><div><span class="tile-n" id="tile-steel">0</span><span class="tile-u">t</span></div><div class="tile-l">STEEL EST.</div></div>
-        </div>
-    </section>
  
     <!-- Main Split Layout -->
     <div class="split-layout mt-6" id="inputs">
@@ -885,49 +887,6 @@ Index · HTML
                             <div>
                                 <label class="input-label">CB Offset <span class="input-unit">m</span></label>
                                 <input type="number" id="input-cbo" value="0.3" step="0.1" min="0.1" max="1" class="input-hq" onchange="updateParam('cbo', this.value)">
-                            </div>
-                        </div>
-                    </div>
- 
-                    <!-- Summary Stats -->
-                    <div class="section-card" style="background: rgba(0, 212, 255, 0.03); border-color: rgba(0, 212, 255, 0.1);">
-                        <div class="section-card-title" style="color: #00d4ff; border-color: rgba(0, 212, 255, 0.15);">Real-Time Calculations</div>
-                        <div class="space-y-1">
-                            <div class="stat-item">
-                                <span class="stat-label">Total Carriageway Width</span>
-                                <span class="stat-value text-cyan-400" id="display-cw">8.00 m</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-label">Main Girder Depth</span>
-                                <span class="stat-value text-violet-400" id="display-depth">1060 mm</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-label">Right Span Girder Depth</span>
-                                <span class="stat-value text-emerald-400" id="display-depthR">1060 mm</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-label">Total Length (L + gap + R)</span>
-                                <span class="stat-value text-cyan-400" id="display-total">20.00 m</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-label">Carriageway Width (between barriers)</span>
-                                <span class="stat-value text-amber-400" id="display-wc">6.90 m</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-label">IRC 6 Design Lanes / Reduction</span>
-                                <span class="stat-value text-amber-400" id="display-lanes">2 / 1.00</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-label">Cross Girder Depth</span>
-                                <span class="stat-value text-emerald-400" id="display-xgdepth">1050 mm</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-label">Slab-to-Girder Ratio</span>
-                                <span class="stat-value text-amber-400" id="display-ratio">23.6%</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-label">Steel Weight Est.</span>
-                                <span class="stat-value text-rose-400" id="display-weight">~4.2 t</span>
                             </div>
                         </div>
                     </div>
@@ -1104,6 +1063,12 @@ Index · HTML
             const rf = n <= 2 ? 1.0 : (n === 3 ? 0.9 : (n === 4 ? 0.8 : 0.75));
             return { cw, wc, n, rf };
         }
+        // IRC 6:2017 live load combinations by number of design lanes
+        function ircCombo(n) {
+            if (n <= 1) return '1 LANE | 1CLA | 70R';
+            if (n === 2) return '2 LANES | 2CLA | 70R';
+            return `${n} LANES | ${n}CLA | ${n - 2}CLA + 70R`;
+        }
         function syncRightFromLeft() {
             if (!params.samesec) return;
             SEC_KEYS.forEach(k => {
@@ -1141,35 +1106,15 @@ Index · HTML
  
  
         function updateDisplayValues() {
-            const cw = ((params.girders-1)*params.spacing + params.ohl + params.ohr).toFixed(2);
-            const depth = params.tf + params.webh + params.bbd;
-            const xgdepth = params.xgtf + params.xgwebh + params.xgbbd;
-            const xgSpacing = params.ncxg > 1 ? (params.span / (params.ncxg + 1)).toFixed(2) : params.span;
-            const ratio = ((params.slab / depth) * 100).toFixed(1);
- 
-            document.getElementById('display-cw').textContent = cw + ' m';
-            document.getElementById('display-depth').textContent = depth + ' mm';
-            document.getElementById('display-xgdepth').textContent = xgdepth + ' mm';
-            document.getElementById('display-xgspacing').textContent = xgSpacing;
-            const RSx = rightSec();
-            document.getElementById('display-depthR').textContent = (params.twospan ? (RSx.tf + RSx.webh + RSx.bbd) : '-') + (params.twospan ? ' mm' : '');
-            document.getElementById('display-xgspacingR').textContent = (params.spanR / (params.ncxgR + 1)).toFixed(2);
+            const setTxt = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+            setTxt('display-xgspacing', (params.span / (params.ncxg + 1)).toFixed(2));
+            setTxt('display-xgspacingR', (params.spanR / (params.ncxgR + 1)).toFixed(2));
             const LLd = irc6Calc();
-            document.getElementById('display-wc').textContent = LLd.wc.toFixed(2) + ' m';
-            document.getElementById('display-lanes').textContent = LLd.n + ' / ' + LLd.rf.toFixed(2);
             const llb = document.getElementById('ll-badge');
-            if (llb) llb.textContent = `IRC 6: ${LLd.n} LANE${LLd.n > 1 ? 'S' : ''} | Wc = ${LLd.wc.toFixed(2)} m | RF = ${LLd.rf.toFixed(2)}`;
-            document.getElementById('display-total').textContent = (params.span + (params.twospan ? params.gap / 1000 + params.spanR : 0)).toFixed(3) + ' m';
-            const LTt = params.span + (params.twospan ? params.gap / 1000 + params.spanR : 0);
-            setTile('tile-total', LTt, 1); setTile('tile-girders', params.girders, 0); setTile('tile-wc', LLd.wc, 2);
-            setTile('tile-lanes', LLd.n, 0);
-            document.getElementById('display-ratio').textContent = ratio + '%';
- 
-            const RSd = rightSec();
-            const depthR = RSd.tf + RSd.webh + RSd.bbd;
-            const steelWeight = (params.girders * (params.span * depth + (params.twospan ? params.spanR * depthR : 0)) * 0.00000785 * 7850 / 1000).toFixed(1);
-            document.getElementById('display-weight').textContent = '~' + steelWeight + ' t';
-            setTile('tile-steel', parseFloat(steelWeight), 1);
+            if (llb) {
+                llb.textContent = 'IRC 6: ' + ircCombo(LLd.n);
+                llb.title = 'IRC 6 live load combinations\n' + [1, 2, 3, 4, 5, 6].map(ircCombo).join('\n');
+            }
         }
  
         function resetParams() {
@@ -1387,7 +1332,7 @@ Index · HTML
             const k = Math.min(170 / maxW, 190 / D), cx = 104, y0 = 46, f = v => v.toFixed(1);
             const yTf = y0 + S.tf * k, yWb = y0 + (S.tf + S.webh) * k, yBt = y0 + D * k;
             const tfx = S.tfw * k / 2, bbx = S.bbw * k / 2;
-            const xv = cx + maxW * k / 2 + 16, xD = xv + 74, vw = xD + 22, H = yBt + 54;
+            const xv = cx + maxW * k / 2 + 16, xD = xv + 86, vw = xD + 22, H = yBt + 54;
             const pts = [[-S.tfw/2,0],[S.tfw/2,0],[S.tfw/2,S.tf],[S.webt/2,S.tf],[S.webt/2,S.tf+S.webh],[S.bbw/2,S.tf+S.webh],[S.bbw/2,D],[-S.bbw/2,D],[-S.bbw/2,S.tf+S.webh],[-S.webt/2,S.tf+S.webh],[-S.webt/2,S.tf],[-S.tfw/2,S.tf]]
                 .map(q => f(cx + q[0] * k) + ',' + f(y0 + q[1] * k)).join(' ');
             const A = '#f59e0b', ext = 'stroke="#64748b" stroke-width=".6" stroke-dasharray="2 2"';
@@ -1429,10 +1374,11 @@ Index · HTML
                     inp.disabled = c.suf === 'R' && !!params.samesec;
                 });
                 const note = document.getElementById('note-' + c.id);
-                if (note) note.textContent = (c.suf === 'R' && params.samesec) ? 'same as left - untick to edit' : '';
+                if (note) note.textContent = (c.suf === 'R' && params.samesec) ? '(same as left)' : '';
             });
             const rw = document.getElementById('right-sec-wrap');
-            if (rw) { rw.style.display = params.twospan ? '' : 'none'; rw.style.opacity = params.samesec ? '.6' : '1'; }
+            if (rw) rw.style.display = params.twospan ? '' : 'none';
+            SEC_CELLS.forEach(c => { if (c.suf === 'R') document.getElementById('cell-' + c.id).style.opacity = params.samesec ? '.6' : '1'; });
             const pl = document.getElementById('prev-L'), pr = document.getElementById('prev-R');
             if (pl) pl.innerHTML = sectionSVG(params, '#00d4ff');
             if (pr) pr.innerHTML = params.twospan ? sectionSVG(R, '#22c55e') : '';
@@ -1655,8 +1601,8 @@ Index · HTML
                 }
                 ctxT.setLineDash([]);
                 ctxT.font = 'bold 10px "JetBrains Mono", monospace';
-                ctxT.fillStyle = '#00d4ff'; ctxT.fillText(`LEFT SPAN (solid)  D=${params.tf + params.webh + params.bbd}mm`, 14, h - 34);
-                ctxT.fillStyle = '#22c55e'; ctxT.fillText(`RIGHT SPAN (dashed)  D=${R.tf + R.webh + R.bbd}mm${params.samesec ? '  [same]' : ''}`, 14, h - 18);
+                ctxT.fillStyle = '#00d4ff'; ctxT.fillText(`LEFT SPAN (solid)  D=${params.tf + params.webh + params.bbd}mm`, 14, 18);
+                ctxT.fillStyle = '#22c55e'; ctxT.fillText(`RIGHT SPAN (dashed)  D=${R.tf + R.webh + R.bbd}mm${params.samesec ? '  [same]' : ''}`, 14, 32);
                 ctxT.restore();
             }
  
@@ -1740,7 +1686,7 @@ Index · HTML
                     ctxL.globalAlpha = 1;
                     ctxL.fillStyle = txtCol; ctxL.font = 'bold 9px "JetBrains Mono", monospace';
                     ctxL.textAlign = 'center'; ctxL.textBaseline = 'middle';
-                    ctxL.fillText(`${s.pre}XG${i}`, cx, girderY + 22);
+                    ctxL.fillText(`${s.pre || 'L'}CG${i}`, cx, girderY + 22);
                     ctxL.textAlign = 'left'; ctxL.textBaseline = 'alphabetic';
                 }
                 ctxL.shadowBlur = 0;
@@ -1768,7 +1714,6 @@ Index · HTML
             ctxL.setLineDash([]);
             ctxL.beginPath(); ctxL.moveTo(endSX, a1y); ctxL.lineTo(endSX - 8, a1y - 4); ctxL.lineTo(endSX - 8, a1y + 4); ctxL.fill();
             ctxL.font = 'bold 9px "JetBrains Mono", monospace';
-            ctxL.fillText(TS ? 'A1 - VEHICLE AXIS (CONTINUOUS OVER BOTH SPANS)' : 'A1 - VEHICLE AXIS', startSX, a1y - 6);
             if (TS) {
                 const jx = (leftEnd + rightStart) / 2;
                 ctxL.strokeStyle = '#f43f5e'; ctxL.lineWidth = 1; ctxL.setLineDash([3, 3]);
@@ -2086,7 +2031,7 @@ LINE TYPE PG P1 ${params.cbload} X1 #XO Y1 #YR-#CBO Z1 0 X2 #LT Y2 #YR-#CBO Z2 0
             for (let k = 0; k < NL; k++) { const y = Wc / 2 - ECL - k * pitch; laR.push(addLane(y - AW, y)); }
             const l70R = addLane(Wc / 2 - E70 - RW, Wc / 2 - E70);
             const l70L = addLane(-Wc / 2 + E70, -Wc / 2 + E70 + RW);
-            const comboFits = NL >= 2 && (ECL + (NL - 2) * pitch + AW + 0.4) <= (Wc - E70 - RW);
+            const comboFits = NL >= 3 && (ECL + (NL - 3) * pitch + AW + 0.4) <= (Wc - E70 - RW);
             const noA = RF < 1 ? 311 : 301, no70 = RF < 1 ? 312 : 302;
             const fams = [
                 { base: 1000, title: `CLASS A ${NL} LANE${NL > 1 ? 'S' : ''} LEFT`, items: laL.map(l => [noA, l]) },
@@ -2095,8 +2040,8 @@ LINE TYPE PG P1 ${params.cbload} X1 #XO Y1 #YR-#CBO Z1 0 X2 #LT Y2 #YR-#CBO Z2 0
                 { base: 4000, title: `CLASS A ${NL} LANE${NL > 1 ? 'S' : ''} RIGHT`, items: laR.map(l => [noA, l]) }
             ];
             if (comboFits) {
-                fams.push({ base: 5000, title: `70R RIGHT + CLASS A ${NL - 1} LEFT`, items: [[no70, l70R], ...laL.slice(0, NL - 1).map(l => [noA, l])] });
-                fams.push({ base: 6000, title: `70R LEFT + CLASS A ${NL - 1} RIGHT`, items: [[no70, l70L], ...laR.slice(0, NL - 1).map(l => [noA, l])] });
+                fams.push({ base: 5000, title: `70R RIGHT + CLASS A ${NL - 2} LEFT`, items: [[no70, l70R], ...laL.slice(0, NL - 2).map(l => [noA, l])] });
+                fams.push({ base: 6000, title: `70R LEFT + CLASS A ${NL - 2} RIGHT`, items: [[no70, l70L], ...laR.slice(0, NL - 2).map(l => [noA, l])] });
             }
             const clsA = [[27,5.4,0,1.8],[27,5.4,-1.1,1.8],[114,22.8,-3.2,1.8],[114,22.8,-1.2,1.8],[68,13.6,-4.3,1.8],[68,13.6,-3.0,1.8],[68,13.6,-3.0,1.8],[68,13.6,-3.0,1.8]];
             const c70R = [[80,16,0,1.93],[120,24,-3.96,1.93],[120,24,-1.52,1.93],[170,34,-2.13,1.93],[170,34,-1.37,1.93],[170,34,-3.05,1.93],[170,34,-1.37,1.93]];
@@ -2105,6 +2050,7 @@ LINE TYPE PG P1 ${params.cbload} X1 #XO Y1 #YR-#CBO Z1 0 X2 #LT Y2 #YR-#CBO Z2 0
             const llBlock = `$ ---- IRC 6:2017 LIVE LOAD ----
 $ Deck width ${LL.cw.toFixed(2)} m ; carriageway between crash barriers = ${Wc.toFixed(2)} m
 $ Design lanes = ${NL} ; multi-lane reduction factor = ${RF.toFixed(2)} (applied to trains 311/312 when 3 or more lanes are loaded)
+$ IRC 6 combinations for this carriageway: ${ircCombo(NL)}
 $ Class A: ${AW} m wide, ${ECL} m from carriageway edge, lane pitch ${pitch.toFixed(2)} m ; 70R: ${RW} m wide, ${E70} m from carriageway edge
 ` + train(301, hA, clsA, 1) + train(302, h70, c70R, 1) + (RF < 1 ? train(311, hA, clsA, RF) + train(312, h70, c70R, RF) : '') +
 `LANE NO A1
@@ -2504,30 +2450,10 @@ $ Teddy code generated by Vikas Kumar Prasad $`;
         });
  
         // ===== PREMIUM EXPERIENCE LAYER =====
-        function setTile(id, to, dec) {
-            const el = document.getElementById(id);
-            if (!el || !isFinite(to)) return;
-            const from = el._v === undefined ? 0 : el._v; el._v = to;
-            if (el._raf) cancelAnimationFrame(el._raf);
-            const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            if (reduce || from === to) { el.textContent = to.toFixed(dec); return; }
-            const t0 = performance.now(), dur = 750;
-            const step = now => {
-                const p = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - p, 3);
-                el.textContent = (from + (to - from) * e).toFixed(dec);
-                if (p < 1) el._raf = requestAnimationFrame(step);
-            };
-            el._raf = requestAnimationFrame(step);
-        }
         (function premiumLayer() {
             const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             // hero video
             const hv = document.getElementById('hero-video'), hero = document.getElementById('hero');
-            const sBtn = document.getElementById('hero-sound'), pBtn = document.getElementById('hero-play');
-            const icoSoundOff = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="m22 9-6 6M16 9l6 6"/></svg>';
-            const icoSoundOn = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>';
-            const icoPause = '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>';
-            const icoPlay = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg>';
             let userPaused = false, sy = 0, mx = 0, my = 0, ticking = false;
             const paint = () => { ticking = false; if (hv) hv.style.transform = `translate3d(${mx}px, ${sy * 0.08 + my}px, 0) scale(1.06)`; };
             const queue = () => { if (!ticking) { ticking = true; requestAnimationFrame(paint); } };
@@ -2535,11 +2461,7 @@ $ Teddy code generated by Vikas Kumar Prasad $`;
                 const ready = () => hv.classList.add('ready');
                 hv.addEventListener('loadeddata', ready); hv.addEventListener('canplay', ready);
                 if (hv.readyState >= 2) ready();
-                const syncBtns = () => { sBtn.innerHTML = hv.muted ? icoSoundOff : icoSoundOn; pBtn.innerHTML = hv.paused ? icoPlay : icoPause; };
-                hv.addEventListener('play', syncBtns); hv.addEventListener('pause', syncBtns); hv.addEventListener('volumechange', syncBtns); syncBtns();
                 if (reduce) { hv.pause(); ready(); }
-                sBtn.addEventListener('click', () => { hv.muted = !hv.muted; if (!hv.muted) hv.play().catch(() => {}); });
-                pBtn.addEventListener('click', () => { if (hv.paused) { userPaused = false; hv.play().catch(() => {}); } else { userPaused = true; hv.pause(); } });
                 new IntersectionObserver(es => es.forEach(e => {
                     if (e.isIntersecting) { if (!userPaused && !reduce) hv.play().catch(() => {}); } else hv.pause();
                 }), { threshold: .12 }).observe(hero);
@@ -2547,13 +2469,6 @@ $ Teddy code generated by Vikas Kumar Prasad $`;
                     const r = hero.getBoundingClientRect();
                     mx = ((e.clientX - r.left) / r.width - .5) * -12; my = ((e.clientY - r.top) / r.height - .5) * -6; queue();
                 });
-            }
-            // rotating tagline
-            const rot = document.getElementById('hero-rot');
-            if (rot) {
-                const phrases = ['Parametric two-span bridge models', 'IRC 6:2017 live load automation', 'Production-ready SOFiSTiK TEDDY code', 'Real-time 3D geometry preview'];
-                phrases.forEach((t, i) => { const s = document.createElement('span'); s.textContent = t; if (i === 0) s.className = 'on'; rot.appendChild(s); });
-                let k = 0; if (!reduce) setInterval(() => { const ss = rot.children; ss[k].classList.remove('on'); k = (k + 1) % ss.length; ss[k].classList.add('on'); }, 3200);
             }
             // header + progress bar + parallax
             const hdr = document.querySelector('header'), bar = document.getElementById('scroll-progress');
@@ -2573,14 +2488,13 @@ $ Teddy code generated by Vikas Kumar Prasad $`;
             // scroll reveal
             if ('IntersectionObserver' in window && !reduce) {
                 document.documentElement.classList.add('js-reveal');
-                const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .06, rootMargin: '0px 0px -4% 0px' });
+                const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .02, rootMargin: '0px 0px -3% 0px' });
                 document.querySelectorAll('.intro-strip, .split-layout > div, .viz-panel, .span-box, .tile, #xsec-card, .section-card').forEach((el, i) => {
                     el.classList.add('reveal');
                     if (el.classList.contains('tile') || el.classList.contains('span-box')) el.style.transitionDelay = ((i % 5) * 70) + 'ms';
                     io.observe(el);
                 });
             }
-            if (typeof updateDisplayValues === 'function') updateDisplayValues();
         })();
     </script>
  
@@ -2666,5 +2580,6 @@ $ Teddy code generated by Vikas Kumar Prasad $`;
  
 </body>
 </html>
+
 
 Claude finished the response
