@@ -1,6 +1,3 @@
-
-
-Index · HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -698,6 +695,156 @@ Index · HTML
         .light-mode .glass, .light-mode .viz-panel, .light-mode .code-panel { background: rgba(255,255,255,.88) !important; }
         .light-mode .section-card { background: rgba(248,250,252,.9) !important; }
         .light-mode .input-hq { background: #fff !important; color: #0f172a; }
+
+        /* ===================================================================
+           PREMIUM LIGHT THEME  -  crisp, opaque, high-contrast (no blur)
+           =================================================================== */
+        .light-mode {
+            --bg-primary:#eef2f8; --bg-elevated:#ffffff; --bg-card:#ffffff;
+            --border:#d7dfeb; --text-primary:#0b1220; --text-secondary:#334155; --text-muted:#64748b;
+            --accent-cyan:#0369a1; --accent-violet:#6d28d9; --accent-emerald:#15803d;
+            --glass-bg:#ffffff; --glass-border:#d7dfeb; --ring:rgba(2,132,199,.28);
+            --card-shadow: 0 1px 2px rgba(15,23,42,.06), 0 10px 28px -10px rgba(15,23,42,.16);
+        }
+        .light-mode .bg-mesh {
+            background:
+                radial-gradient(ellipse 70% 45% at 10% 0%, rgba(14,165,233,.16), transparent 60%),
+                radial-gradient(ellipse 60% 40% at 92% 6%, rgba(139,92,246,.13), transparent 60%),
+                radial-gradient(ellipse 60% 40% at 50% 100%, rgba(16,185,129,.07), transparent 60%),
+                linear-gradient(180deg,#f5f8fd 0%,#e8eef7 100%);
+        }
+        .light-mode .eng-grid {
+            background-image: linear-gradient(rgba(30,64,175,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(30,64,175,.05) 1px, transparent 1px);
+        }
+        .light-mode #particles { opacity: .3; }
+
+        /* header: solid white with gradient hairline border */
+        .light-mode header.glass, .light-mode header.glass.scrolled {
+            background: linear-gradient(#fff,#fff) padding-box, linear-gradient(90deg,#0ea5e9,#6366f1,#a855f7) border-box !important;
+            border: 1.5px solid transparent !important;
+            backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+            box-shadow: 0 12px 30px -14px rgba(15,23,42,.30) !important;
+        }
+        .light-mode header h1 { color:#0b1220 !important; }
+        .light-mode header .bg-slate-800\/80 { background:#0f172a !important; border-color:#0f172a !important; }
+        .light-mode header .bg-slate-800\/80:hover { background:#1e293b !important; }
+        .light-mode header .bg-emerald-500\/5 { background:rgba(22,163,74,.09) !important; border-color:rgba(22,163,74,.35) !important; }
+
+        /* cards / panels: opaque white, no blur */
+        .light-mode .glass, .light-mode .viz-panel, .light-mode .code-panel {
+            background:#ffffff !important; border:1px solid #d7dfeb !important;
+            box-shadow: var(--card-shadow) !important;
+            backdrop-filter:none !important; -webkit-backdrop-filter:none !important;
+        }
+        .light-mode .glass:hover { border-color:#7dd3fc !important; box-shadow:0 1px 2px rgba(15,23,42,.06), 0 16px 36px -12px rgba(3,105,161,.28) !important; }
+        .light-mode .viz-panel:hover { border-color:#7dd3fc !important; box-shadow:0 1px 2px rgba(15,23,42,.06), 0 16px 36px -12px rgba(3,105,161,.28) !important; }
+        .light-mode .viz-title { background:#f3f7fc; border-bottom:1px solid #d7dfeb; color:#0369a1; }
+        .light-mode .viz-title::before { background:#0284c7; box-shadow:none; }
+        .light-mode .viz-title .text-slate-500 { color:#475569 !important; }
+
+        .light-mode .section-header { color:#0369a1; }
+        .light-mode .section-header::before { box-shadow:none; }
+        .light-mode .section-card { background:#f8fafd !important; border:1px solid #dbe3ef !important; box-shadow:0 1px 2px rgba(15,23,42,.05); }
+        .light-mode .section-card:hover { border-color:#7dd3fc !important; box-shadow:0 12px 28px -16px rgba(3,105,161,.35) !important; }
+        .light-mode .section-card-title { color:#5b21b6; border-bottom:1px solid rgba(109,40,217,.18); }
+        .light-mode .section-card-title::before { box-shadow:none; }
+
+        /* labels + inputs */
+        .light-mode .input-label { color:#334155 !important; }
+        .light-mode .input-unit { color:#64748b; }
+        .light-mode .input-hq {
+            background:#ffffff !important; color:#0b1220 !important;
+            border:1.5px solid #c5d0e0 !important; box-shadow: inset 0 1px 2px rgba(15,23,42,.05);
+        }
+        .light-mode .input-hq:hover { border-color:#38bdf8 !important; }
+        .light-mode .input-hq:focus { border-color:#0284c7 !important; box-shadow:0 0 0 3px rgba(2,132,199,.22) !important; }
+        .light-mode .input-hq:disabled { background:#eef2f7 !important; color:#64748b !important; }
+        .light-mode .input-hq.bg-slate-800\/60 { background:#eaf3fc !important; border-color:#c3d6ec !important; }
+        .light-mode select.input-hq option { background:#fff; color:#0b1220; }
+        .light-mode input[type=checkbox] { background:#fff; border:1.5px solid #94a3b8; }
+        .light-mode input[type=checkbox]::after { border-color:#fff; }
+        .light-mode input[type=checkbox]:checked { box-shadow:0 2px 8px rgba(2,132,199,.4); }
+
+        /* span boxes */
+        .light-mode .span-box { background:#ffffff !important; border:1px solid #d7dfeb; box-shadow:var(--card-shadow); }
+        .light-mode .span-left::before, .light-mode .span-right::before { box-shadow:none; width:4px; }
+        .light-mode .span-box-head { border-bottom:1px solid #e2e8f0; }
+        .light-mode .span-box-sub { color:#64748b; }
+        .light-mode .span-prev { background:#f1f5fb; border:1px solid #d7dfeb; }
+        .light-mode .sub-title { color:#4338ca; }
+        .light-mode .sub-title span { color:#64748b; }
+        .light-mode .span-toggles label { background:#f1f5fb; border:1px solid #d7dfeb; color:#334155; }
+
+        /* cross-section editor */
+        .light-mode .xsec-cell { background:#ffffff !important; box-shadow:0 1px 2px rgba(15,23,42,.06); }
+        .light-mode .xsec-title em { color:#64748b; }
+        .light-mode .xsec-key { color:#475569; }
+        .light-mode .dim-in { background:#ffffff; box-shadow:0 2px 8px -3px rgba(15,23,42,.30); }
+        .light-mode .dim-in b { color:#b45309; }
+        .light-mode .dim-in input { color:#0b1220; }
+        .light-mode .dim-in input:disabled { color:#64748b; }
+        .light-mode .dim-in:focus-within { background:#f0f9ff; }
+        .light-mode .xsec-canvas svg text { fill:#b45309; }
+        .light-mode .xsec-canvas svg line[stroke="#f59e0b"] { stroke:#d97706; }
+        .light-mode .xsec-canvas svg line[stroke="#64748b"] { stroke:#94a3b8; }
+
+        .light-mode .stat-item { border-bottom:1px solid #e2e8f0; }
+
+        /* viewer buttons (no blur, clear) */
+        .light-mode .view-btn { background:#ffffff !important; border:1px solid #c5d0e0 !important; color:#334155 !important; backdrop-filter:none !important; box-shadow:0 1px 3px rgba(15,23,42,.12); }
+        .light-mode .view-btn:hover { background:#f0f9ff !important; border-color:#0284c7 !important; color:#0369a1 !important; }
+
+        /* code panel */
+        .light-mode .code-panel { background:#fbfcfe !important; }
+        .light-mode .code-content { color:#1e293b; }
+        .light-mode .code-content::-webkit-scrollbar-thumb { background:#cbd5e1; }
+        .light-mode .code-content::-webkit-scrollbar-thumb:hover { background:#94a3b8; }
+
+        /* buttons */
+        .light-mode .btn-generate { box-shadow:0 14px 34px -12px rgba(79,70,229,.55), inset 0 1px 0 rgba(255,255,255,.3) !important; }
+        .light-mode .theme-toggle { background:rgba(245,158,11,.22); border-color:rgba(217,119,6,.5); }
+
+        /* badges (readable on white) */
+        .light-mode .badge-cyan   { background:rgba(2,132,199,.10);  border:1px solid rgba(2,132,199,.35);  color:#0369a1; }
+        .light-mode .badge-violet { background:rgba(109,40,217,.09); border:1px solid rgba(109,40,217,.32); color:#6d28d9; }
+        .light-mode .badge-emerald{ background:rgba(22,163,74,.10);  border:1px solid rgba(22,163,74,.35);  color:#15803d; }
+        .light-mode .badge-amber  { background:rgba(217,119,6,.11);  border:1px solid rgba(217,119,6,.38);  color:#b45309; }
+
+        /* hero sits on a dark video: keep its text light in both themes */
+        .light-mode .hero-banner { box-shadow:0 26px 60px -26px rgba(15,23,42,.55), 0 0 0 1px #cbd5e1; }
+        .light-mode .hero-banner .hero-subtitle { color:#e2e8f0 !important; text-shadow:0 2px 12px rgba(0,0,0,.85); }
+        .light-mode .hero-banner .badge { backdrop-filter:none; }
+        .light-mode .hero-banner .badge-cyan   { background:rgba(2,6,23,.55); border-color:rgba(0,212,255,.6);  color:#67e8f9; }
+        .light-mode .hero-banner .badge-violet { background:rgba(2,6,23,.55); border-color:rgba(168,85,247,.6); color:#d8b4fe; }
+        .light-mode .hero-banner .badge-emerald{ background:rgba(2,6,23,.55); border-color:rgba(34,197,94,.6);  color:#86efac; }
+        .light-mode .hero-banner .badge-amber  { background:rgba(2,6,23,.55); border-color:rgba(245,158,11,.6); color:#fcd34d; }
+
+        /* intro tiles */
+        .light-mode .tile { background:#fff; border:1px solid #d7dfeb; box-shadow:var(--card-shadow); }
+        .light-mode .tile-u, .light-mode .tile-l { color:#475569; }
+        .light-mode .tile-n { background:linear-gradient(135deg,#0369a1,#6d28d9); -webkit-background-clip:text; background-clip:text; }
+        .light-mode .intro-title { background:linear-gradient(135deg,#0369a1,#6d28d9 60%,#15803d); -webkit-background-clip:text; background-clip:text; }
+
+        /* utility colours darkened for white backgrounds */
+        .light-mode .text-slate-300 { color:#1e293b !important; }
+        .light-mode .text-slate-400, .light-mode .text-slate-500 { color:#475569 !important; }
+        .light-mode .text-cyan-400 { color:#0369a1 !important; }
+        .light-mode .text-violet-400 { color:#6d28d9 !important; }
+        .light-mode .text-emerald-400 { color:#15803d !important; }
+        .light-mode .text-amber-400 { color:#b45309 !important; }
+        .light-mode .hover\:text-cyan-400:hover { color:#0369a1 !important; }
+        .light-mode .hover\:text-violet-400:hover { color:#6d28d9 !important; }
+        .light-mode .hover\:text-white:hover { color:#0b1220 !important; }
+        .light-mode .hover\:bg-slate-800\/50:hover, .light-mode .hover\:bg-slate-700\/50:hover { background:#e6edf7 !important; }
+        .light-mode .bg-slate-800\/30 { background:#f1f5fb !important; }
+        .light-mode .border-slate-700\/30 { border-color:#d7dfeb !important; }
+        .light-mode [style*="color:#00d4ff"] { color:#0369a1 !important; }
+        .light-mode [style*="color:#22c55e"] { color:#15803d !important; }
+        .light-mode [style*="color:#64748b"] { color:#475569 !important; }
+
+        /* ===== hidden-in-plain-sight Analytics button (page end, bottom-right) ===== */
+        .analytics-ghost { width:26px; height:26px; display:grid; place-items:center; background:transparent; border:0; cursor:pointer; color:var(--text-secondary); opacity:.07; transition:opacity .3s; }
+        .analytics-ghost:hover, .analytics-ghost:focus-visible { opacity:.65; outline:none; }
     </style>
 </head>
 <body class="scroll-smooth">
@@ -739,10 +886,6 @@ Index · HTML
             </div>
             <button onclick="downloadScript()" class="px-4 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/50 text-xs font-semibold text-white transition-all hover:shadow-lg hover:shadow-cyan-500/10 hover:border-cyan-500/30">
                 Export .DAT
-            </button>
-            <button onclick="toggleAnalytics()" class="px-4 py-2 rounded-xl bg-violet-800/80 hover:bg-violet-700/80 border border-violet-700/50 text-xs font-semibold text-white transition-all hover:shadow-lg hover:shadow-violet-500/10 hover:border-violet-500/30 flex items-center gap-2">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-                Analytics
             </button>
             <a href="https://www.linkedin.com/in/vikas-kumar-prasad-7189392b8" target="_blank" class="px-4 py-2 rounded-xl bg-[#0077b5]/80 hover:bg-[#0077b5] border border-[#0077b5]/50 text-xs font-semibold text-white transition-all hover:shadow-lg hover:shadow-[#0077b5]/20 hover:border-[#0077b5] flex items-center gap-2">
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
@@ -1030,6 +1173,10 @@ Index · HTML
         function toggleTheme() {
             isDarkMode = !isDarkMode;
             document.body.classList.toggle('light-mode', !isDarkMode);
+            if (typeof scene !== 'undefined' && scene) scene.background = new THREE.Color(isDarkMode ? 0x01040f : 0xf3f7fc);
+            if (typeof gridHelper !== 'undefined' && gridHelper) {
+                (Array.isArray(gridHelper.material) ? gridHelper.material : [gridHelper.material]).forEach(m => { m.transparent = true; m.opacity = isDarkMode ? 1 : 0.28; });
+            }
             setTimeout(() => { drawAllViews(); }, 100);
         }
  
@@ -1567,11 +1714,11 @@ Index · HTML
             // Draw girders with enhanced styling
             for(let i=0; i<params.girders; i++) {
                 const gx = startTX + i * gsp;
-                ctxT.fillStyle = '#00d4ff';
+                ctxT.fillStyle = isDarkMode ? '#00d4ff' : '#0284c7';
                 ctxT.shadowBlur = 10;
                 ctxT.shadowColor = 'rgba(0, 212, 255, 0.2)';
                 ctxT.fillRect(gx - webW/2, transY - 25 + slabH, webW, gDepth);
-                ctxT.fillStyle = '#0891b2';
+                ctxT.fillStyle = isDarkMode ? '#0891b2' : '#075985';
                 ctxT.fillRect(gx - tfW/2, transY - 25 + slabH - 2, tfW, 2);
                 ctxT.fillRect(gx - bfW/2, transY - 25 + slabH + gDepth - 2, bfW, 2);
  
@@ -1601,8 +1748,8 @@ Index · HTML
                 }
                 ctxT.setLineDash([]);
                 ctxT.font = 'bold 10px "JetBrains Mono", monospace';
-                ctxT.fillStyle = '#00d4ff'; ctxT.fillText(`LEFT SPAN (solid)  D=${params.tf + params.webh + params.bbd}mm`, 14, 18);
-                ctxT.fillStyle = '#22c55e'; ctxT.fillText(`RIGHT SPAN (dashed)  D=${R.tf + R.webh + R.bbd}mm${params.samesec ? '  [same]' : ''}`, 14, 32);
+                ctxT.fillStyle = isDarkMode ? '#00d4ff' : '#0369a1'; ctxT.fillText(`LEFT SPAN (solid)  D=${params.tf + params.webh + params.bbd}mm`, 14, 18);
+                ctxT.fillStyle = isDarkMode ? '#22c55e' : '#15803d'; ctxT.fillText(`RIGHT SPAN (dashed)  D=${R.tf + R.webh + R.bbd}mm${params.samesec ? '  [same]' : ''}`, 14, 32);
                 ctxT.restore();
             }
  
@@ -1661,8 +1808,8 @@ Index · HTML
             ctxL.strokeStyle = isDarkMode ? 'rgba(148,163,184,0.15)' : 'rgba(148,163,184,0.3)';
             ctxL.beginPath(); ctxL.moveTo(margin, girderY + 20); ctxL.lineTo(w - margin, girderY + 20); ctxL.stroke();
  
-            const spansL = [{ x0: 0, L: params.span, n: params.ncxg, pre: '', col: '#00d4ff', glow: 'rgba(0,212,255,0.25)', tag: TS ? 'LEFT SPAN' : 'SPAN' }];
-            if (TS) spansL.push({ x0: params.span + gapM, L: params.spanR, n: params.ncxgR, pre: 'R', col: '#22c55e', glow: 'rgba(34,197,94,0.25)', tag: 'RIGHT SPAN' });
+            const spansL = [{ x0: 0, L: params.span, n: params.ncxg, pre: '', col: isDarkMode ? '#00d4ff' : '#0284c7', glow: 'rgba(0,212,255,0.25)', tag: TS ? 'LEFT SPAN' : 'SPAN' }];
+            if (TS) spansL.push({ x0: params.span + gapM, L: params.spanR, n: params.ncxgR, pre: 'R', col: isDarkMode ? '#22c55e' : '#16a34a', glow: 'rgba(34,197,94,0.25)', tag: 'RIGHT SPAN' });
  
             spansL.forEach((s, si) => {
                 const lx = startSX + s.x0 * longScale + (si > 0 ? extraPx : 0);
@@ -1698,7 +1845,7 @@ Index · HTML
                 }
  
                 const b1x = lx + params.prj * longScale, b2x = rx - params.prj * longScale;
-                ctxL.fillStyle = '#f59e0b';
+                ctxL.fillStyle = isDarkMode ? '#f59e0b' : '#b45309';
                 [b1x, b2x].forEach(px => { ctxL.beginPath(); ctxL.arc(px, girderY + 16, 4, 0, Math.PI * 2); ctxL.fill(); });
                 ctxL.fillStyle = isDarkMode ? '#e2e8f0' : '#0f172a'; ctxL.font = 'bold 10px "JetBrains Mono", monospace';
                 ctxL.textAlign = 'center'; ctxL.textBaseline = 'middle';
@@ -1709,7 +1856,7 @@ Index · HTML
             // Continuous vehicle axis A1 over the full length
             const a1y = girderY - slabT - 14;
             ctxL.save();
-            ctxL.strokeStyle = '#f59e0b'; ctxL.fillStyle = '#f59e0b'; ctxL.lineWidth = 1.5; ctxL.setLineDash([6, 4]);
+            ctxL.strokeStyle = isDarkMode ? '#f59e0b' : '#b45309'; ctxL.fillStyle = isDarkMode ? '#f59e0b' : '#b45309'; ctxL.lineWidth = 1.5; ctxL.setLineDash([6, 4]);
             ctxL.beginPath(); ctxL.moveTo(startSX, a1y); ctxL.lineTo(endSX, a1y); ctxL.stroke();
             ctxL.setLineDash([]);
             ctxL.beginPath(); ctxL.moveTo(endSX, a1y); ctxL.lineTo(endSX - 8, a1y - 4); ctxL.lineTo(endSX - 8, a1y + 4); ctxL.fill();
@@ -2332,6 +2479,7 @@ $ Teddy code generated by Vikas Kumar Prasad $`;
             dashboard.classList.toggle('hidden');
             if (!dashboard.classList.contains('hidden')) {
                 collectAnalytics();
+                dashboard.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         }
  
@@ -2578,8 +2726,11 @@ $ Teddy code generated by Vikas Kumar Prasad $`;
         </div>
     </div>
  
+    <!-- Analytics access (owner only): faint icon at the very end of the page, bottom-right -->
+    <div style="display:flex;justify-content:flex-end;padding:0 18px 12px;">
+        <button class="analytics-ghost" onclick="toggleAnalytics()" aria-label="Analytics">
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+        </button>
+    </div>
 </body>
 </html>
-
-
-Claude finished the response
